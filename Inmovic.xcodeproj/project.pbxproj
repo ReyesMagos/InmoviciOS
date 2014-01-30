@@ -1,0 +1,603 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4208F9FE1899BF4200549077 /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4208F9FD1899BF4200549077 /* AsyncImageView.m */; };
+		42198BBA189AABB500CB576B /* RMTipoBusquedaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42198BB9189AABB500CB576B /* RMTipoBusquedaTableViewController.m */; };
+		4228580D18971E6200AC861B /* escenariodefecto.png in Resources */ = {isa = PBXBuildFile; fileRef = 4228580C18971E6200AC861B /* escenariodefecto.png */; };
+		423C0191189950B4001F051E /* 7.png in Resources */ = {isa = PBXBuildFile; fileRef = 423C018A189950B4001F051E /* 7.png */; };
+		423C0192189950B4001F051E /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 423C018B189950B4001F051E /* 6.png */; };
+		423C0193189950B4001F051E /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 423C018C189950B4001F051E /* 5.png */; };
+		423C0194189950B4001F051E /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 423C018D189950B4001F051E /* 4.png */; };
+		423C0195189950B4001F051E /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 423C018E189950B4001F051E /* 3.png */; };
+		423C0196189950B4001F051E /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 423C018F189950B4001F051E /* 2.png */; };
+		423C0197189950B4001F051E /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 423C0190189950B4001F051E /* 1.png */; };
+		423C019918995345001F051E /* inmueble.json in Resources */ = {isa = PBXBuildFile; fileRef = 423C019818995345001F051E /* inmueble.json */; };
+		42D73EA818995E4800E22C40 /* PhotosInmuebleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42D73EA718995E4800E22C40 /* PhotosInmuebleView.xib */; };
+		42D73EAA18996A6600E22C40 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42D73EA918996A6600E22C40 /* QuartzCore.framework */; };
+		42D73EAD18996DAF00E22C40 /* RMMyScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D73EAC18996DAF00E22C40 /* RMMyScrollView.m */; };
+		A50A45BD18962E1200CAAEED /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A50A45BC18962E1200CAAEED /* Foundation.framework */; };
+		A50A45BF18962E1200CAAEED /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A50A45BE18962E1200CAAEED /* CoreGraphics.framework */; };
+		A50A45C118962E1200CAAEED /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A50A45C018962E1200CAAEED /* UIKit.framework */; };
+		A50A45C718962E1200CAAEED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A50A45C518962E1200CAAEED /* InfoPlist.strings */; };
+		A50A45C918962E1200CAAEED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A50A45C818962E1200CAAEED /* main.m */; };
+		A50A45CD18962E1200CAAEED /* RMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A50A45CC18962E1200CAAEED /* RMAppDelegate.m */; };
+		A50A45CF18962E1200CAAEED /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A50A45CE18962E1200CAAEED /* Images.xcassets */; };
+		A50A45D618962E1200CAAEED /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A50A45D518962E1200CAAEED /* XCTest.framework */; };
+		A50A45D718962E1200CAAEED /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A50A45BC18962E1200CAAEED /* Foundation.framework */; };
+		A50A45D818962E1200CAAEED /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A50A45C018962E1200CAAEED /* UIKit.framework */; };
+		A50A45E018962E1200CAAEED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A50A45DE18962E1200CAAEED /* InfoPlist.strings */; };
+		A50A45E218962E1200CAAEED /* InmovicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A50A45E118962E1200CAAEED /* InmovicTests.m */; };
+		A50A45ED18962EB200CAAEED /* RMInmuebleArriendo.m in Sources */ = {isa = PBXBuildFile; fileRef = A50A45EC18962EB200CAAEED /* RMInmuebleArriendo.m */; };
+		A50A45F01896391800CAAEED /* RMBienVenta.m in Sources */ = {isa = PBXBuildFile; fileRef = A50A45EF1896391800CAAEED /* RMBienVenta.m */; };
+		A50A45F318963B1700CAAEED /* RMDestacadosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A50A45F218963B1700CAAEED /* RMDestacadosTableViewController.m */; };
+		A50A45F6189640E100CAAEED /* RMInmobiliariaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A50A45F5189640E100CAAEED /* RMInmobiliariaModel.m */; };
+		A50A45FA18964B4E00CAAEED /* RMInmuebleArriendoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A50A45F818964B4E00CAAEED /* RMInmuebleArriendoViewController.m */; };
+		A50A45FB18964B4E00CAAEED /* RMInmuebleArriendoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A50A45F918964B4E00CAAEED /* RMInmuebleArriendoViewController.xib */; };
+		A50A45FF189654BB00CAAEED /* RMMyJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = A50A45FE189654BB00CAAEED /* RMMyJSON.m */; };
+		A55FECF01898FABF002AC58D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A55FECEF1898FABF002AC58D /* MapKit.framework */; };
+		A58CEC5F1898F24400441A84 /* RMMapaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A58CEC5D1898F24400441A84 /* RMMapaViewController.m */; };
+		A58CEC601898F24400441A84 /* RMMapaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58CEC5E1898F24400441A84 /* RMMapaViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A50A45D918962E1200CAAEED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A50A45B118962E1200CAAEED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A50A45B818962E1200CAAEED;
+			remoteInfo = Inmovic;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4208F9FC1899BF4200549077 /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
+		4208F9FD1899BF4200549077 /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
+		42198BB8189AABB500CB576B /* RMTipoBusquedaTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTipoBusquedaTableViewController.h; sourceTree = "<group>"; };
+		42198BB9189AABB500CB576B /* RMTipoBusquedaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTipoBusquedaTableViewController.m; sourceTree = "<group>"; };
+		4228580C18971E6200AC861B /* escenariodefecto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = escenariodefecto.png; sourceTree = "<group>"; };
+		423C018A189950B4001F051E /* 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 7.png; sourceTree = "<group>"; };
+		423C018B189950B4001F051E /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6.png; sourceTree = "<group>"; };
+		423C018C189950B4001F051E /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
+		423C018D189950B4001F051E /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
+		423C018E189950B4001F051E /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
+		423C018F189950B4001F051E /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		423C0190189950B4001F051E /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		423C019818995345001F051E /* inmueble.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = inmueble.json; sourceTree = "<group>"; };
+		42D73EA718995E4800E22C40 /* PhotosInmuebleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotosInmuebleView.xib; sourceTree = "<group>"; };
+		42D73EA918996A6600E22C40 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		42D73EAB18996DAF00E22C40 /* RMMyScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMyScrollView.h; sourceTree = "<group>"; };
+		42D73EAC18996DAF00E22C40 /* RMMyScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMyScrollView.m; sourceTree = "<group>"; };
+		A50A45B918962E1200CAAEED /* Inmovic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inmovic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A50A45BC18962E1200CAAEED /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A50A45BE18962E1200CAAEED /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A50A45C018962E1200CAAEED /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		A50A45C418962E1200CAAEED /* Inmovic-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Inmovic-Info.plist"; sourceTree = "<group>"; };
+		A50A45C618962E1200CAAEED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A50A45C818962E1200CAAEED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A50A45CA18962E1200CAAEED /* Inmovic-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Inmovic-Prefix.pch"; sourceTree = "<group>"; };
+		A50A45CB18962E1200CAAEED /* RMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMAppDelegate.h; sourceTree = "<group>"; };
+		A50A45CC18962E1200CAAEED /* RMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMAppDelegate.m; sourceTree = "<group>"; };
+		A50A45CE18962E1200CAAEED /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A50A45D418962E1200CAAEED /* InmovicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InmovicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A50A45D518962E1200CAAEED /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		A50A45DD18962E1200CAAEED /* InmovicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InmovicTests-Info.plist"; sourceTree = "<group>"; };
+		A50A45DF18962E1200CAAEED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A50A45E118962E1200CAAEED /* InmovicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InmovicTests.m; sourceTree = "<group>"; };
+		A50A45EB18962EB200CAAEED /* RMInmuebleArriendo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMInmuebleArriendo.h; path = Inmovic/RMInmuebleArriendo.h; sourceTree = "<group>"; };
+		A50A45EC18962EB200CAAEED /* RMInmuebleArriendo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMInmuebleArriendo.m; path = Inmovic/RMInmuebleArriendo.m; sourceTree = "<group>"; };
+		A50A45EE1896391800CAAEED /* RMBienVenta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMBienVenta.h; path = Inmovic/RMBienVenta.h; sourceTree = "<group>"; };
+		A50A45EF1896391800CAAEED /* RMBienVenta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMBienVenta.m; path = Inmovic/RMBienVenta.m; sourceTree = "<group>"; };
+		A50A45F118963B1700CAAEED /* RMDestacadosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMDestacadosTableViewController.h; path = Inmovic/RMDestacadosTableViewController.h; sourceTree = "<group>"; };
+		A50A45F218963B1700CAAEED /* RMDestacadosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMDestacadosTableViewController.m; path = Inmovic/RMDestacadosTableViewController.m; sourceTree = "<group>"; };
+		A50A45F4189640E100CAAEED /* RMInmobiliariaModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMInmobiliariaModel.h; path = Inmovic/RMInmobiliariaModel.h; sourceTree = "<group>"; };
+		A50A45F5189640E100CAAEED /* RMInmobiliariaModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMInmobiliariaModel.m; path = Inmovic/RMInmobiliariaModel.m; sourceTree = "<group>"; };
+		A50A45F718964B4E00CAAEED /* RMInmuebleArriendoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMInmuebleArriendoViewController.h; path = Inmovic/RMInmuebleArriendoViewController.h; sourceTree = "<group>"; };
+		A50A45F818964B4E00CAAEED /* RMInmuebleArriendoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMInmuebleArriendoViewController.m; path = Inmovic/RMInmuebleArriendoViewController.m; sourceTree = "<group>"; };
+		A50A45F918964B4E00CAAEED /* RMInmuebleArriendoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RMInmuebleArriendoViewController.xib; path = Inmovic/RMInmuebleArriendoViewController.xib; sourceTree = "<group>"; };
+		A50A45FD189654BB00CAAEED /* RMMyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMyJSON.h; sourceTree = "<group>"; };
+		A50A45FE189654BB00CAAEED /* RMMyJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMyJSON.m; sourceTree = "<group>"; };
+		A55FECEF1898FABF002AC58D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		A58CEC5C1898F24400441A84 /* RMMapaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapaViewController.h; sourceTree = "<group>"; };
+		A58CEC5D1898F24400441A84 /* RMMapaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMapaViewController.m; sourceTree = "<group>"; };
+		A58CEC5E1898F24400441A84 /* RMMapaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMMapaViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A50A45B618962E1200CAAEED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42D73EAA18996A6600E22C40 /* QuartzCore.framework in Frameworks */,
+				A55FECF01898FABF002AC58D /* MapKit.framework in Frameworks */,
+				A50A45BF18962E1200CAAEED /* CoreGraphics.framework in Frameworks */,
+				A50A45C118962E1200CAAEED /* UIKit.framework in Frameworks */,
+				A50A45BD18962E1200CAAEED /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A50A45D118962E1200CAAEED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A50A45D618962E1200CAAEED /* XCTest.framework in Frameworks */,
+				A50A45D818962E1200CAAEED /* UIKit.framework in Frameworks */,
+				A50A45D718962E1200CAAEED /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		423C017B18995051001F051E /* fotos inmueble */ = {
+			isa = PBXGroup;
+			children = (
+				423C018A189950B4001F051E /* 7.png */,
+				423C018B189950B4001F051E /* 6.png */,
+				423C018C189950B4001F051E /* 5.png */,
+				423C018D189950B4001F051E /* 4.png */,
+				423C018E189950B4001F051E /* 3.png */,
+				423C018F189950B4001F051E /* 2.png */,
+				423C0190189950B4001F051E /* 1.png */,
+			);
+			name = "fotos inmueble";
+			sourceTree = "<group>";
+		};
+		A50A45B018962E1100CAAEED = {
+			isa = PBXGroup;
+			children = (
+				423C017B18995051001F051E /* fotos inmueble */,
+				A58CEC5B1898F1EF00441A84 /* Controllers */,
+				4228580C18971E6200AC861B /* escenariodefecto.png */,
+				A50A45FC189653CB00CAAEED /* Model */,
+				A50A45C218962E1200CAAEED /* Inmovic */,
+				A50A45DB18962E1200CAAEED /* InmovicTests */,
+				A50A45BB18962E1200CAAEED /* Frameworks */,
+				A50A45BA18962E1200CAAEED /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A50A45BA18962E1200CAAEED /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A50A45B918962E1200CAAEED /* Inmovic.app */,
+				A50A45D418962E1200CAAEED /* InmovicTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A50A45BB18962E1200CAAEED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				42D73EA918996A6600E22C40 /* QuartzCore.framework */,
+				A55FECEF1898FABF002AC58D /* MapKit.framework */,
+				A50A45BC18962E1200CAAEED /* Foundation.framework */,
+				A50A45BE18962E1200CAAEED /* CoreGraphics.framework */,
+				A50A45C018962E1200CAAEED /* UIKit.framework */,
+				A50A45D518962E1200CAAEED /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A50A45C218962E1200CAAEED /* Inmovic */ = {
+			isa = PBXGroup;
+			children = (
+				423C019818995345001F051E /* inmueble.json */,
+				A50A45CB18962E1200CAAEED /* RMAppDelegate.h */,
+				A50A45CC18962E1200CAAEED /* RMAppDelegate.m */,
+				A50A45CE18962E1200CAAEED /* Images.xcassets */,
+				A50A45C318962E1200CAAEED /* Supporting Files */,
+			);
+			path = Inmovic;
+			sourceTree = "<group>";
+		};
+		A50A45C318962E1200CAAEED /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A50A45C418962E1200CAAEED /* Inmovic-Info.plist */,
+				A50A45C518962E1200CAAEED /* InfoPlist.strings */,
+				A50A45C818962E1200CAAEED /* main.m */,
+				A50A45CA18962E1200CAAEED /* Inmovic-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A50A45DB18962E1200CAAEED /* InmovicTests */ = {
+			isa = PBXGroup;
+			children = (
+				A50A45E118962E1200CAAEED /* InmovicTests.m */,
+				A50A45DC18962E1200CAAEED /* Supporting Files */,
+			);
+			path = InmovicTests;
+			sourceTree = "<group>";
+		};
+		A50A45DC18962E1200CAAEED /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A50A45DD18962E1200CAAEED /* InmovicTests-Info.plist */,
+				A50A45DE18962E1200CAAEED /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A50A45FC189653CB00CAAEED /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4208F9FC1899BF4200549077 /* AsyncImageView.h */,
+				4208F9FD1899BF4200549077 /* AsyncImageView.m */,
+				A50A45EB18962EB200CAAEED /* RMInmuebleArriendo.h */,
+				A50A45EC18962EB200CAAEED /* RMInmuebleArriendo.m */,
+				A50A45F4189640E100CAAEED /* RMInmobiliariaModel.h */,
+				A50A45F5189640E100CAAEED /* RMInmobiliariaModel.m */,
+				A50A45EE1896391800CAAEED /* RMBienVenta.h */,
+				A50A45EF1896391800CAAEED /* RMBienVenta.m */,
+				A50A45FD189654BB00CAAEED /* RMMyJSON.h */,
+				A50A45FE189654BB00CAAEED /* RMMyJSON.m */,
+				42D73EAB18996DAF00E22C40 /* RMMyScrollView.h */,
+				42D73EAC18996DAF00E22C40 /* RMMyScrollView.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		A58CEC5B1898F1EF00441A84 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A50A45F118963B1700CAAEED /* RMDestacadosTableViewController.h */,
+				A50A45F218963B1700CAAEED /* RMDestacadosTableViewController.m */,
+				A50A45F718964B4E00CAAEED /* RMInmuebleArriendoViewController.h */,
+				A50A45F818964B4E00CAAEED /* RMInmuebleArriendoViewController.m */,
+				A50A45F918964B4E00CAAEED /* RMInmuebleArriendoViewController.xib */,
+				A58CEC5C1898F24400441A84 /* RMMapaViewController.h */,
+				A58CEC5D1898F24400441A84 /* RMMapaViewController.m */,
+				A58CEC5E1898F24400441A84 /* RMMapaViewController.xib */,
+				42D73EA718995E4800E22C40 /* PhotosInmuebleView.xib */,
+				42198BB8189AABB500CB576B /* RMTipoBusquedaTableViewController.h */,
+				42198BB9189AABB500CB576B /* RMTipoBusquedaTableViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A50A45B818962E1200CAAEED /* Inmovic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A50A45E518962E1200CAAEED /* Build configuration list for PBXNativeTarget "Inmovic" */;
+			buildPhases = (
+				A50A45B518962E1200CAAEED /* Sources */,
+				A50A45B618962E1200CAAEED /* Frameworks */,
+				A50A45B718962E1200CAAEED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Inmovic;
+			productName = Inmovic;
+			productReference = A50A45B918962E1200CAAEED /* Inmovic.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A50A45D318962E1200CAAEED /* InmovicTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A50A45E818962E1200CAAEED /* Build configuration list for PBXNativeTarget "InmovicTests" */;
+			buildPhases = (
+				A50A45D018962E1200CAAEED /* Sources */,
+				A50A45D118962E1200CAAEED /* Frameworks */,
+				A50A45D218962E1200CAAEED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A50A45DA18962E1200CAAEED /* PBXTargetDependency */,
+			);
+			name = InmovicTests;
+			productName = InmovicTests;
+			productReference = A50A45D418962E1200CAAEED /* InmovicTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A50A45B118962E1200CAAEED /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = RM;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = Felipe;
+				TargetAttributes = {
+					A50A45D318962E1200CAAEED = {
+						TestTargetID = A50A45B818962E1200CAAEED;
+					};
+				};
+			};
+			buildConfigurationList = A50A45B418962E1200CAAEED /* Build configuration list for PBXProject "Inmovic" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A50A45B018962E1100CAAEED;
+			productRefGroup = A50A45BA18962E1200CAAEED /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A50A45B818962E1200CAAEED /* Inmovic */,
+				A50A45D318962E1200CAAEED /* InmovicTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A50A45B718962E1200CAAEED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				423C0196189950B4001F051E /* 2.png in Resources */,
+				423C0194189950B4001F051E /* 4.png in Resources */,
+				423C019918995345001F051E /* inmueble.json in Resources */,
+				423C0192189950B4001F051E /* 6.png in Resources */,
+				A50A45C718962E1200CAAEED /* InfoPlist.strings in Resources */,
+				A50A45FB18964B4E00CAAEED /* RMInmuebleArriendoViewController.xib in Resources */,
+				4228580D18971E6200AC861B /* escenariodefecto.png in Resources */,
+				423C0195189950B4001F051E /* 3.png in Resources */,
+				423C0191189950B4001F051E /* 7.png in Resources */,
+				423C0193189950B4001F051E /* 5.png in Resources */,
+				423C0197189950B4001F051E /* 1.png in Resources */,
+				A50A45CF18962E1200CAAEED /* Images.xcassets in Resources */,
+				42D73EA818995E4800E22C40 /* PhotosInmuebleView.xib in Resources */,
+				A58CEC601898F24400441A84 /* RMMapaViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A50A45D218962E1200CAAEED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A50A45E018962E1200CAAEED /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A50A45B518962E1200CAAEED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A50A45C918962E1200CAAEED /* main.m in Sources */,
+				A50A45ED18962EB200CAAEED /* RMInmuebleArriendo.m in Sources */,
+				A50A45FA18964B4E00CAAEED /* RMInmuebleArriendoViewController.m in Sources */,
+				A50A45F318963B1700CAAEED /* RMDestacadosTableViewController.m in Sources */,
+				A50A45FF189654BB00CAAEED /* RMMyJSON.m in Sources */,
+				4208F9FE1899BF4200549077 /* AsyncImageView.m in Sources */,
+				A58CEC5F1898F24400441A84 /* RMMapaViewController.m in Sources */,
+				A50A45CD18962E1200CAAEED /* RMAppDelegate.m in Sources */,
+				A50A45F6189640E100CAAEED /* RMInmobiliariaModel.m in Sources */,
+				42D73EAD18996DAF00E22C40 /* RMMyScrollView.m in Sources */,
+				42198BBA189AABB500CB576B /* RMTipoBusquedaTableViewController.m in Sources */,
+				A50A45F01896391800CAAEED /* RMBienVenta.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A50A45D018962E1200CAAEED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A50A45E218962E1200CAAEED /* InmovicTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A50A45DA18962E1200CAAEED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A50A45B818962E1200CAAEED /* Inmovic */;
+			targetProxy = A50A45D918962E1200CAAEED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A50A45C518962E1200CAAEED /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A50A45C618962E1200CAAEED /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A50A45DE18962E1200CAAEED /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A50A45DF18962E1200CAAEED /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A50A45E318962E1200CAAEED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		A50A45E418962E1200CAAEED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A50A45E618962E1200CAAEED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Inmovic/Inmovic-Prefix.pch";
+				INFOPLIST_FILE = "Inmovic/Inmovic-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		A50A45E718962E1200CAAEED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Inmovic/Inmovic-Prefix.pch";
+				INFOPLIST_FILE = "Inmovic/Inmovic-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		A50A45E918962E1200CAAEED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Inmovic.app/Inmovic";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Inmovic/Inmovic-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "InmovicTests/InmovicTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		A50A45EA18962E1200CAAEED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Inmovic.app/Inmovic";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Inmovic/Inmovic-Prefix.pch";
+				INFOPLIST_FILE = "InmovicTests/InmovicTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A50A45B418962E1200CAAEED /* Build configuration list for PBXProject "Inmovic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A50A45E318962E1200CAAEED /* Debug */,
+				A50A45E418962E1200CAAEED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A50A45E518962E1200CAAEED /* Build configuration list for PBXNativeTarget "Inmovic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A50A45E618962E1200CAAEED /* Debug */,
+				A50A45E718962E1200CAAEED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A50A45E818962E1200CAAEED /* Build configuration list for PBXNativeTarget "InmovicTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A50A45E918962E1200CAAEED /* Debug */,
+				A50A45EA18962E1200CAAEED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A50A45B118962E1200CAAEED /* Project object */;
+}
