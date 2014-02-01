@@ -11,7 +11,7 @@
 
 @interface RMInmuebleArriendo ()
 
-
+@property (nonatomic, strong) NSMutableArray*  atributosEnArray;
 
 @end
 
@@ -42,8 +42,23 @@
         _canondearrendamiento = [[aDictionary objectForKey:@"canondearrendamiento"] intValue];
         _linksfotos = [self captureLinksFromDicctionary:aDictionary];
         _fotos = [[NSMutableArray alloc] init];
-        //_portada = [self retornaPrimeraImagen];
+        _atributosEnArray = [[NSMutableArray alloc] init];
+        //_portadaV = [self retornaPrimeraImagen];
         
+        
+        //Asigno los atributos que me interesan para búsquedas futuras
+        [_atributosEnArray addObject:[aDictionary objectForKey:@"departamento"]];
+        [_atributosEnArray addObject:[aDictionary objectForKey:@"departamento"]];
+        [_atributosEnArray addObject:[aDictionary objectForKey:@"tipodeinmueble"]];
+        [_atributosEnArray addObject:[aDictionary objectForKey:@"tipodebien"]];
+        [_atributosEnArray addObject:[aDictionary objectForKey:@"usodelbien"]];
+        [_atributosEnArray addObject:[aDictionary objectForKey:@"nombredelbien"]];
+        [_atributosEnArray addObject:[aDictionary objectForKey:@"numerodebanos"]];
+        [_atributosEnArray addObject:[aDictionary objectForKey:@"numerodehabitaciones"]];
+        [_atributosEnArray addObject:[aDictionary objectForKey:@"canondearrendamiento"]];
+        
+        _atributos = TITLES_OF_ATTRIBUTES;
+       
     }
     return self;
 }
@@ -56,24 +71,61 @@
         NSString * paraDiccionario = [NSString stringWithFormat:@"imagen%d", i];
         NSString* pp = [aDictionary objectForKey:paraDiccionario];
         url = [NSURL URLWithString:pp];
-        if (url != nil){
+        if (url != nil && ![pp isEqualToString:@""]){
             [retorno addObject:url];
         }
         i++;
     } while (url != nil);
     
-    
-
     return [retorno copy];
 }
--(UIImage * ) retornaPrimeraImagen{
+
+-(AsyncImageView * ) retornaPrimeraImagen{
+    AsyncImageView *imageView = [[AsyncImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f)];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
+    //[[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imageView];
     //Cargo la imagen para la portada
     if ([self.linksfotos count] == 0) {
-        return [UIImage imageNamed: @"escenariodefecto.png"];
+        imageView.image = [UIImage imageNamed: @"escenariodefecto.png"];
+        //return [UIImage imageNamed: @"escenariodefecto.png"];
+    }else{
+        
+        imageView.imageURL = [self.linksfotos objectAtIndex:0];
     }
-    NSData * datosImagen = [NSData dataWithContentsOfURL: [self.linksfotos objectAtIndex:0]];
-    UIImage * lol = [UIImage imageWithData:datosImagen];
-    return lol;
+    //NSData * datosImagen = [NSData dataWithContentsOfURL: [self.linksfotos objectAtIndex:0]];
+    //UIImage * lol = [UIImage imageWithData:datosImagen];
+    //return lol;
+    return imageView;
+}
+
+-(void)consumeFirstImage{
+    AsyncImageView *imageView = [[AsyncImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f)];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
+    
+    //Cargo la imagen para la portada
+    if ([self.linksfotos count] == 0) {
+        imageView.image = [UIImage imageNamed: @"escenariodefecto.png"];
+        //return [UIImage imageNamed: @"escenariodefecto.png"];
+    }else{
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imageView];
+        imageView.imageURL = [self.linksfotos objectAtIndex:0];
+    }
+    self.portadaV = imageView;
+}
+
+
+//Método que dice si este inmueble coincide con los párametros en el aArray
+-(BOOL)isInmuebleByArray:(NSArray *)aArray{
+    BOOL existe = YES;
+    for (NSString* txt in aArray) {
+        if (![self.atributosEnArray containsObject:txt]) {
+            existe = NO;
+            break;
+        }
+    }
+    return existe;
 }
 
 @end

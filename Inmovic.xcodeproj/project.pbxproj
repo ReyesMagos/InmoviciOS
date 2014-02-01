@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		4208F9FE1899BF4200549077 /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4208F9FD1899BF4200549077 /* AsyncImageView.m */; };
-		42198BBA189AABB500CB576B /* RMTipoBusquedaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42198BB9189AABB500CB576B /* RMTipoBusquedaTableViewController.m */; };
+		420FC2A6189AEE3B00D23491 /* RMTipoBusquedaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 420FC2A5189AEE3B00D23491 /* RMTipoBusquedaViewController.m */; };
+		420FC2AA189AEF2D00D23491 /* RMBusquedaInmuebleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 420FC2A8189AEF2D00D23491 /* RMBusquedaInmuebleViewController.m */; };
+		420FC2AB189AEF2D00D23491 /* RMBusquedaInmuebleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420FC2A9189AEF2D00D23491 /* RMBusquedaInmuebleViewController.xib */; };
+		420FC2AD189AF70700D23491 /* Departamentos.plist in Resources */ = {isa = PBXBuildFile; fileRef = 420FC2AC189AF70700D23491 /* Departamentos.plist */; };
+		42198BC8189AC5AC00CB576B /* iOSCombobox.m in Sources */ = {isa = PBXBuildFile; fileRef = 42198BC7189AC5AC00CB576B /* iOSCombobox.m */; };
 		4228580D18971E6200AC861B /* escenariodefecto.png in Resources */ = {isa = PBXBuildFile; fileRef = 4228580C18971E6200AC861B /* escenariodefecto.png */; };
 		423C0191189950B4001F051E /* 7.png in Resources */ = {isa = PBXBuildFile; fileRef = 423C018A189950B4001F051E /* 7.png */; };
 		423C0192189950B4001F051E /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 423C018B189950B4001F051E /* 6.png */; };
@@ -41,8 +45,12 @@
 		A50A45FB18964B4E00CAAEED /* RMInmuebleArriendoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A50A45F918964B4E00CAAEED /* RMInmuebleArriendoViewController.xib */; };
 		A50A45FF189654BB00CAAEED /* RMMyJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = A50A45FE189654BB00CAAEED /* RMMyJSON.m */; };
 		A55FECF01898FABF002AC58D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A55FECEF1898FABF002AC58D /* MapKit.framework */; };
+		A5832DBA189D25EC0032EEA2 /* RMFormularioTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5832DB8189D25EC0032EEA2 /* RMFormularioTableViewController.m */; };
+		A5832DBB189D25EC0032EEA2 /* RMFormularioTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5832DB9189D25EC0032EEA2 /* RMFormularioTableViewController.xib */; };
 		A58CEC5F1898F24400441A84 /* RMMapaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A58CEC5D1898F24400441A84 /* RMMapaViewController.m */; };
 		A58CEC601898F24400441A84 /* RMMapaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58CEC5E1898F24400441A84 /* RMMapaViewController.xib */; };
+		A5DD2643189B31C900370BF4 /* RMBienEnVentaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5DD2641189B31C900370BF4 /* RMBienEnVentaViewController.m */; };
+		A5DD2644189B31C900370BF4 /* RMBienEnVentaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5DD2642189B31C900370BF4 /* RMBienEnVentaViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,8 +66,14 @@
 /* Begin PBXFileReference section */
 		4208F9FC1899BF4200549077 /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
 		4208F9FD1899BF4200549077 /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
-		42198BB8189AABB500CB576B /* RMTipoBusquedaTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTipoBusquedaTableViewController.h; sourceTree = "<group>"; };
-		42198BB9189AABB500CB576B /* RMTipoBusquedaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTipoBusquedaTableViewController.m; sourceTree = "<group>"; };
+		420FC2A4189AEE3B00D23491 /* RMTipoBusquedaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTipoBusquedaViewController.h; sourceTree = "<group>"; };
+		420FC2A5189AEE3B00D23491 /* RMTipoBusquedaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTipoBusquedaViewController.m; sourceTree = "<group>"; };
+		420FC2A7189AEF2D00D23491 /* RMBusquedaInmuebleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMBusquedaInmuebleViewController.h; sourceTree = "<group>"; };
+		420FC2A8189AEF2D00D23491 /* RMBusquedaInmuebleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMBusquedaInmuebleViewController.m; sourceTree = "<group>"; };
+		420FC2A9189AEF2D00D23491 /* RMBusquedaInmuebleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMBusquedaInmuebleViewController.xib; sourceTree = "<group>"; };
+		420FC2AC189AF70700D23491 /* Departamentos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Departamentos.plist; sourceTree = "<group>"; };
+		42198BC6189AC5AC00CB576B /* iOSCombobox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSCombobox.h; sourceTree = "<group>"; };
+		42198BC7189AC5AC00CB576B /* iOSCombobox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSCombobox.m; sourceTree = "<group>"; };
 		4228580C18971E6200AC861B /* escenariodefecto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = escenariodefecto.png; sourceTree = "<group>"; };
 		423C018A189950B4001F051E /* 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 7.png; sourceTree = "<group>"; };
 		423C018B189950B4001F051E /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6.png; sourceTree = "<group>"; };
@@ -103,9 +117,15 @@
 		A50A45FD189654BB00CAAEED /* RMMyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMyJSON.h; sourceTree = "<group>"; };
 		A50A45FE189654BB00CAAEED /* RMMyJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMyJSON.m; sourceTree = "<group>"; };
 		A55FECEF1898FABF002AC58D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		A5832DB7189D25EC0032EEA2 /* RMFormularioTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMFormularioTableViewController.h; sourceTree = "<group>"; };
+		A5832DB8189D25EC0032EEA2 /* RMFormularioTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMFormularioTableViewController.m; sourceTree = "<group>"; };
+		A5832DB9189D25EC0032EEA2 /* RMFormularioTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMFormularioTableViewController.xib; sourceTree = "<group>"; };
 		A58CEC5C1898F24400441A84 /* RMMapaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapaViewController.h; sourceTree = "<group>"; };
 		A58CEC5D1898F24400441A84 /* RMMapaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMapaViewController.m; sourceTree = "<group>"; };
 		A58CEC5E1898F24400441A84 /* RMMapaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMMapaViewController.xib; sourceTree = "<group>"; };
+		A5DD2640189B31C900370BF4 /* RMBienEnVentaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMBienEnVentaViewController.h; sourceTree = "<group>"; };
+		A5DD2641189B31C900370BF4 /* RMBienEnVentaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMBienEnVentaViewController.m; sourceTree = "<group>"; };
+		A5DD2642189B31C900370BF4 /* RMBienEnVentaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMBienEnVentaViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +171,9 @@
 		A50A45B018962E1100CAAEED = {
 			isa = PBXGroup;
 			children = (
+				A5832DB7189D25EC0032EEA2 /* RMFormularioTableViewController.h */,
+				A5832DB8189D25EC0032EEA2 /* RMFormularioTableViewController.m */,
+				A5832DB9189D25EC0032EEA2 /* RMFormularioTableViewController.xib */,
 				423C017B18995051001F051E /* fotos inmueble */,
 				A58CEC5B1898F1EF00441A84 /* Controllers */,
 				4228580C18971E6200AC861B /* escenariodefecto.png */,
@@ -187,6 +210,7 @@
 		A50A45C218962E1200CAAEED /* Inmovic */ = {
 			isa = PBXGroup;
 			children = (
+				420FC2AC189AF70700D23491 /* Departamentos.plist */,
 				423C019818995345001F051E /* inmueble.json */,
 				A50A45CB18962E1200CAAEED /* RMAppDelegate.h */,
 				A50A45CC18962E1200CAAEED /* RMAppDelegate.m */,
@@ -228,6 +252,8 @@
 		A50A45FC189653CB00CAAEED /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				42198BC6189AC5AC00CB576B /* iOSCombobox.h */,
+				42198BC7189AC5AC00CB576B /* iOSCombobox.m */,
 				4208F9FC1899BF4200549077 /* AsyncImageView.h */,
 				4208F9FD1899BF4200549077 /* AsyncImageView.m */,
 				A50A45EB18962EB200CAAEED /* RMInmuebleArriendo.h */,
@@ -256,8 +282,14 @@
 				A58CEC5D1898F24400441A84 /* RMMapaViewController.m */,
 				A58CEC5E1898F24400441A84 /* RMMapaViewController.xib */,
 				42D73EA718995E4800E22C40 /* PhotosInmuebleView.xib */,
-				42198BB8189AABB500CB576B /* RMTipoBusquedaTableViewController.h */,
-				42198BB9189AABB500CB576B /* RMTipoBusquedaTableViewController.m */,
+				420FC2A4189AEE3B00D23491 /* RMTipoBusquedaViewController.h */,
+				420FC2A5189AEE3B00D23491 /* RMTipoBusquedaViewController.m */,
+				420FC2A7189AEF2D00D23491 /* RMBusquedaInmuebleViewController.h */,
+				420FC2A8189AEF2D00D23491 /* RMBusquedaInmuebleViewController.m */,
+				420FC2A9189AEF2D00D23491 /* RMBusquedaInmuebleViewController.xib */,
+				A5DD2640189B31C900370BF4 /* RMBienEnVentaViewController.h */,
+				A5DD2641189B31C900370BF4 /* RMBienEnVentaViewController.m */,
+				A5DD2642189B31C900370BF4 /* RMBienEnVentaViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -338,19 +370,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5832DBB189D25EC0032EEA2 /* RMFormularioTableViewController.xib in Resources */,
 				423C0196189950B4001F051E /* 2.png in Resources */,
 				423C0194189950B4001F051E /* 4.png in Resources */,
 				423C019918995345001F051E /* inmueble.json in Resources */,
 				423C0192189950B4001F051E /* 6.png in Resources */,
+				420FC2AD189AF70700D23491 /* Departamentos.plist in Resources */,
 				A50A45C718962E1200CAAEED /* InfoPlist.strings in Resources */,
 				A50A45FB18964B4E00CAAEED /* RMInmuebleArriendoViewController.xib in Resources */,
 				4228580D18971E6200AC861B /* escenariodefecto.png in Resources */,
+				A5DD2644189B31C900370BF4 /* RMBienEnVentaViewController.xib in Resources */,
 				423C0195189950B4001F051E /* 3.png in Resources */,
 				423C0191189950B4001F051E /* 7.png in Resources */,
 				423C0193189950B4001F051E /* 5.png in Resources */,
 				423C0197189950B4001F051E /* 1.png in Resources */,
 				A50A45CF18962E1200CAAEED /* Images.xcassets in Resources */,
 				42D73EA818995E4800E22C40 /* PhotosInmuebleView.xib in Resources */,
+				420FC2AB189AEF2D00D23491 /* RMBusquedaInmuebleViewController.xib in Resources */,
 				A58CEC601898F24400441A84 /* RMMapaViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,16 +407,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				A50A45C918962E1200CAAEED /* main.m in Sources */,
+				42198BC8189AC5AC00CB576B /* iOSCombobox.m in Sources */,
 				A50A45ED18962EB200CAAEED /* RMInmuebleArriendo.m in Sources */,
+				A5DD2643189B31C900370BF4 /* RMBienEnVentaViewController.m in Sources */,
 				A50A45FA18964B4E00CAAEED /* RMInmuebleArriendoViewController.m in Sources */,
 				A50A45F318963B1700CAAEED /* RMDestacadosTableViewController.m in Sources */,
+				A5832DBA189D25EC0032EEA2 /* RMFormularioTableViewController.m in Sources */,
 				A50A45FF189654BB00CAAEED /* RMMyJSON.m in Sources */,
 				4208F9FE1899BF4200549077 /* AsyncImageView.m in Sources */,
 				A58CEC5F1898F24400441A84 /* RMMapaViewController.m in Sources */,
+				420FC2AA189AEF2D00D23491 /* RMBusquedaInmuebleViewController.m in Sources */,
+				420FC2A6189AEE3B00D23491 /* RMTipoBusquedaViewController.m in Sources */,
 				A50A45CD18962E1200CAAEED /* RMAppDelegate.m in Sources */,
 				A50A45F6189640E100CAAEED /* RMInmobiliariaModel.m in Sources */,
 				42D73EAD18996DAF00E22C40 /* RMMyScrollView.m in Sources */,
-				42198BBA189AABB500CB576B /* RMTipoBusquedaTableViewController.m in Sources */,
 				A50A45F01896391800CAAEED /* RMBienVenta.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

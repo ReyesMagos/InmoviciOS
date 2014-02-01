@@ -30,12 +30,14 @@
     //NSLog(@"imprimo codificado: %@", codificado);
     
     //Se obtiene el contenido de la url, se almacena como NSData
-    //NSData* data = [NSData dataWithContentsOfURL: [NSURL URLWithString: codificado]];
-    NSString * fileLocation = @"inmueble.json";
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:[fileLocation stringByDeletingPathExtension] ofType:[fileLocation pathExtension]];
+    NSData* data = [NSData dataWithContentsOfURL: [NSURL URLWithString: codificado]];
+    
+    
+    //NSString * fileLocation = @"inmueble.json";
+    //NSString *filePath = [[NSBundle mainBundle] pathForResource:[fileLocation stringByDeletingPathExtension] ofType:[fileLocation pathExtension]];
     //NSData* data = [NSData dataWithContentsOfFile:filePath];
     
-    NSData* data = [NSData dataWithContentsOfFile: @"inmueble.json"];
+    //NSData* data = [NSData dataWithContentsOfFile: @"inmueble.json"];
     
     __autoreleasing NSError* error = nil;
     if (data == nil) {

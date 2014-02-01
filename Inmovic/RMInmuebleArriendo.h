@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#define TITLES_OF_ATTRIBUTES @[@"Nombre", @"Departamento", @"Municipio", @"Número de baños", @"Número de habitaciones", @"Canon de arrendamiento"]
+
+@class AsyncImageView;
 
 @interface RMInmuebleArriendo : NSObject
 
@@ -29,10 +32,16 @@
 @property(nonatomic, copy) NSString * contacto;
 @property(nonatomic) int puntuaciondelinmueble;
 @property(nonatomic) int canondearrendamiento;
+
 @property(nonatomic, strong) NSArray * linksfotos;
 @property(nonatomic, strong) NSMutableArray * fotos;
-@property (nonatomic, strong) UIImage * portada;
+@property(nonatomic, strong) NSArray * atributos;
+@property (nonatomic, strong) AsyncImageView * portadaV;
 
 // Designado para diccionario
 -(id)initWithDictionary: (NSDictionary *) aDictionary;
+
+-(BOOL)isInmuebleByArray: (NSArray * ) aArray;
+-(void)consumeFirstImage;
+
 @end

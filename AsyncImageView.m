@@ -638,6 +638,7 @@ NSString *const AsyncImageErrorKey = @"error";
             self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.activityIndicatorStyle];
             self.activityView.hidesWhenStopped = YES;
             self.activityView.center = CGPointMake(self.bounds.size.width / 2.0f, self.bounds.size.height / 2.0f);
+            self.activityView.color = [UIColor whiteColor];
             self.activityView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
             [self addSubview:self.activityView];
         }

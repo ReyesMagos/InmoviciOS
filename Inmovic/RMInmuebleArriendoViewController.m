@@ -11,6 +11,7 @@
 #import "RMMapaViewController.h"
 #import "RMMyScrollView.h"
 #import "AsyncImageView.h"
+#import "RMFormularioTableViewController.h"
 //Quitar esto
 #import <QuartzCore/QuartzCore.h>
 
@@ -67,8 +68,9 @@
 
 - (IBAction)formularioBtn:(id)sender {
     
+    RMFormularioTableViewController * formu = [[RMFormularioTableViewController alloc] initWithObject:self.inmuebleArriendo];
     
-    
+    [self.navigationController pushViewController:formu animated:YES];
 }
 
 -(void)ShowOnViewTheImage: (UIImageView *) aImageView{
@@ -106,7 +108,6 @@
 //            
 //        }
 //    }
-    NSLog(@"%d", [[self.view subviews] count]);
     if (self.bandera) {
         self.bandera = NO;
         [[[self.view subviews] lastObject] removeFromSuperview];
@@ -130,13 +131,13 @@
 
 #pragma mark - Utils
 -(void) syncModelWithView{
-    self.nombreLB.text = self.inmuebleArriendo.nombredelbien;
-    self.deptoLB.text = self.inmuebleArriendo.departamento;
-    self.municipioLB.text = self.inmuebleArriendo.municipio;
-    self.nroBanosLB.text = [NSString stringWithFormat:@"%d", self.inmuebleArriendo.numerodebanos];
-    self.nroPiezasLB.text = [NSString stringWithFormat:@"%d", self.inmuebleArriendo.numerodehabitaciones];
-    self.canonArLB.text = [NSString stringWithFormat:@"%d", self.inmuebleArriendo.canondearrendamiento];
-    self.telefonoLB.text = self.inmuebleArriendo.contacto;
+//    self.nombreLB.text = self.inmuebleArriendo.nombredelbien;
+//    self.deptoLB.text = self.inmuebleArriendo.departamento;
+//    self.municipioLB.text = self.inmuebleArriendo.municipio;
+//    self.nroBanosLB.text = [NSString stringWithFormat:@"%d", self.inmuebleArriendo.numerodebanos];
+//    self.nroPiezasLB.text = [NSString stringWithFormat:@"%d", self.inmuebleArriendo.numerodehabitaciones];
+//    self.canonArLB.text = [NSString stringWithFormat:@"%d", self.inmuebleArriendo.canondearrendamiento];
+//    self.telefonoLB.text = self.inmuebleArriendo.contacto;
     self.descripcionTxtV.text = self.inmuebleArriendo.descripcion;
 }
 
@@ -176,30 +177,37 @@
     int xOffset = 0;
     int scrollWidth = 120;
     self.splitFotos.contentSize = CGSizeMake(scrollWidth,80);
-    
-    for(int index=0; index < [self.inmuebleArriendo.linksfotos count]; index++)
-    {
-//        UIImageView *img = [self.inmuebleArriendo.fotos objectAtIndex:index];
-//        img.bounds = CGRectMake(30, 30, 80, 80);
-//        img.frame = CGRectMake(5+xOffset, 10, 320, 200);
-//        self.splitFotos.contentSize = CGSizeMake(scrollWidth+xOffset,110);
-//        [self.splitFotos addSubview:img];
-//        xOffset += 350;
-        
-        //get image view
+    if ([self.inmuebleArriendo.linksfotos count] == 0) {
         AsyncImageView *imageView = [[AsyncImageView alloc] init];
         imageView.frame = CGRectMake(5+xOffset, 10, 320, 200);
-        
-        //cancel loading previous image for cell
-        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imageView];
-        
-        //load the image
-        imageView.imageURL = [self.inmuebleArriendo.linksfotos objectAtIndex:index];
+        imageView.image = [UIImage imageNamed: @"escenariodefecto.png"];
         [self.inmuebleArriendo.fotos addObject:imageView];
-        self.splitFotos.contentSize = CGSizeMake(scrollWidth+xOffset,110);
         [self.splitFotos addSubview:imageView];
-        xOffset += 350;
+    }else{
+        for(int index=0; index < [self.inmuebleArriendo.linksfotos count]; index++)
+        {
+            //        UIImageView *img = [self.inmuebleArriendo.fotos objectAtIndex:index];
+            //        img.bounds = CGRectMake(30, 30, 80, 80);
+            //        img.frame = CGRectMake(5+xOffset, 10, 320, 200);
+            //        self.splitFotos.contentSize = CGSizeMake(scrollWidth+xOffset,110);
+            //        [self.splitFotos addSubview:img];
+            //        xOffset += 350;
+            
+            //get image view
+            AsyncImageView *imageView = [[AsyncImageView alloc] init];
+            imageView.frame = CGRectMake(5+xOffset, 10, 320, 200);
+            
+            //load the image
+            imageView.imageURL = [self.inmuebleArriendo.linksfotos objectAtIndex:index];
+
+            
+            [self.inmuebleArriendo.fotos addObject:imageView];
+            self.splitFotos.contentSize = CGSizeMake(scrollWidth+xOffset,110);
+            [self.splitFotos addSubview:imageView];
+            xOffset += 350;
+        }
     }
+    
     
 //    for(int index=0; index < [self.imagesName count]; index++)
 //    {
@@ -218,4 +226,52 @@
     self.splitFotos.contentSize = CGSizeMake(self.splitFotos.contentSize.width + 205,110);
     
 }
+
+#pragma mark - UITableView data source
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return [self.inmuebleArriendo.atributos count];
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return [self.inmuebleArriendo.atributos objectAtIndex:section];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *simpleTableIdentifier = @"SimpleTableItem";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+    }
+    switch (indexPath.section) {
+        case 0:
+            cell.textLabel.text = self.inmuebleArriendo.nombredelbien;
+            break;
+        case 1:
+            cell.textLabel.text = self.inmuebleArriendo.departamento;
+            break;
+        case 2:
+            cell.textLabel.text = self.inmuebleArriendo.municipio;
+            break;
+        case 3:
+            cell.textLabel.text = [NSString stringWithFormat:@"%d", self.inmuebleArriendo.numerodebanos];
+            break;
+        case 4:
+            cell.textLabel.text = [NSString stringWithFormat:@"%d", self.inmuebleArriendo.numerodehabitaciones];
+            break;
+        case 5:
+            cell.textLabel.text = [NSString stringWithFormat:@"%d", self.inmuebleArriendo.canondearrendamiento];
+            break;
+        default:
+            break;
+    }
+    return cell;
+}
+
+
 @end

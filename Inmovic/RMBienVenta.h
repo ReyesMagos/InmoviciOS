@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+@class AsyncImageView;
+
+#define TITLE_OF_ATTRIBUTES @[@"Tipo del Bien", @"Ubicación", @"Info Contacto", @"Valor"]
 
 @interface RMBienVenta : NSObject
 //Defino los atributos de un bien a la venta
@@ -16,9 +19,17 @@
 @property(nonatomic, copy) NSString * descripcion;
 @property(nonatomic, copy) NSString * ubicacion;
 @property(nonatomic, copy) NSString * informaciondecontacto;
-@property(nonatomic) float valordeventa;
-@property(nonatomic, strong) NSArray * fotos;
+@property(nonatomic) int valordeventa;
+@property(nonatomic, strong) NSArray * linksfotos;
+@property(nonatomic, strong) NSMutableArray * fotos;
+@property(nonatomic, strong) NSArray * atributos;
+@property (nonatomic, strong) AsyncImageView * portadaV;
+
 
 //Designado
 -(id)initWithDictionary: (NSDictionary *) aDictionary;
+
+-(BOOL)isABienByArray: (NSArray * ) aArray;
+-(void)consumeFirstImage;
+
 @end

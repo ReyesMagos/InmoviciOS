@@ -17,7 +17,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     //Creo el modelo inmobiliaria que tendrá los bienes e inmuebles
-    RMInmobiliariaModel * inmobiliaria = [[RMInmobiliariaModel alloc] init];
+    
+    //RMInmobiliariaModel * inmobiliaria = [[RMInmobiliariaModel alloc] init];
+    RMInmobiliariaModel * inmobiliaria = [RMInmobiliariaModel sharedManager];
     
     //Creo el controlador de la tabla incial
     RMDestacadosTableViewController * destacadosVC = [[RMDestacadosTableViewController alloc]initWithInmobiliaria:inmobiliaria

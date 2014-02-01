@@ -9,19 +9,12 @@
 #import <UIKit/UIKit.h>
 @class RMInmuebleArriendo;
 
-@interface RMInmuebleArriendoViewController : UIViewController <UIScrollViewDelegate>
+@interface RMInmuebleArriendoViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) RMInmuebleArriendo *inmuebleArriendo;
 
 // Propiedades del view
 @property (strong, nonatomic) IBOutlet UIScrollView *splitFotos;
-@property (strong, nonatomic) IBOutlet UILabel *nombreLB;
-@property (strong, nonatomic) IBOutlet UILabel *deptoLB;
-@property (strong, nonatomic) IBOutlet UILabel *municipioLB;
-@property (strong, nonatomic) IBOutlet UILabel *nroBanosLB;
-@property (strong, nonatomic) IBOutlet UILabel *nroPiezasLB;
-@property (strong, nonatomic) IBOutlet UILabel *canonArLB;
-@property (strong, nonatomic) IBOutlet UILabel *telefonoLB;
 @property (strong, nonatomic) IBOutlet UITextView *descripcionTxtV;
 
 //Botones del view

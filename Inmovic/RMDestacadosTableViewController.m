@@ -10,8 +10,8 @@
 #import "RMInmobiliariaModel.h"
 #import "RMInmuebleArriendoViewController.h"
 #import "RMInmuebleArriendo.h"
-#import "RMTipoBusquedaTableViewController.h"
 #import "AsyncImageView.h"
+#import "RMTipoBusquedaViewController.h"
 
 @interface RMDestacadosTableViewController ()
 
@@ -42,6 +42,9 @@
     self.navigationController.topViewController.navigationItem.rightBarButtonItem = btnReload;
     btnReload.enabled=TRUE;
     //btnReload.style=UIBarButtonSystemItemRefresh;
+    
+    //Esto refresca el tableview. Especial para cuando se regresa de la vista de una búsqueda.
+    [self.tableView reloadData];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -59,7 +62,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == INMUEBLES_ARRIENDO_SECTION) {
-        return self.inmobiliaria.inmuebleArriendoCount;
+        //return self.inmobiliaria.inmuebleArriendoCount;
+        return 6;
     }else{
         return self.inmobiliaria.bienVentaCount;
     }
@@ -76,15 +80,17 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:CellIdentifier];
         //add AsyncImageView to cell
-		AsyncImageView *imageView = [[AsyncImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f)];
-		imageView.contentMode = UIViewContentModeScaleAspectFill;
-		imageView.clipsToBounds = YES;
-		imageView.tag = IMAGE_VIEW_TAG;
-		[cell addSubview:imageView];
+		//AsyncImageView *imageView = [[AsyncImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f)];
+		//imageView.contentMode = UIViewContentModeScaleAspectFill;
+		//imageView.clipsToBounds = YES;
+		//imageView.tag = IMAGE_VIEW_TAG;
+		//[cell addSubview:imageView];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 		cell.indentationWidth = 44.0f;
 		cell.indentationLevel = 1;
+    }else{
+        [(AsyncImageView *)[cell viewWithTag:IMAGE_VIEW_TAG] removeFromSuperview];
     }
     
     
@@ -92,13 +98,21 @@
     if (indexPath.section == INMUEBLES_ARRIENDO_SECTION) {
         RMInmuebleArriendo * inmueble = [self.inmobiliaria inmuebleArriendoAtIndex:indexPath.row];
         cell.textLabel.text = inmueble.nombredelbien;
-        cell.imageView.image = inmueble.portada;
+        if (!inmueble.portadaV) {
+            [inmueble consumeFirstImage];
+        }
+        AsyncImageView * imageView = inmueble.portadaV;
+        imageView.tag = IMAGE_VIEW_TAG;
+        //[[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imageView];
+        [cell addSubview:imageView];
+        
+        //cell.imageView.image = inmueble.portada;
         //Agrego lo que va en la celda
         
-        AsyncImageView *imageView = (AsyncImageView *)[cell viewWithTag:IMAGE_VIEW_TAG];
-        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imageView];
-        NSLog(@"%d", indexPath.row);
-        imageView.imageURL = [inmueble.linksfotos objectAtIndex:0];
+        //AsyncImageView *imageView = (AsyncImageView *)[cell viewWithTag:IMAGE_VIEW_TAG];
+        //[[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imageView];
+        //imageView.imageURL = [inmueble.linksfotos objectAtIndex:0];
+        
     }else{
         //RMBienVenta * bien = [self.inmobiliaria bienVentaAtIndex:indexPath.row];
         
@@ -126,12 +140,13 @@
         
         
     }
+    
 }
 
 #pragma mark - utilis
 -(IBAction)btnReloadPressed:(id)sender {
-    RMTipoBusquedaTableViewController * tipoDeBusqueda = [[RMTipoBusquedaTableViewController alloc] init];
-    [self.navigationController pushViewController:tipoDeBusqueda animated:YES];
+    RMTipoBusquedaViewController * tipoBusquedaVC = [[RMTipoBusquedaViewController alloc]initWithStyle:UITableViewStylePlain];
+    [self.navigationController pushViewController:tipoBusquedaVC animated:YES];
 }
 
 /*

@@ -16,7 +16,26 @@
 @property (nonatomic, readonly) int bienVentaCount;
 @property (nonatomic, readonly) int inmuebleArriendoCount;
 
+@property (nonatomic, strong) NSMutableArray * parametrosBusqueda;
+@property (nonatomic, strong) NSMutableArray * inDepartamentos;
+@property (nonatomic, strong) NSMutableArray * inTiposdeBienes;
+@property (nonatomic, strong) NSMutableArray * inTiposInmuebles;
+@property (nonatomic, strong) NSMutableArray * inUsos;
+@property (nonatomic, strong) NSMutableArray * inValor;
+
+
+@property (nonatomic, strong) NSMutableArray * bnTiposdeBienes;
+@property (nonatomic, strong) NSMutableArray * bnUbicaciones;
+@property (nonatomic, strong) NSMutableArray * bnValor;
+
++(RMInmobiliariaModel *) sharedManager;
+
 -(RMInmuebleArriendo *) inmuebleArriendoAtIndex: (int) index;
+
+-(NSArray *) inmueblesArray;
+-(NSArray *) bienesArray;
+
 -(RMBienVenta *) bienVentaAtIndex: (int) index;
+-(void)consumeBienesVenta;
 
 @end
