@@ -74,12 +74,13 @@
     
     if (indexPath.section == 0) {
         cell.textLabel.text = [CELLS_TITLES_FOR_DATOSPERSONALES objectAtIndex:indexPath.row];
-        UITextField * txt = [[UITextField alloc]initWithFrame:CGRectMake(cell.frame.size.width, 10.0f, 250.f, 32.0f)];
+        UITextField * txt = [[UITextField alloc]initWithFrame:CGRectMake(cell.textLabel.frame.size.width, 10.0f, 250.f, 32.0f)];
         txt.clearsOnBeginEditing = NO;
-        txt.textAlignment = UITextAlignmentRight;
+        
+        txt.textAlignment = UITextAlignmentLeft;
         txt.delegate = self;
         txt.placeholder = [NSString stringWithFormat:@"Ingrese %@", cell.textLabel.text];
-        [cell addSubview:txt];
+        [cell.contentView addSubview:txt];
     }else{
         cell.textLabel.text = [CELLS_TITLES_FOR_INMUEBLE objectAtIndex:indexPath.row];
         [cell setSelected:NO];

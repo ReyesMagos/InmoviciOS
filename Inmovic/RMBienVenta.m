@@ -22,11 +22,12 @@
     if (self = [super init]) {
         _partitionKey = [aDictionary objectForKey:@"PartitionKey"];
         _rowKey = [aDictionary objectForKey:@"RowKey"];
-        _tipodebien = [aDictionary objectForKey:@"tipodebien"];
-        _descripcion = [aDictionary objectForKey:@"descripcion"];
-        _ubicacion = [aDictionary objectForKey:@"ubicacion"];
-        _informaciondecontacto = [aDictionary objectForKey:@"informaciondecontacto"];
+        _tipodebien = [self completeIfIsNilNSString:[aDictionary objectForKey:@"tipodebien"]];
+        _descripcion = [self completeIfIsNilNSString:[aDictionary objectForKey:@"descripcion"]];
+        _ubicacion = [self completeIfIsNilNSString:[aDictionary objectForKey:@"ubicacion"]];
+        _informaciondecontacto = [self completeIfIsNilNSString:[aDictionary objectForKey:@"informaciondecontacto"]];
         _valordeventa = [[aDictionary objectForKey:@"valordeventa"] intValue];
+        
         _linksfotos = [self captureLinksFromDicctionary:aDictionary];
         _atributosEnArray = [[NSMutableArray alloc] init];
         _fotos = [[NSMutableArray alloc] init];
@@ -34,11 +35,19 @@
         //Asigno los atributos que me interesan para búsquedas futuras
         [_atributosEnArray addObject:[aDictionary objectForKey:@"tipodebien"]];
         [_atributosEnArray addObject:[aDictionary objectForKey:@"ubicacion"]];
+        [_atributosEnArray addObject:[aDictionary objectForKey:@"informaciondecontacto"]];
         [_atributosEnArray addObject:[aDictionary objectForKey:@"valordeventa"]];
         
         _atributos = TITLE_OF_ATTRIBUTES;
     }
     return self;
+}
+
+-(NSString*)completeIfIsNilNSString: (NSString*)aString{
+    if ([aString isEqualToString:@""]) {
+        return @"Sin información";
+    }
+    return aString;
 }
 
 //Capturo todos los links de las fotos del inmueble qué están en el diccionario

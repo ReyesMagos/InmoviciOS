@@ -16,6 +16,7 @@
 @property(nonatomic, copy) NSString * ubicacion;
 @property (nonatomic, assign) CLLocationCoordinate2D coordenada;
 @property (strong, nonatomic) IBOutlet MKMapView *mapa;
+@property (nonatomic, strong) MKMapView * mapa2;
 
 @end
 
@@ -38,11 +39,28 @@
     return self;
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [self viewWillAppear:animated];
+-(void)viewDidLoad{
+    [super viewDidLoad];
     
-    //Asigno el delegado del mapa
-    self.mapa.delegate = self;
+   
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.mapa2 = [[MKMapView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    self.mapa2.delegate = self;
+    [self.view addSubview:self.mapa2];
+    
+    MKCoordinateRegion region;
+    region.center.latitude = 4.60971;
+    region.center.longitude = -74.08175;
+    region.span.latitudeDelta = 14;
+    region.span.longitudeDelta = 14;
+    [self.mapa2 setRegion:region animated:NO];
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     
     //Creo la anotación para representar la ubicación del inmueble
     MKPointAnnotation * anotacion = [[MKPointAnnotation alloc] init];
@@ -51,12 +69,15 @@
     anotacion.subtitle = self.ubicacion;
 
     //Lo pongo en el mapa
-    [self.mapa addAnnotation:anotacion];
+    [self.mapa2 addAnnotation:anotacion];
     
     //Hago un acercamiento a la anotación
-    [self zoomToFitMapAnnotations:self.mapa];
+    //[self zoomToFitMapAnnotations:self.mapa2];
+    
+    
     
 }
+
 
 - (void)zoomToFitMapAnnotations:(MKMapView *)mapView {
     if ([mapView.annotations count] == 0) return;

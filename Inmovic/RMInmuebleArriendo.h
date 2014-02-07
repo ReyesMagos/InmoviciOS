@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#define TITLES_OF_ATTRIBUTES @[@"Nombre", @"Departamento", @"Municipio", @"Número de baños", @"Número de habitaciones", @"Canon de arrendamiento"]
+#define TITLES_OF_ATTRIBUTES @[@"Nombre", @"Departamento", @"Municipio", @"Número de baños", @"Número de habitaciones", @"Canon de arrendamiento", @"Contacto", @"Folio de matricula inmobiliaria", @"Área contruida"]
+#define SIN_INFORMACION @"Sin información"
 
 @class AsyncImageView;
 

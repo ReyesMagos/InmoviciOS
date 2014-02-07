@@ -13,6 +13,7 @@
 #import "AsyncImageView.h"
 #import "RMInmuebleArriendoViewController.h"
 #import "RMBienEnVentaViewController.h"
+#import "RMCellDestacados.h"
 
 @interface RMTipoBusquedaViewController ()
 
@@ -30,6 +31,7 @@
     self = [super initWithStyle:style];
     if (self) {
         self.title = @"Tipo de Búsqueda";
+        [self.tableView setTableFooterView:[UIView new]];
     }
     return self;
 }
@@ -57,12 +59,14 @@
     }
     return self;
 }
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,7 +110,7 @@
         }
         AsyncImageView * imageView = bienVta.portadaV;
         imageView.tag = IMAGE_VIEW_TAG;
-        [cell addSubview:imageView];
+        //[cell addSubview:imageView];
         
     }else if(self.inmuebles) {
         RMInmuebleArriendo * inmueble = [self.inmuebles objectAtIndex: indexPath.row];
@@ -115,8 +119,9 @@
             [inmueble consumeFirstImage];
         }
         AsyncImageView * imageView = inmueble.portadaV;
+        imageView.frame = CGRectMake(0.0f, 0.0f, 44.0f, 44.0f);
         imageView.tag = IMAGE_VIEW_TAG;
-        [cell addSubview:imageView];
+        //[cell addSubview:imageView];
     }else{
         if (indexPath.row == 0) {
             cell.textLabel.text = TEXT_ON_LABELCELL_FOR_INMUEBLE;
@@ -124,13 +129,14 @@
             cell.textLabel.text = TEXT_ON_LABELCELL_FOR_aBIEN;
         }
     }
-    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-    cell.indentationWidth = 44.0f;
+    //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    //cell.indentationWidth = 44.0f;
     cell.indentationLevel = 1;
-
+    
     return cell;
-
+    
 }
+
 
 #pragma mark - Table view delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

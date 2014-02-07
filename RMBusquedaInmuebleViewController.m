@@ -28,23 +28,39 @@
 -(id)initWithCase:(int)aCase{
     if (self = [super initWithNibName:nil bundle:nil]) {
         if (aCase == FOR_INMUEBLE) {
-            self.title = @"Búsqueda de Inmuebles";
+            self.title = @"Búsqueda";
             self.hayBien = NO;
             self.parametrosBusqueda = @[@"Departamento:", @"Tipo de bien:", @"Tipo Inmueble:", @"Uso:", @"Baños:", @"Habitaciones:", @"Valor:"];
         }else{
             self.title = @"Búsqueda de Bienes en Venta";
+            self.tituloLB.text = @"Búsqueda de Bienes en Venta";
             self.hayBien = YES;
             self.parametrosBusqueda = @[@"Tipo de Bien:", @"Ubicación:", @"Valor:"];
 
         }
+        
+        //Elimino los espacios sobrantes del table
+        [self.parametrosTView setTableFooterView:[UIView new]];
+        
         self.parametros = [[NSMutableArray alloc]init];
     }
     return self;
 }
 
+-(void)loadView{
+    if (IS_IPHONE) {
+        self.view = [[NSBundle mainBundle] loadNibNamed:@"RMBusquedaInmuebleViewController~iphone" owner:self options:nil][0];
+    }else{
+        self.view = [[NSBundle mainBundle] loadNibNamed:@"RMBusquedaInmuebleViewController~ipad" owner:self options:nil][0];
+    }
+}
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    //Cargo la configuración de la apariencia
+    [self appearance];
+    
     self.inmobiliaria = [RMInmobiliariaModel sharedManager];
     if (self.hayBien) {
         [self.inmobiliaria consumeBienesVenta];
@@ -52,14 +68,25 @@
         [self fillArrays];
     }
     
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Utils
+
+//Configura el aspecto fisico del view
+-(void)appearance{
+    if ([self.parametrosBusqueda count] == 3) {
+        self.tituloLB.text = @"Búsqueda de Bienes";
+    }else{
+        self.tituloLB.text = @"Búsqueda de Inmuebles";
+    }
+    self.tituloLB.font = [UIFont fontWithName:@"FuturaStd-Heavy" size:25];
+    
 }
 
 -(void)fillArrays{
@@ -85,8 +112,12 @@
 
 #pragma mark - UITableView data source
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return [self.parametrosBusqueda count];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -98,12 +129,22 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     
-    cell.textLabel.text = [self.parametrosBusqueda objectAtIndex: indexPath.row];
+    //cell.textLabel.text = [self.parametrosBusqueda objectAtIndex: indexPath.row];
 
+    iOSCombobox *myCombo = [[iOSCombobox alloc] init];
+    if (IS_IPHONE) {
+        CGRect  myRect = CGRectMake(20, 10.0f, 250.f, 32.0f);
+        [myCombo setFrame:myRect];
+        
+    }else{
+        [myCombo setFrame:CGRectMake(20, 10.0f, self.view.frame.size.width/2, 32.0f)];
+        CGPoint centerCell = CGPointMake((self.view.frame.size.width/2), cell.center.y);
+        [myCombo setCenter:centerCell];
+    }
     
-    CGRect myRect = CGRectMake(cell.frame.size.width, 10.0f, 250.f, 32.0f);
-    iOSCombobox *myCombo = [[iOSCombobox alloc] initWithFrame:myRect];
-    myCombo.pickerView.tag = indexPath.row;
+    
+    myCombo.pickerView.tag = indexPath.section;
+    
     if ([self.parametrosBusqueda count] == 3) {
         switch (indexPath.row) {
             case 0:
@@ -119,7 +160,7 @@
                 break;
         }
     }else{
-        switch (indexPath.row) {
+        switch (indexPath.section) {
             case 0:
                 [myCombo setValues:self.inmobiliaria.inDepartamentos];
                 break;
@@ -147,14 +188,27 @@
         }
     }
     
+    //Pongo el combo box en el centro de la celda
+    //CGPoint centerCell = CGPointMake((self.view.frame.size.width/2), cell.center.y);
+    //[myCombo setCenter:centerCell];
+    
+    
+    
     [self.parametros addObject:myCombo];
     [myCombo setCurrentValue:@"Seleccione"];
-    [cell.contentView addSubview:myCombo];
+    [cell addSubview:myCombo];
 
     return cell;
 
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return [self.parametrosBusqueda objectAtIndex:section];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50;
+}
 
 #pragma mark UIView methods
 

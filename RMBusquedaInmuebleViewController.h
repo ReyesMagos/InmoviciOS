@@ -15,6 +15,8 @@
 - (IBAction)searchInmueble:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UITableView *parametrosTView;
+@property (weak, nonatomic) IBOutlet UILabel *tituloLB;
+
 
 -(id)initWithCase: (int) aCase;
 

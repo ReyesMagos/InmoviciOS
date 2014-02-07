@@ -59,6 +59,7 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     self.imageViewGrande.image = [(UIImageView*)[self.bienVenta.fotos objectAtIndex:0] image];
+    self.descripcionTxtV.font = [UIFont fontWithName:@"FuturaStd-Book" size:17];
     //[self consumeImages];
 }
 

@@ -25,6 +25,15 @@
     RMDestacadosTableViewController * destacadosVC = [[RMDestacadosTableViewController alloc]initWithInmobiliaria:inmobiliaria
                                                                                                             style:UITableViewStylePlain];
     
+    UIViewController * dd = nil;
+    
+    if (!IS_IPHONE) {
+        //Tablet
+        
+    }else{
+        
+    }
+    
     //Creo el navigation controller de la aplicación
     UINavigationController *inmobiliarioNVC = [[UINavigationController alloc] initWithRootViewController:destacadosVC];
     

@@ -12,13 +12,19 @@
 #import "RMMyScrollView.h"
 #import "AsyncImageView.h"
 #import "RMFormularioTableViewController.h"
+#import "RMComentariosViewController.h"
+
 //Quitar esto
 #import <QuartzCore/QuartzCore.h>
+#import "RMSoap.h"
+
+#import "RMServicioWS.h"
 
 @interface RMInmuebleArriendoViewController ()
 
 @property (nonatomic, strong) NSArray *imagesName;
 @property (nonatomic) BOOL bandera;
+@property (nonatomic, strong) RMServicioWS * servicioWS;
 
 @end
 
@@ -36,17 +42,30 @@
     return self;
 }
 
+-(void)loadView{
+    if (IS_IPHONE) {
+        self.view = [[NSBundle mainBundle] loadNibNamed:@"RMInmuebleArriendoViewController~iphone" owner:self options:nil][0];
+    }else{
+        self.view = [[NSBundle mainBundle] loadNibNamed:@"RMInmuebleArriendoViewController~ipad" owner:self options:nil][0];
+    }
+}
+
 //Sincronizamos modelo y vista
 -(void)viewDidAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
     self.splitFotos.delegate = self;
     self.splitFotos.scrollEnabled = YES;
-    self.splitFotos.contentSize = CGSizeMake(120,80);
+    //self.splitFotos.contentSize = CGSizeMake(120,80);
     self.bandera = NO;
-    [self syncModelWithView];
+    //[self syncModelWithView];
     //[self consumeImagesFromUrls:self.inmuebleArriendo.linksfotos];
     [self otracosa];
+    
+    //Verifico que existan las coordenadas del inmuebles
+    if (![self.inmuebleArriendo.coordenadas isEqualToString:SIN_INFORMACION]) {
+        self.btnMapa.enabled = YES;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,16 +86,20 @@
 }
 
 - (IBAction)formularioBtn:(id)sender {
-    
     RMFormularioTableViewController * formu = [[RMFormularioTableViewController alloc] initWithObject:self.inmuebleArriendo];
-    
     [self.navigationController pushViewController:formu animated:YES];
+}
+
+- (IBAction)puntuacionesBtn:(id)sender {
+    RMComentariosViewController* coment = [[RMComentariosViewController alloc]initWithInmueble:self.inmuebleArriendo style:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:coment animated:YES];
 }
 
 -(void)ShowOnViewTheImage: (UIImageView *) aImageView{
     
     //Creo una nueva vista donde irá la imagen
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(68, 102, 633, 722)];
+    //UIView *view = [[UIView alloc] initWithFrame:CGRectMake(68, 102, 633, 722)];
+    UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
     view.backgroundColor = [UIColor blackColor];
     
@@ -88,14 +111,14 @@
     
     //La imagen que ha sido seleccionada por el scrollview
     UIImageView * imageShow = [[UIImageView alloc ] initWithImage: aImageView.image] ;
-    imageShow.frame = CGRectMake(20, 200, 593, 348);
+    //imageShow.frame = CGRectMake(20, 200, 593, 348);
+    imageShow.frame = CGRectMake(20, 200, 270, 231);
     
     //Asigno los respectivos views
     [self.view addSubview:view];
     [view addSubview:imageShow];
 
 }
-
 
 
 #pragma mark - UIView Methods
@@ -130,6 +153,10 @@
 }
 
 #pragma mark - Utils
+-(void)appearance{
+    
+}
+
 -(void) syncModelWithView{
 //    self.nombreLB.text = self.inmuebleArriendo.nombredelbien;
 //    self.deptoLB.text = self.inmuebleArriendo.departamento;
@@ -139,6 +166,7 @@
 //    self.canonArLB.text = [NSString stringWithFormat:@"%d", self.inmuebleArriendo.canondearrendamiento];
 //    self.telefonoLB.text = self.inmuebleArriendo.contacto;
     self.descripcionTxtV.text = self.inmuebleArriendo.descripcion;
+    self.descripcionTxtV.font = [UIFont fontWithName:@"FuturaStd-Book" size:17];
 }
 
 -(void)consumeImagesFromUrls: (NSArray *) aArray{
@@ -176,7 +204,7 @@
 -(void)otracosa{
     int xOffset = 0;
     int scrollWidth = 120;
-    self.splitFotos.contentSize = CGSizeMake(scrollWidth,80);
+    //self.splitFotos.contentSize = CGSizeMake(scrollWidth,80);
     if ([self.inmuebleArriendo.linksfotos count] == 0) {
         AsyncImageView *imageView = [[AsyncImageView alloc] init];
         imageView.frame = CGRectMake(5+xOffset, 10, 320, 200);
@@ -184,47 +212,91 @@
         [self.inmuebleArriendo.fotos addObject:imageView];
         [self.splitFotos addSubview:imageView];
     }else{
-        for(int index=0; index < [self.inmuebleArriendo.linksfotos count]; index++)
-        {
-            //        UIImageView *img = [self.inmuebleArriendo.fotos objectAtIndex:index];
-            //        img.bounds = CGRectMake(30, 30, 80, 80);
-            //        img.frame = CGRectMake(5+xOffset, 10, 320, 200);
-            //        self.splitFotos.contentSize = CGSizeMake(scrollWidth+xOffset,110);
-            //        [self.splitFotos addSubview:img];
-            //        xOffset += 350;
-            
-            //get image view
-            AsyncImageView *imageView = [[AsyncImageView alloc] init];
-            imageView.frame = CGRectMake(5+xOffset, 10, 320, 200);
-            
-            //load the image
-            imageView.imageURL = [self.inmuebleArriendo.linksfotos objectAtIndex:index];
-
-            
-            [self.inmuebleArriendo.fotos addObject:imageView];
-            self.splitFotos.contentSize = CGSizeMake(scrollWidth+xOffset,110);
-            [self.splitFotos addSubview:imageView];
-            xOffset += 350;
+        if (IS_IPHONE) {
+            //Cargo los views especificos para iphone
+            [self viewsForSplitInfo];
+        }else{
+            for(int index=0; index < [self.inmuebleArriendo.linksfotos count]; index++)
+            {
+                //        UIImageView *img = [self.inmuebleArriendo.fotos objectAtIndex:index];
+                //        img.bounds = CGRectMake(30, 30, 80, 80);
+                //        img.frame = CGRectMake(5+xOffset, 10, 320, 200);
+                //        self.splitFotos.contentSize = CGSizeMake(scrollWidth+xOffset,110);
+                //        [self.splitFotos addSubview:img];
+                //        xOffset += 350;
+                
+                //get image view
+                AsyncImageView *imageView = [[AsyncImageView alloc] init];
+                imageView.frame = CGRectMake(5+xOffset, 10, 320, 200);
+                
+                //load the image
+                imageView.imageURL = [self.inmuebleArriendo.linksfotos objectAtIndex:index];
+                
+                
+                [self.inmuebleArriendo.fotos addObject:imageView];
+                self.splitFotos.contentSize = CGSizeMake(scrollWidth+xOffset,110);
+                [self.splitFotos addSubview:imageView];
+                xOffset += 350;
+            }
+            self.splitFotos.contentSize = CGSizeMake(self.splitFotos.contentSize.width + 205,110);
         }
     }
     
+}
+
+-(void) viewsForSplitInfo{
+    //HAbilitar que la animacion del scroll sea como cambiando de pagina
+    self.splitFotos.pagingEnabled = YES;
+    for(int index=0; index < [self.inmuebleArriendo.linksfotos count]; index++)
+    {
+        CGFloat xOrigin = index*self.splitFotos.frame.size.width;
+        AsyncImageView *imageView = [[AsyncImageView alloc] initWithFrame:CGRectMake(xOrigin + 10, 10, (self.splitFotos.frame.size.width - 20)/2, self.splitFotos.frame.size.height - 20)];
+        //load the image
+        imageView.imageURL = [self.inmuebleArriendo.linksfotos objectAtIndex:index];
+        [self.inmuebleArriendo.fotos addObject:imageView];
+        [self.splitFotos addSubview:imageView];
+    }
+    self.splitFotos.contentSize = CGSizeMake(self.splitFotos.frame.size.width * [self.inmuebleArriendo.fotos count],self.splitFotos.frame.size.height);
     
-//    for(int index=0; index < [self.imagesName count]; index++)
-//    {
-//        
-//        UIImageView *img = [[UIImageView alloc] init];
-//        img.bounds = CGRectMake(30, 30, 80, 80);
-//        img.frame = CGRectMake(5+xOffset, 10, 320, 200);
-//        NSLog(@"image: %@",[self.imagesName objectAtIndex:index]);
-//        img.image = [UIImage imageNamed:[self.imagesName objectAtIndex:index]];
-//        [self.inmuebleArriendo.fotos addObject:img];
-//        self.splitFotos.contentSize = CGSizeMake(scrollWidth+xOffset,110);
-//        [self.splitFotos addSubview:img];
-//        
-//        xOffset += 350;
-//    }
-    self.splitFotos.contentSize = CGSizeMake(self.splitFotos.contentSize.width + 205,110);
     
+    float tamanoTable = 600;
+    float mitadView = self.view.frame.size.width /2;
+    UITableView * all = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.splitInfo.frame.size.width, tamanoTable)];
+    all.dataSource = self;
+    [self.splitInfo addSubview:all];
+    
+    tamanoTable += 20;
+    //Creo los respectivos botones
+    UIButton * btnMapa = [UIButton buttonWithType:UIButtonTypeSystem];
+    btnMapa.frame = CGRectMake(mitadView, tamanoTable, 86, 30);
+    [btnMapa setTitle:@"Mapa" forState:UIControlStateNormal];
+    tamanoTable += 20 + btnMapa.frame.size.height;
+    [btnMapa setCenter:CGPointMake(mitadView, tamanoTable)];
+    
+    UIButton * btnForm = [UIButton buttonWithType:UIButtonTypeSystem];
+    btnForm.frame = CGRectMake(mitadView, tamanoTable, 83,  30);
+    [btnForm setTitle:@"Formulario" forState:UIControlStateNormal];
+    tamanoTable += 20 + btnForm.frame.size.height;
+    [btnForm setCenter:CGPointMake(mitadView, tamanoTable)];
+    
+    UIButton * btnPunt = [UIButton buttonWithType:UIButtonTypeSystem];
+    btnPunt.frame = CGRectMake(mitadView, tamanoTable, 110, 30);
+    [btnPunt setTitle:@"Puntuaciones" forState:UIControlStateNormal];
+    tamanoTable += 20 + btnPunt.frame.size.height;
+    [btnPunt setCenter:CGPointMake(mitadView, tamanoTable)];
+    
+    //Asigno las acciones:
+    [btnMapa addTarget:self action:@selector(mapaBtn:) forControlEvents: UIControlEventTouchUpInside];
+    [btnForm addTarget:self action:@selector(formularioBtn:) forControlEvents: UIControlEventTouchUpInside];
+    [btnPunt addTarget:self action:@selector(puntuacionesBtn:) forControlEvents: UIControlEventTouchUpInside];
+    
+    [self.splitInfo addSubview:btnMapa];
+    [self.splitInfo addSubview:btnForm];
+    [self.splitInfo addSubview:btnPunt];
+    self.btnMapa = btnMapa;
+    self.splitInfo.contentSize = CGSizeMake(self.splitInfo.frame.size.width, tamanoTable + 300);
+    
+    //self.splitInfo.contentSize = CGSizeMake(self.splitInfo.frame.size.width, 200);
 }
 
 #pragma mark - UITableView data source
@@ -267,9 +339,19 @@
         case 5:
             cell.textLabel.text = [NSString stringWithFormat:@"%d", self.inmuebleArriendo.canondearrendamiento];
             break;
+        case 6:
+            cell.textLabel.text = [NSString stringWithFormat:@"%@", self.inmuebleArriendo.contacto];
+            break;
+        case 7:
+            cell.textLabel.text = [NSString stringWithFormat:@"%@", self.inmuebleArriendo.foliodematriculainmobiliaria];
+            break;
+        case 8:
+            cell.textLabel.text = [NSString stringWithFormat:@"%@", self.inmuebleArriendo.areaconstruida];
+            break;
         default:
             break;
     }
+    cell.textLabel.font = [UIFont fontWithName:@"FuturaStd-FuturaStd-Heavy" size:17];
     return cell;
 }
 

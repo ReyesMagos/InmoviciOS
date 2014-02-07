@@ -24,20 +24,20 @@
     if (self = [super init]) {
         _partitionKey = [aDictionary objectForKey:@"PartitionKey"];
         _rowKey = [aDictionary objectForKey:@"RowKey"];
-        _departamento = [aDictionary objectForKey:@"departamento"];
-        _municipio = [aDictionary objectForKey:@"municipio"];
-        _tipodeinmueble = [aDictionary objectForKey:@"tipodeinmueble"];
-        _tipodebien = [aDictionary objectForKey:@"tipodebien"];
-        _usodelbien = [aDictionary objectForKey:@"usodelbien"];
-        _nombredelbien = [aDictionary objectForKey:@"nombredelbien"];
-        _foliodematriculainmobiliaria = [aDictionary objectForKey:@"foliodematriculainmobiliaria"];
-        _areadelterreno = [aDictionary objectForKey:@"areadelterreno"];
-        _areaconstruida = [aDictionary objectForKey:@"areaconstruida"];
-        _descripcion = [aDictionary objectForKey:@"descripcion"];
+        _departamento = [self completeIfIsNilNSString:[aDictionary objectForKey:@"departamento"]];
+        _municipio = [self completeIfIsNilNSString:[aDictionary objectForKey:@"municipio"]];
+        _tipodeinmueble = [self completeIfIsNilNSString:[aDictionary objectForKey:@"tipodeinmueble"]];
+        _tipodebien = [self completeIfIsNilNSString:[aDictionary objectForKey:@"tipodebien"]];
+        _usodelbien = [self completeIfIsNilNSString:[aDictionary objectForKey:@"usodelbien"]];
+        _nombredelbien = [self completeIfIsNilNSString:[aDictionary objectForKey:@"nombredelbien"]];
+        _foliodematriculainmobiliaria = [self completeIfIsNilNSString:[aDictionary objectForKey:@"foliodematriculainmobiliaria"]];
+        _areadelterreno = [self completeIfIsNilNSString:[aDictionary objectForKey:@"areadelterreno"]];
+        _areaconstruida = [self completeIfIsNilNSString:[aDictionary objectForKey:@"areaconstruida"]];
+        _descripcion = [self completeIfIsNilNSString:[aDictionary objectForKey:@"descripcion"]];
         _numerodebanos = [[aDictionary objectForKey:@"numerodebanos"] intValue];
         _numerodehabitaciones = [[aDictionary objectForKey:@"numerodehabitaciones"] intValue];
-        _coordenadas = [aDictionary objectForKey:@"coordenadas"];
-        _contacto = [aDictionary objectForKey:@"contacto"];
+        _coordenadas = [self completeIfIsNilNSString:[aDictionary objectForKey:@"coordenadas"]];
+        _contacto = [self completeIfIsNilNSString:[aDictionary objectForKey:@"contacto"]];
         _puntuaciondelinmueble = [[aDictionary objectForKey:@"puntuaciondelinmueble"] intValue];
         _canondearrendamiento = [[aDictionary objectForKey:@"canondearrendamiento"] intValue];
         _linksfotos = [self captureLinksFromDicctionary:aDictionary];
@@ -56,11 +56,21 @@
         [_atributosEnArray addObject:[aDictionary objectForKey:@"numerodebanos"]];
         [_atributosEnArray addObject:[aDictionary objectForKey:@"numerodehabitaciones"]];
         [_atributosEnArray addObject:[aDictionary objectForKey:@"canondearrendamiento"]];
+        [_atributosEnArray addObject:[aDictionary objectForKey:@"contacto"]];
+        [_atributosEnArray addObject:[aDictionary objectForKey:@"foliodematriculainmobiliaria"]];
+        [_atributosEnArray addObject:[aDictionary objectForKey:@"areaconstruida"]];
+        
         
         _atributos = TITLES_OF_ATTRIBUTES;
        
     }
     return self;
+}
+-(NSString*)completeIfIsNilNSString: (NSString*)aString{
+    if ([aString isEqualToString:@""]) {
+        return SIN_INFORMACION;
+    }
+    return aString;
 }
 //Capturo todos los links de las fotos del inmueble qué están en el diccionario
 -(NSArray*)captureLinksFromDicctionary: (NSDictionary *) aDictionary{
@@ -100,7 +110,7 @@
 }
 
 -(void)consumeFirstImage{
-    AsyncImageView *imageView = [[AsyncImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f)];
+    AsyncImageView *imageView = [[AsyncImageView alloc] init];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds = YES;
     
