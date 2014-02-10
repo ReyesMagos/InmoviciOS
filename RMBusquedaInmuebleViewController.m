@@ -30,9 +30,9 @@
         if (aCase == FOR_INMUEBLE) {
             self.title = @"Búsqueda";
             self.hayBien = NO;
-            self.parametrosBusqueda = @[@"Departamento:", @"Tipo de bien:", @"Tipo Inmueble:", @"Uso:", @"Baños:", @"Habitaciones:", @"Valor:"];
+            self.parametrosBusqueda = @[@"Departamento:", @"Municipio:", @"Tipo de bien:", @"Tipo Inmueble:", @"Uso:", @"Baños:", @"Habitaciones:", @"Valor:"];
         }else{
-            self.title = @"Búsqueda de Bienes en Venta";
+            self.title = @"Búsqueda";
             self.tituloLB.text = @"Búsqueda de Bienes en Venta";
             self.hayBien = YES;
             self.parametrosBusqueda = @[@"Tipo de Bien:", @"Ubicación:", @"Valor:"];
@@ -82,9 +82,16 @@
 -(void)appearance{
     if ([self.parametrosBusqueda count] == 3) {
         self.tituloLB.text = @"Búsqueda de Bienes";
+        self.parametrosTView.scrollEnabled = NO;
+        
     }else{
         self.tituloLB.text = @"Búsqueda de Inmuebles";
+        if (IS_IPHONE) {
+            [self viewsForSplitInfo];
+        }
+        
     }
+    [self.parametrosTView setTableFooterView:[UIView new]];
     self.tituloLB.font = [UIFont fontWithName:@"FuturaStd-Heavy" size:25];
     
 }
@@ -124,14 +131,19 @@
     static NSString *simpleTableIdentifier = @"SimpleTableItem";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    iOSCombobox *myCombo = [[iOSCombobox alloc] init];
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        
+
     }
     
     //cell.textLabel.text = [self.parametrosBusqueda objectAtIndex: indexPath.row];
 
-    iOSCombobox *myCombo = [[iOSCombobox alloc] init];
+    
     if (IS_IPHONE) {
         CGRect  myRect = CGRectMake(20, 10.0f, 250.f, 32.0f);
         [myCombo setFrame:myRect];
@@ -146,7 +158,7 @@
     myCombo.pickerView.tag = indexPath.section;
     
     if ([self.parametrosBusqueda count] == 3) {
-        switch (indexPath.row) {
+        switch (indexPath.section) {
             case 0:
                 [myCombo setValues:self.inmobiliaria.bnTiposdeBienes];
                 break;
@@ -165,21 +177,24 @@
                 [myCombo setValues:self.inmobiliaria.inDepartamentos];
                 break;
             case 1:
-                [myCombo setValues:self.inmobiliaria.inTiposdeBienes];
+                [myCombo setValues:self.inmobiliaria.inMunicipios];
                 break;
             case 2:
-                [myCombo setValues:self.inmobiliaria.inTiposInmuebles];
+                [myCombo setValues:self.inmobiliaria.inTiposdeBienes];
                 break;
             case 3:
-                [myCombo setValues:self.inmobiliaria.inUsos];
+                [myCombo setValues:self.inmobiliaria.inTiposInmuebles];
                 break;
             case 4:
-                [myCombo setValues:self.banosYHabitaciones];
+                [myCombo setValues:self.inmobiliaria.inUsos];
                 break;
             case 5:
                 [myCombo setValues:self.banosYHabitaciones];
                 break;
             case 6:
+                [myCombo setValues:self.banosYHabitaciones];
+                break;
+            case 7:
                 [myCombo setValues:self.inmobiliaria.inValor];
                 break;
                 
@@ -195,7 +210,7 @@
     
     
     [self.parametros addObject:myCombo];
-    [myCombo setCurrentValue:@"Seleccione"];
+    [myCombo setCurrentValue:@"-Seleccione"];
     [cell addSubview:myCombo];
 
     return cell;
@@ -259,11 +274,41 @@
     NSMutableArray * params = [[NSMutableArray alloc] init];
     for (iOSCombobox * oi in self.parametros) {
         NSString * entrada = oi.currentValue;
-        if (![entrada isEqualToString:@"Seleccione"]) {
+        if (![entrada isEqualToString:@"-Seleccione"]) {
             [params addObject:entrada];
         }
     }
     return [params copy];
+}
+
+#pragma mark - UIScrollView delegate
+-(void) viewsForSplitInfo{
+
+    float tamanoTable = 600;
+    UITableView * all = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.scrollViews.frame.size.width, tamanoTable)];
+    all.dataSource = self;
+    all.delegate = self;
+    [self.scrollViews addSubview:all];
+    all.scrollEnabled = NO;
+    
+    UIButton * btnEnviar = [UIButton buttonWithType:UIButtonTypeSystem];
+    btnEnviar.frame = CGRectMake(0, 0, 110, 30);
+    btnEnviar.center = CGPointMake(all.frame.size.width/2, tamanoTable);
+    [btnEnviar setTitle:@"Enviar" forState:UIControlStateNormal];
+    [self.scrollViews addSubview:btnEnviar];
+
+    //Asigno las acciones:
+    [btnEnviar addTarget:self action:@selector(searchInmueble:) forControlEvents: UIControlEventTouchUpInside];
+
+    self.scrollViews.contentSize = CGSizeMake(self.scrollViews.frame.size.width, tamanoTable+80);
+    
+}
+
+#pragma mark UIPickerViewDelegate methods
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    [[self view] endEditing:TRUE];
+    [pickerView removeFromSuperview];
 }
 
 @end

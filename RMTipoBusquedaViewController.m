@@ -14,6 +14,7 @@
 #import "RMInmuebleArriendoViewController.h"
 #import "RMBienEnVentaViewController.h"
 #import "RMCellDestacados.h"
+#import "Reachability.h"
 
 @interface RMTipoBusquedaViewController ()
 
@@ -31,7 +32,7 @@
     self = [super initWithStyle:style];
     if (self) {
         self.title = @"Tipo de Búsqueda";
-        [self.tableView setTableFooterView:[UIView new]];
+        
     }
     return self;
 }
@@ -39,7 +40,7 @@
 -(id)initWithInmueble:(NSArray *)aInmueble style:(UITableViewStyle)aStyle{
     if (self = [super initWithStyle:aStyle]) {
         _inmuebles = aInmueble;
-        self.title = @"Inmuebles Encontrados";
+        self.title = @"Encontrados";
     }
     return self;
 }
@@ -47,7 +48,7 @@
 -(id)initWithBien:(NSArray *)aBien style:(UITableViewStyle)aStyle{
     if (self = [super initWithStyle:aStyle]) {
         _bienes = aBien;
-        self.title = @"Bienes Encontrados";
+        self.title = @"Encontrados";
     }
     return self;
 }
@@ -66,6 +67,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.tableView setTableFooterView:[UIView new]];
     
 }
 
@@ -139,14 +141,31 @@
 
 
 #pragma mark - Table view delegate
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (IS_IPHONE) {
+        return 70;
+    }else{
+        return 80;
+    }
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!self.bienes && !self.inmuebles) {
-        RMBusquedaInmuebleViewController * busquedaInmuVC = [[RMBusquedaInmuebleViewController alloc]initWithCase:indexPath.row];
-        [self.navigationController pushViewController:busquedaInmuVC animated:YES];
+        if (![[Reachability reachabilityWithHostname:@"www.google.com"] isReachable]) {
+            UIAlertView * alerta = [[UIAlertView alloc] initWithTitle:@"No hay conexión a internet" message:@"Reanude la conexión a internet para continuar con está acción" delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles: nil];
+            [alerta show];
+            return;
+        }else{
+            RMBusquedaInmuebleViewController * busquedaInmuVC = [[RMBusquedaInmuebleViewController alloc]initWithCase:indexPath.row];
+            [self.navigationController pushViewController:busquedaInmuVC animated:YES];
+        }
+        
     }else if (!self.bienes){
         RMInmuebleArriendoViewController * inmuebleVC = [[RMInmuebleArriendoViewController alloc] initWithInmueble:[self.inmuebles objectAtIndex:indexPath.row]];
         [self.navigationController pushViewController:inmuebleVC animated:YES];
     }else{
+        
         RMBienEnVentaViewController * bienVC = [[RMBienEnVentaViewController alloc] initWithBienVenta:[self.bienes objectAtIndex:indexPath.row]];
         [self.navigationController pushViewController:bienVC animated:YES];
     }

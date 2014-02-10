@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class RMInmuebleArriendo;
 
-@interface RMInmuebleArriendoViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource>
+@interface RMInmuebleArriendoViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) RMInmuebleArriendo *inmuebleArriendo;
 
@@ -23,6 +23,7 @@
 - (IBAction)mapaBtn:(id)sender;
 - (IBAction)formularioBtn:(id)sender;
 - (IBAction)puntuacionesBtn:(id)sender;
+- (IBAction)compartirBtn:(id)sender;
 
 
 -(id)initWithInmueble:(RMInmuebleArriendo *) aInmueble;

@@ -48,7 +48,7 @@
         
         //Asigno los atributos que me interesan para búsquedas futuras
         [_atributosEnArray addObject:[aDictionary objectForKey:@"departamento"]];
-        [_atributosEnArray addObject:[aDictionary objectForKey:@"departamento"]];
+        [_atributosEnArray addObject:[aDictionary objectForKey:@"municipio"]];
         [_atributosEnArray addObject:[aDictionary objectForKey:@"tipodeinmueble"]];
         [_atributosEnArray addObject:[aDictionary objectForKey:@"tipodebien"]];
         [_atributosEnArray addObject:[aDictionary objectForKey:@"usodelbien"]];
@@ -97,7 +97,7 @@
     //[[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imageView];
     //Cargo la imagen para la portada
     if ([self.linksfotos count] == 0) {
-        imageView.image = [UIImage imageNamed: @"escenariodefecto.png"];
+        imageView.image = [UIImage imageNamed: @"logouariv.png"];
         //return [UIImage imageNamed: @"escenariodefecto.png"];
     }else{
         
@@ -116,7 +116,7 @@
     
     //Cargo la imagen para la portada
     if ([self.linksfotos count] == 0) {
-        imageView.image = [UIImage imageNamed: @"escenariodefecto.png"];
+        imageView.image = [UIImage imageNamed: @"logouariv.png"];
         //return [UIImage imageNamed: @"escenariodefecto.png"];
     }else{
         [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imageView];

@@ -283,6 +283,8 @@
     {
         [self.delegate comboboxChanged:self toValue:[self.values objectAtIndex:row]];
     }
+    [self endEditing:TRUE];
+    [self.pickerView removeFromSuperview];
 }
 
 /***********************************************************

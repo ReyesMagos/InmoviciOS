@@ -13,6 +13,7 @@
 #import "AsyncImageView.h"
 #import "RMFormularioTableViewController.h"
 #import "RMComentariosViewController.h"
+#import "Reachability.h"
 
 //Quitar esto
 #import <QuartzCore/QuartzCore.h>
@@ -58,13 +59,47 @@
     self.splitFotos.scrollEnabled = YES;
     //self.splitFotos.contentSize = CGSizeMake(120,80);
     self.bandera = NO;
-    //[self syncModelWithView];
+    
+    //Activo este view en NotificationCenter con el fin de saber cuando se desconecta de internet
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
+
+    
+    //Agrego un reconocedor al scroll para detectar cuando le han dado touch
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureCaptured:)];
+    [self.splitFotos addGestureRecognizer:singleTap];
+    
+    [self syncModelWithView];
+    
     //[self consumeImagesFromUrls:self.inmuebleArriendo.linksfotos];
-    [self otracosa];
+    [self ConsumeImages];
     
     //Verifico que existan las coordenadas del inmuebles
     if (![self.inmuebleArriendo.coordenadas isEqualToString:SIN_INFORMACION]) {
         self.btnMapa.enabled = YES;
+    }
+    
+    if (IS_IPHONE) {
+        //Cargo los views especificos para iphone
+        [self viewsForSplitInfo];
+    }
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    //Me doy de da baja en la recepción de notificaciones
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+//Este metodo se encarga de notificar a este view si hubo cambios en la conexión a internet
+- (void)reachabilityDidChange:(NSNotification *)notification {
+    Reachability *reachability = (Reachability *)[notification object];
+    if ([reachability isReachable]) {
+        NSLog(@"Conectado a internet2");
+        [self ConsumeImages];
+        
+    } else {
+        
+        NSLog(@"Sin conexión a internet2");
     }
 }
 
@@ -95,7 +130,26 @@
     [self.navigationController pushViewController:coment animated:YES];
 }
 
--(void)ShowOnViewTheImage: (UIImageView *) aImageView{
+
+- (IBAction)compartirBtn:(id)sender {
+    NSArray * coords = [[self.inmuebleArriendo nombredelbien] componentsSeparatedByString:@"."];
+    NSString * nombrecorto = [coords objectAtIndex:0];
+    NSString * info = [NSString stringWithFormat:@"Está en arriendo %@ en %@ con valor de %d -goo.gl/jQCf9c \n\nCompartido a tráves de Inmovic para iOS", nombrecorto , [self.inmuebleArriendo municipio], [self.inmuebleArriendo canondearrendamiento]];
+    
+    //Compruebo la versión del sistema iOS para ver como hábilito Compartir
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"6.0" options:NSNumericSearch] == NSOrderedAscending) {
+        UIAlertView * alerta = [[UIAlertView alloc] initWithTitle:@"Opción no disponible" message:@"Esta opción solo está disponbile para equipos con iOS 6.0 o superior." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles: nil];
+        [alerta show];
+        
+    }else{
+        NSArray * datos;
+        datos = @[info];
+        UIActivityViewController * actividadController = [[UIActivityViewController alloc] initWithActivityItems:datos applicationActivities:nil];
+        [self presentViewController:actividadController animated:YES completion:nil];
+    }
+}
+
+-(void)ShowOnViewTheImage: (UIImage*) aImageView{
     
     //Creo una nueva vista donde irá la imagen
     //UIView *view = [[UIView alloc] initWithFrame:CGRectMake(68, 102, 633, 722)];
@@ -109,48 +163,63 @@
     transition.type = kCATransitionReveal;
     [view.layer addAnimation:transition forKey:nil];
     
-    //La imagen que ha sido seleccionada por el scrollview
-    UIImageView * imageShow = [[UIImageView alloc ] initWithImage: aImageView.image] ;
-    //imageShow.frame = CGRectMake(20, 200, 593, 348);
-    imageShow.frame = CGRectMake(20, 200, 270, 231);
     
-    //Asigno los respectivos views
-    [self.view addSubview:view];
-    [view addSubview:imageShow];
+    AsyncImageView * imageShow = [[AsyncImageView alloc ] initWithImage: aImageView] ;
+    //Agrego una animación
+    [imageShow.layer addAnimation:transition forKey:nil];
+    
+    CGFloat ancho = self.view.frame.size.width;
+    CGFloat largo = self.view.frame.size.height;
+    CGFloat largoSplit = self.splitFotos.frame.size.height;
+    
+    imageShow.frame = CGRectMake(20, largoSplit + 10, ancho - 40 , largo - largoSplit - 20);
+    [self.view addSubview:imageShow];
 
+}
+
+- (void)singleTapGestureCaptured:(UITapGestureRecognizer *)gesture
+{
+    CGPoint touchPoint=[gesture locationInView:self.splitFotos];
+    
+    for(int index=0;index<[self.inmuebleArriendo.fotos count];index++)
+    {
+        UIImageView *imgView = [self.inmuebleArriendo.fotos objectAtIndex:index];
+        UIImage * imagen = imgView.image;
+        
+        if(CGRectContainsPoint([imgView frame], touchPoint))
+        {
+            
+            //Miro si la imagen que está ampliada es la misma a la que se le hizo touch
+            if (self.bandera && [(AsyncImageView*)[[self.view subviews] lastObject] image] == imagen) {
+                [[[self.view subviews] lastObject] removeFromSuperview];
+                self.bandera = NO;
+            }else{
+                if ([[self.view.subviews lastObject] isKindOfClass:[AsyncImageView class]]){
+                    [[[self.view subviews] lastObject] removeFromSuperview];
+                }
+                [self ShowOnViewTheImage:imagen];
+                self.bandera = YES;
+            }
+            return;
+        }else{
+            
+        }
+    }
 }
 
 
 #pragma mark - UIView Methods
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	UITouch * touch = [[event allTouches] anyObject];
-    
-//    for (UIImageView in self.inmuebleArriendo.fotos) {
-//        if (CGRectContainsPoint([imgView frame], [touch locationInView:scrollView])) {
-//            
-//        }
-//    }
     if (self.bandera) {
         self.bandera = NO;
         [[[self.view subviews] lastObject] removeFromSuperview];
         return;
     }
-    
-    for(int index=0;index<[self.inmuebleArriendo.fotos count];index++)
-    {
-        UIImageView *imgView = [self.inmuebleArriendo.fotos objectAtIndex:index];
-        
-        if(CGRectContainsPoint([imgView frame], [touch locationInView:self.splitFotos]))
-        {
-            [self ShowOnViewTheImage:imgView];
-            self.bandera = YES;
-            NSLog(@"foto: %d", index);
-            break;
-        }
-    }
 
 }
+
+
 
 #pragma mark - Utils
 -(void)appearance{
@@ -158,63 +227,48 @@
 }
 
 -(void) syncModelWithView{
-//    self.nombreLB.text = self.inmuebleArriendo.nombredelbien;
-//    self.deptoLB.text = self.inmuebleArriendo.departamento;
-//    self.municipioLB.text = self.inmuebleArriendo.municipio;
-//    self.nroBanosLB.text = [NSString stringWithFormat:@"%d", self.inmuebleArriendo.numerodebanos];
-//    self.nroPiezasLB.text = [NSString stringWithFormat:@"%d", self.inmuebleArriendo.numerodehabitaciones];
-//    self.canonArLB.text = [NSString stringWithFormat:@"%d", self.inmuebleArriendo.canondearrendamiento];
-//    self.telefonoLB.text = self.inmuebleArriendo.contacto;
     self.descripcionTxtV.text = self.inmuebleArriendo.descripcion;
-    self.descripcionTxtV.font = [UIFont fontWithName:@"FuturaStd-Book" size:17];
+    self.descripcionTxtV.font = [UIFont fontWithName:@"FuturaStd-Book" size:20];
 }
 
--(void)consumeImagesFromUrls: (NSArray *) aArray{
-    
-    // Obtenemos la cola de segundo plano
-    dispatch_queue_t backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
-    
-    //Llamo a un segundo hilo de ejecución en background
-    dispatch_async(backgroundQueue, ^{
-        for (NSURL * urlFoto in aArray) {
-            NSData * datosFoto = [NSData dataWithContentsOfURL: urlFoto];
-            UIImage * foto = [[ UIImage alloc] initWithData:datosFoto];
-            
-            UIImageView * fotoenView = [[UIImageView alloc] initWithImage:foto];
-            [self.inmuebleArriendo.fotos addObject:fotoenView];
-            NSLog(@"consumi %@", urlFoto);
-            //Vuelvo a llamar al hilo principal
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //[self.splitFotos addSubview:fotoenView];
-            });
-        };
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //[self.splitFotos addSubview:fotoenView];
-            [self otracosa];
-        });
-        
-    });
-}
 
--(void) otroConsumo: (NSArray * ) aArray{
-
-}
-
--(void)otracosa{
+-(void)ConsumeImages{
     int xOffset = 0;
     int scrollWidth = 120;
-    //self.splitFotos.contentSize = CGSizeMake(scrollWidth,80);
-    if ([self.inmuebleArriendo.linksfotos count] == 0) {
-        AsyncImageView *imageView = [[AsyncImageView alloc] init];
-        imageView.frame = CGRectMake(5+xOffset, 10, 320, 200);
-        imageView.image = [UIImage imageNamed: @"escenariodefecto.png"];
-        [self.inmuebleArriendo.fotos addObject:imageView];
-        [self.splitFotos addSubview:imageView];
+
+    if (IS_IPHONE) {
+        //HAbilitar que la animacion del scroll sea como cambiando de pagina
+        self.splitFotos.pagingEnabled = YES;
+        self.splitFotos.delegate = self;
+        
+        if ([self.inmuebleArriendo.linksfotos count] == 0 || ![[Reachability reachabilityForInternetConnection] isReachable]) {
+            AsyncImageView *imageView = [[AsyncImageView alloc] initWithFrame:CGRectMake(65, 10, (self.splitFotos.frame.size.width - 20)/1.5, self.splitFotos.frame.size.height - 20)];
+            
+            imageView.image = [UIImage imageNamed: @"logouariv.png"];
+            [self.inmuebleArriendo.fotos addObject:imageView];
+            [self.splitFotos addSubview:imageView];
+            
+        }else{
+            for(int index=0; index < [self.inmuebleArriendo.linksfotos count]; index++)
+            {
+                CGFloat xOrigin = index*self.splitFotos.frame.size.width;
+                AsyncImageView *imageView = [[AsyncImageView alloc] initWithFrame:CGRectMake(xOrigin + 65, 10, (self.splitFotos.frame.size.width - 20)/1.5, self.splitFotos.frame.size.height - 20)];
+                //load the image
+                imageView.imageURL = [self.inmuebleArriendo.linksfotos objectAtIndex:index];
+                
+                [self.inmuebleArriendo.fotos addObject:imageView];
+                [self.splitFotos addSubview:imageView];
+            }
+        }
+        
+        self.splitFotos.contentSize = CGSizeMake(self.splitFotos.frame.size.width * [self.inmuebleArriendo.fotos count],self.splitFotos.frame.size.height);
+        
     }else{
-        if (IS_IPHONE) {
-            //Cargo los views especificos para iphone
-            [self viewsForSplitInfo];
+        if ([self.inmuebleArriendo.linksfotos count] == 0 || ![[Reachability reachabilityForInternetConnection] isReachable]) {
+            AsyncImageView *imageView = [[AsyncImageView alloc] initWithFrame:CGRectMake(65, 10, (self.splitFotos.frame.size.width - 20)/1.5, self.splitFotos.frame.size.height - 20)];
+            imageView.image = [UIImage imageNamed: @"logouariv.png"];
+            [self.inmuebleArriendo.fotos addObject:imageView];
+            [self.splitFotos addSubview:imageView];
         }else{
             for(int index=0; index < [self.inmuebleArriendo.linksfotos count]; index++)
             {
@@ -238,68 +292,83 @@
                 [self.splitFotos addSubview:imageView];
                 xOffset += 350;
             }
-            self.splitFotos.contentSize = CGSizeMake(self.splitFotos.contentSize.width + 205,110);
         }
+        self.splitFotos.contentSize = CGSizeMake(self.splitFotos.contentSize.width + 205,110);
     }
-    
 }
 
 -(void) viewsForSplitInfo{
-    //HAbilitar que la animacion del scroll sea como cambiando de pagina
-    self.splitFotos.pagingEnabled = YES;
-    for(int index=0; index < [self.inmuebleArriendo.linksfotos count]; index++)
-    {
-        CGFloat xOrigin = index*self.splitFotos.frame.size.width;
-        AsyncImageView *imageView = [[AsyncImageView alloc] initWithFrame:CGRectMake(xOrigin + 10, 10, (self.splitFotos.frame.size.width - 20)/2, self.splitFotos.frame.size.height - 20)];
-        //load the image
-        imageView.imageURL = [self.inmuebleArriendo.linksfotos objectAtIndex:index];
-        [self.inmuebleArriendo.fotos addObject:imageView];
-        [self.splitFotos addSubview:imageView];
-    }
-    self.splitFotos.contentSize = CGSizeMake(self.splitFotos.frame.size.width * [self.inmuebleArriendo.fotos count],self.splitFotos.frame.size.height);
     
     
-    float tamanoTable = 600;
+    
+    self.splitFotos.userInteractionEnabled = YES;
+    
+    float tamanoTable = 700;
     float mitadView = self.view.frame.size.width /2;
     UITableView * all = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.splitInfo.frame.size.width, tamanoTable)];
     all.dataSource = self;
+    all.delegate = self;
     [self.splitInfo addSubview:all];
+    all.scrollEnabled = NO;
     
-    tamanoTable += 20;
+    UITextView * txt = [[UITextView alloc] initWithFrame:CGRectMake(0, 10, all.frame.size.width, 100)];
+    txt.font = [UIFont fontWithName:@"FuturaStd-Book" size:15];
+    txt.editable = NO;
+    txt.text = self.inmuebleArriendo.descripcion;
+    
+    [all setTableFooterView:txt];
+    
+    
+    tamanoTable += 5;
     //Creo los respectivos botones
     UIButton * btnMapa = [UIButton buttonWithType:UIButtonTypeSystem];
-    btnMapa.frame = CGRectMake(mitadView, tamanoTable, 86, 30);
+    btnMapa.frame = CGRectMake(mitadView/4, tamanoTable, 110, 30);
     [btnMapa setTitle:@"Mapa" forState:UIControlStateNormal];
-    tamanoTable += 20 + btnMapa.frame.size.height;
-    [btnMapa setCenter:CGPointMake(mitadView, tamanoTable)];
     
     UIButton * btnForm = [UIButton buttonWithType:UIButtonTypeSystem];
-    btnForm.frame = CGRectMake(mitadView, tamanoTable, 83,  30);
+    btnForm.frame = CGRectMake(mitadView, tamanoTable, 110,  30);
     [btnForm setTitle:@"Formulario" forState:UIControlStateNormal];
-    tamanoTable += 20 + btnForm.frame.size.height;
-    [btnForm setCenter:CGPointMake(mitadView, tamanoTable)];
+    tamanoTable += 10 + btnForm.frame.size.height;
     
     UIButton * btnPunt = [UIButton buttonWithType:UIButtonTypeSystem];
-    btnPunt.frame = CGRectMake(mitadView, tamanoTable, 110, 30);
+    btnPunt.frame = CGRectMake(mitadView/4, tamanoTable, 110, 30);
     [btnPunt setTitle:@"Puntuaciones" forState:UIControlStateNormal];
-    tamanoTable += 20 + btnPunt.frame.size.height;
-    [btnPunt setCenter:CGPointMake(mitadView, tamanoTable)];
+    
+    UIButton * btnCompartir = [UIButton buttonWithType:UIButtonTypeSystem];
+    btnCompartir.frame = CGRectMake(mitadView, tamanoTable, 110, 30);
+    [btnCompartir setTitle:@"Compartir" forState:UIControlStateNormal];
+    
+    tamanoTable += 10 + btnPunt.frame.size.height;
     
     //Asigno las acciones:
     [btnMapa addTarget:self action:@selector(mapaBtn:) forControlEvents: UIControlEventTouchUpInside];
     [btnForm addTarget:self action:@selector(formularioBtn:) forControlEvents: UIControlEventTouchUpInside];
     [btnPunt addTarget:self action:@selector(puntuacionesBtn:) forControlEvents: UIControlEventTouchUpInside];
+    [btnCompartir addTarget:self action:@selector(compartirBtn:) forControlEvents: UIControlEventTouchUpInside];
     
     [self.splitInfo addSubview:btnMapa];
     [self.splitInfo addSubview:btnForm];
     [self.splitInfo addSubview:btnPunt];
-    self.btnMapa = btnMapa;
-    self.splitInfo.contentSize = CGSizeMake(self.splitInfo.frame.size.width, tamanoTable + 300);
-    
-    //self.splitInfo.contentSize = CGSizeMake(self.splitInfo.frame.size.width, 200);
+    [self.splitInfo addSubview:btnCompartir];
+    self.splitInfo.contentSize = CGSizeMake(self.splitInfo.frame.size.width, tamanoTable + 170);
+
+}
+
+#pragma mark - UITableView delegate
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    UIView * header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.descripcionTxtV.bounds.size.width, 30)];
+//    [header setBackgroundColor:[UIColor redColor]];
+//    return header;
+//}
+
+//Color del table
+-(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
+    //view.tintColor = [UIColor colorWithRed:0.695 green:0.000 blue:0.112 alpha:1.000];
 }
 
 #pragma mark - UITableView data source
+
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return [self.inmuebleArriendo.atributos count];
 }

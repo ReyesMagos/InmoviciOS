@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) NSMutableArray * parametrosBusqueda;
 @property (nonatomic, strong) NSMutableArray * inDepartamentos;
+@property (nonatomic, strong) NSMutableArray * inMunicipios;
 @property (nonatomic, strong) NSMutableArray * inTiposdeBienes;
 @property (nonatomic, strong) NSMutableArray * inTiposInmuebles;
 @property (nonatomic, strong) NSMutableArray * inUsos;
@@ -31,10 +32,13 @@
 +(RMInmobiliariaModel *) sharedManager;
 
 -(RMInmuebleArriendo *) inmuebleArriendoAtIndex: (int) index;
+-(RMInmuebleArriendo *) inmuebleAleatorioArriendoAtIndex: (int) index;
 
 -(NSArray *) inmueblesArray;
 -(NSArray *) bienesArray;
+-(NSArray *) inArriAleatorioArray;
 
+-(void) generateRandomInmueblesInit: (int) ini;
 -(RMBienVenta *) bienVentaAtIndex: (int) index;
 -(void)consumeBienesVenta;
 

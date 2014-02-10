@@ -1,33 +1,31 @@
 //
-//  RMCellDestacados.m
+//  RMCellDestacadosIphone.m
 //  Inmovic
 //
-//  Created by imaclis on 1/02/14.
+//  Created by Felipe on 8/02/14.
 //  Copyright (c) 2014 Felipe. All rights reserved.
 //
 
-#import "RMCellDestacados.h"
+#import "RMCellDestacadosIphone.h"
 
-@implementation RMCellDestacados
+@implementation RMCellDestacadosIphone
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
+        // Initialization code
     }
     return self;
 }
-
-
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
-    self.areaLB.font = [UIFont fontWithName:@"FuturaStd-Heavy" size:19];
-    self.nombreLB.font = [UIFont fontWithName:@"FuturaStd-Book" size:20];
-    self.valorLB.font = self.ubicacionLB.font = [UIFont fontWithName:@"FuturaLight" size:18];
+    self.areaLB.font = [UIFont fontWithName:@"FuturaStd-Heavy" size:17];
+    self.nombreLB.font = [UIFont fontWithName:@"FuturaStd-Book" size:16];
+    self.valorLB.font = self.ubicacionLB.font = [UIFont fontWithName:@"FuturaLight" size:15];
 }
 
 

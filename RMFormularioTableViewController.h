@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 @class RMBienVenta;
 @class RMInmuebleArriendo;
 
-@interface RMFormularioTableViewController : UITableViewController <UITextFieldDelegate >
+@interface RMFormularioTableViewController : UITableViewController <UITextFieldDelegate,  MFMailComposeViewControllerDelegate>
 
 -(id)initWithObject:(id) aObject;
 

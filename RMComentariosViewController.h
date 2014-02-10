@@ -12,7 +12,7 @@
 @class RMInmuebleArriendo;
 
 
-@interface RMComentariosViewController : UITableViewController <RSTapRateViewDelegate>
+@interface RMComentariosViewController : UITableViewController <RSTapRateViewDelegate, UITextViewDelegate>
 
 
 -(id)initWithInmueble: (RMInmuebleArriendo *) aInmueble style: (UITableViewStyle) aStyle;

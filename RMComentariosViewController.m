@@ -20,7 +20,7 @@
 @property (nonatomic, strong) RMServicioWS * servicioWS;
 @property (nonatomic, strong) NSArray * seccionesTable;
 @property (nonatomic, strong) NSMutableArray * filasSeccionAgregar;
-
+@property (nonatomic, strong) UIToolbar * numberToolbar;
 @property (nonatomic, strong) NSArray * viewsAgregar;
 @end
 
@@ -44,17 +44,25 @@
     [super viewDidAppear:animated];
     //[self.tableView setTableFooterView:[UIView new]];
     
-    self.filasSeccionAgregar = [[NSMutableArray alloc] initWithObjects:@"Agregar una puntacion y comentario", nil];
+    self.filasSeccionAgregar = [[NSMutableArray alloc] initWithObjects:@"Agregar puntación y comentario", nil];
     self.viewsAgregar = [self creteViewsForAddSection];
-    //self.puntuaciones = [[NSArray alloc]init];
     
     //Doy de alta la recepción de notificaciones
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(reloadDataTableView) name: CONSUMI_PUNTUACIONES object:nil];
     [center addObserver:self selector:@selector(showMessageEnvioPuntuacion:) name:ENVIE_PUNTUACION object:nil];
     
-    [self.servicioWS searhPuntuacionesWithId:@"ID2"];
-    //[self.servicioWS searhPuntuacionesWithId:[self.inmueble partitionKey]];
+    //[self.servicioWS searhPuntuacionesWithId:@"ID2"];
+    [self.servicioWS searhPuntuacionesWithId:[self.inmueble partitionKey]];
+    
+    //Toobar para el teclado que sale al ingresar un comentario
+    self.numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    self.numberToolbar.barStyle = UIBarStyleBlackTranslucent;
+    self.numberToolbar.items = [NSArray arrayWithObjects:
+                                [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                                [[UIBarButtonItem alloc]initWithTitle:@"OK" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad:)],
+                                nil];
+    [self.numberToolbar sizeToFit];
     
 }
 
@@ -63,6 +71,10 @@
     
     //Me doy de da baja en la recepción de notificaciones
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(IBAction)doneWithNumberPad: (id) sender{
+    [[self view] endEditing:TRUE];
 }
 
 //Una vez que se consumieron las puntuaciones desde WS se actualiza el UITableView
@@ -122,30 +134,32 @@
         }
         NSInteger fila = indexPath.row;
         if (fila == 0) {
-            //UITextView * comentarTxtV =[self.filasSeccionAgregar objectAtIndex:fila];
+            
             cell.textLabel.text = [self.filasSeccionAgregar objectAtIndex:fila];
             cell.textLabel.textAlignment = UITextAlignmentCenter;
-//            UITextView * comentarTxtV = [[UITextView alloc] initWithFrame:CGRectMake(cell.frame.size.width, 10.0f, 250.f, 32.0f)];
-//            comentarTxtV.tag = 20;
-//            comentarTxtV.text = @"dd";
-//            [cell.contentView addSubview:comentarTxtV];
-//            comentarTxtV.layer.borderWidth = 1;
-//            comentarTxtV.layer.borderColor = [[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.9] CGColor];
-//            comentarTxtV.layer.cornerRadius = 10;
-//            comentarTxtV.font = [UIFont fontWithName:@"FuturaStd-Book" size:17];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            
         }else if (fila == 2){
-            [cell addSubview: [self.filasSeccionAgregar objectAtIndex:fila]];
-//            RSTapRateView * estrellas = [[RSTapRateView alloc] initWithFrame:CGRectMake(70.0f, 10.0f, 250.f, 32.0f)];
-//            [cell addSubview:estrellas];
-        }else if (fila == 1){
-            [cell addSubview:[self.filasSeccionAgregar objectAtIndex:fila]];
+            UITextView * comentarTxtV = [self.filasSeccionAgregar objectAtIndex:fila];
+            comentarTxtV.center = CGPointMake(self.view.frame.size.width/2, comentarTxtV.frame.size.height - 10);
+            [cell addSubview: comentarTxtV];
             UIView * eliminarLinea = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 1)];
             eliminarLinea.backgroundColor = [UIColor clearColor];
             [cell addSubview:eliminarLinea];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            comentarTxtV.inputAccessoryView = self.numberToolbar;
+        }else if (fila == 1){
+            RSTapRateView * strs = [self.filasSeccionAgregar objectAtIndex:fila];
+            strs.center = CGPointMake(self.view.frame.size.width/2, strs.frame.size.height - 10);
+            [cell addSubview: strs];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
             
         }else if (fila == 3){
             cell.textLabel.text = [self.filasSeccionAgregar objectAtIndex:fila];
             cell.textLabel.textAlignment = UITextAlignmentCenter;
+            
         }
         
     }else if (indexPath.section == 0){
@@ -153,12 +167,6 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
-//        if ([[self.puntuaciones objectAtIndex:0] isEqualToString:@"No hay"] ) {
-//            cell.textLabel.text = @"No hay comentarios para este inmueble";
-//        }else{
-//            RMPuntuacionWS* punt = [self.puntuaciones objectAtIndex:indexPath.row];
-//            cell.textLabel.text = punt.comentarioWS;
-//        }
         
         if (!self.puntuaciones) {
             cell.textLabel.text = @"Buscando comentarios...";
@@ -187,15 +195,16 @@
 
 -(NSArray *)creteViewsForAddSection{
     //Creo el textview
-    UITextView * comentarTxtV = [[UITextView alloc] initWithFrame:CGRectMake(100.0f, 10.0f, 250.f, 32.0f)];
+    UITextView * comentarTxtV = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width /1.5, 32.0f)];
     comentarTxtV.tag = 20;
+    comentarTxtV.text = nil;
     comentarTxtV.layer.borderWidth = 1;
     comentarTxtV.layer.borderColor = [[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.9] CGColor];
     comentarTxtV.layer.cornerRadius = 10;
     comentarTxtV.font = [UIFont fontWithName:@"FuturaStd-Book" size:17];
     
     //Creo el view de las estrellas
-    RSTapRateView * estrellas = [[RSTapRateView alloc] initWithFrame:CGRectMake(70.0f, 10.0f, 250.f, 32.0f)];
+    RSTapRateView * estrellas = [[RSTapRateView alloc] initWithFrame:CGRectMake(0, 0, 250.f, 32.0f)];
     
     //Titulo de la celda de enviar
     NSString* text = @"Agregar";
@@ -217,76 +226,25 @@
         }else if (indexPath.row == 3){
             RSTapRateView * estrellas = [self.viewsAgregar objectAtIndex:0];
             UITextView * txt = [self.viewsAgregar objectAtIndex:1];
-            //[self prepareForSendPuntuacionWithId:self.inmueble.partitionKey puntuacion:estrellas.rating comentario:txt.text];
-            [self prepareForSendPuntuacionWithId:@"ID2" puntuacion:estrellas.rating comentario:txt.text];
+            [self prepareForSendPuntuacionWithId:self.inmueble.partitionKey puntuacion:estrellas.rating comentario:txt.text];
+            //[self prepareForSendPuntuacionWithId:@"ID2" puntuacion:estrellas.rating comentario:txt.text];
         }
     }
 }
 
 -(void)prepareForSendPuntuacionWithId: (NSString *) aId puntuacion : (int) aPunt comentario : (NSString *) aComent{
-    if (!aId || !aPunt || !aComent ) {
-        UIAlertView * alerta = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Por favor ingrese tanto comentario como puntuación" delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil];
+    
+    //Preparo la expresion regular
+    NSError * error = nil;
+    NSRegularExpression * regex = [NSRegularExpression regularExpressionWithPattern:@"[a-zA-z0-9.]+" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSInteger countMatches = [regex numberOfMatchesInString:aComent options:0 range:NSMakeRange(0, [aComent length])];
+    
+    if (!aId || !aPunt || !aComent || ![aComent length] || countMatches == 0) {
+        UIAlertView * alerta = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Tiene que ingresar tanto el comentario como la puntuación" delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil];
         [alerta show];
         return;
     }
     [self.servicioWS sendPuntuacion:aId puntuacion:aPunt comentario:aComent];
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Table view delegate
-
-// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-
-    // Pass the selected object to the new view controller.
-    
-    // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
-}
- 
- */
 
 @end

@@ -9,6 +9,7 @@
 #import "RMAppDelegate.h"
 #import "RMDestacadosTableViewController.h"
 #import "RMInmobiliariaModel.h"
+#import "Reachability.h"
 
 @implementation RMAppDelegate
 
@@ -16,7 +17,10 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    //Creo el modelo inmobiliaria que tendrá los bienes e inmuebles
+    //Creo la conectividad
+    Reachability *reachability = [Reachability reachabilityWithHostname:@"www.google.com"];
+    // Empiezo monitoreo de conexión
+    [reachability startNotifier];
     
     //RMInmobiliariaModel * inmobiliaria = [[RMInmobiliariaModel alloc] init];
     RMInmobiliariaModel * inmobiliaria = [RMInmobiliariaModel sharedManager];
@@ -25,17 +29,19 @@
     RMDestacadosTableViewController * destacadosVC = [[RMDestacadosTableViewController alloc]initWithInmobiliaria:inmobiliaria
                                                                                                             style:UITableViewStylePlain];
     
-    UIViewController * dd = nil;
-    
-    if (!IS_IPHONE) {
-        //Tablet
-        
-    }else{
-        
+    //El siguiente código es para mostrar el mensaje sólo la primera vez que la aplicación es ejecutada
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"PrimeraCargada"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"PrimeraCargada"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        UIAlertView * alerta = [[UIAlertView alloc] initWithTitle:@"Politica de Privacidad" message:@"Con esta aplicación se quiere crear condiciones de prosperidad en la población vulnerable, contribuir a la reconciliación de los colombianos y promover la integración regional.\n\nTodos los inmuebles aquí mostrados pertenecen al Gobierno de la República de Colombia, e integran a la Unidad para la Atención y Reparación Integral a las Víctimas." delegate:destacadosVC cancelButtonTitle:@"Comprendo" otherButtonTitles: nil];
+        [alerta show];
     }
+    
     
     //Creo el navigation controller de la aplicación
     UINavigationController *inmobiliarioNVC = [[UINavigationController alloc] initWithRootViewController:destacadosVC];
+    [self setAppearanceNav:inmobiliarioNVC];
+    
     
     //Asigno el navigation controller como controlador raíz
     self.window.rootViewController = inmobiliarioNVC;
@@ -70,6 +76,32 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void) setAppearanceNav : (UINavigationController*) nav{
+    //Cambio el color del navigation var
+    NSArray * ver = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
+    if ([[ver objectAtIndex:0] intValue] >= 7) {
+        nav.navigationBar.barTintColor = [UIColor colorWithRed:0.695 green:0.000 blue:0.112 alpha:1.000];
+        nav.navigationBar.translucent = NO;
+        //Cambio el color de los botones del nav a blanco
+        nav.navigationBar.tintColor = [UIColor whiteColor];
+        //Cambio el color del title del nav
+        //inmobiliarioNVC.navigationBar.titleTextAttributes = @{UITextAttributeTextColor: [UIColor whiteColor]};
+        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"FuturaStd-Heavy" size:20], NSFontAttributeName, [UIColor whiteColor], NSForegroundColorAttributeName, nil];
+        
+        [[UINavigationBar appearance] setTitleTextAttributes:attributes];
+        
+        
+    }else{
+        
+        nav.navigationBar.tintColor = [UIColor colorWithRed:0.695 green:0.000 blue:0.112 alpha:1.000];
+    }
+    
+//    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"FuturaStd-Book" size:15], NSFontAttributeName, [UIColor whiteColor], NSForegroundColorAttributeName, nil];
+//    [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    
+    
 }
 
 @end

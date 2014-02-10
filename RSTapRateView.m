@@ -106,7 +106,7 @@ static const CGFloat    kDefaultReflectionOpacity = 0.30;
     [self addSubview:_fiveStarReflectionView];
     
     //Asigna el color del fondo
-    self.backgroundColor = [UIColor colorWithHue:0.611 saturation:0.026 brightness:0.922 alpha:1.];
+    //self.backgroundColor = [UIColor colorWithHue:0.611 saturation:0.026 brightness:0.922 alpha:1.];
     
   }
   return self;

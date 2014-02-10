@@ -13,9 +13,14 @@
 #import "AsyncImageView.h"
 #import "RMTipoBusquedaViewController.h"
 #import "RMCellDestacados.h"
+#import "RMCellDestacadosIphone.h"
+#import "Reachability.h"
+#import "RMAcercaDeViewController.h"
 
 @interface RMDestacadosTableViewController ()
-
+@property (nonatomic, strong) RMInmuebleArriendo * elSeleccionado;
+@property (nonatomic, strong) UIBarButtonItem * btnBuscar;
+@property (nonatomic, strong) UIBarButtonItem * btnAcercade;
 @end
 
 @implementation RMDestacadosTableViewController
@@ -25,6 +30,11 @@
     if (self = [super initWithStyle:aStyle]) {
         _inmobiliaria = aInmobiliaria;
         self.title = @"Destacados";
+        _btnBuscar = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self
+                                                                  action:@selector(btnReloadPressed:)];
+        _btnAcercade = [[UIBarButtonItem alloc]initWithTitle:@"Acerca de" style:UIBarButtonItemStyleDone target:self
+                                                                  action:@selector(goToAbout:)];
+        
     }
     return self;
 }
@@ -32,14 +42,14 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    //Agrego el color que tendrá el navigation controller
     
-    //self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:195/255.0 green:4 blue:44/255.0 alpha:0];
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.695 green:0.000 blue:0.112 alpha:1.000];
+    //Activo este view en NotificationCenter con el fin de saber cuando se desconecta de internet
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
     
-    UIBarButtonItem *btnReload = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(btnReloadPressed:)];
-    self.navigationController.topViewController.navigationItem.rightBarButtonItem = btnReload;
-    btnReload.enabled=TRUE;
+    [self.tableView setTableFooterView:[UIView new]];
+    
+    self.navigationController.topViewController.navigationItem.rightBarButtonItem = self.btnBuscar;
+    self.navigationController.topViewController.navigationItem.leftBarButtonItem = self.btnAcercade;
     //btnReload.style=UIBarButtonSystemItemRefresh;
     
     //Esto refresca el tableview. Especial para cuando se regresa de la vista de una búsqueda.
@@ -47,6 +57,29 @@
     
     
 }
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    //Me doy de da baja en la recepción de notificaciones
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+//Este metodo se encarga de notificar a este view si hubo cambios en la conexión a internet
+- (void)reachabilityDidChange:(NSNotification *)notification {
+    Reachability *reachability = (Reachability *)[notification object];
+    if ([reachability isReachable] && !self.inmobiliaria.inmueblesArray) {
+        NSLog(@"Conectado a internet");
+        self.inmobiliaria = [[RMInmobiliariaModel alloc] init];
+        self.btnBuscar.enabled = YES;
+        [self.tableView reloadData];
+    } else if(![reachability isReachable]) {
+        UIAlertView * alerta = [[UIAlertView alloc] initWithTitle:@"No hay conexión a internet" message:@"No se ha establecido la conexión a Internet\n\n Algunas funcionalidades no estarán disponbiles hasta que reanuda la conexión" delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles: nil];
+        [alerta show];
+        self.btnBuscar.enabled = NO;
+        NSLog(@"Sin conexión a internet");
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -64,7 +97,11 @@
 {
     if (section == INMUEBLES_ARRIENDO_SECTION) {
         //return self.inmobiliaria.inmuebleArriendoCount;
-        return 5;
+        if (self.inmobiliaria.inArriAleatorioArray) {
+            return 5;
+        }else{
+            return 1;
+        }
     }else{
         return self.inmobiliaria.bienVentaCount;
     }
@@ -76,39 +113,33 @@
     static NSString * CellIdentifier = @"CellDestacados";
     #define IMAGE_VIEW_TAG 99
     
-    RMCellDestacados* cell = (RMCellDestacados*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    RMCellDestacadosIphone* cell = (RMCellDestacadosIphone*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     
     //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[NSBundle mainBundle] loadNibNamed:@"RMCellDestacados~ipad" owner:self options:nil][0];
-//        if (IS_IPHONE) {
-//            cell = [[NSBundle mainBundle] loadNibNamed:@"RMCellDestacados~iphone" owner:self options:nil][0];
-//        }else{
-//            cell = [[NSBundle mainBundle] loadNibNamed:@"RMCellDestacados~ipad" owner:self options:nil][0];
-//        }
-        
-        
-        //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        //add AsyncImageView to cell
-		//AsyncImageView *imageView = [[AsyncImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f)];
-		//imageView.contentMode = UIViewContentModeScaleAspectFill;
-		//imageView.clipsToBounds = YES;
-		//imageView.tag = IMAGE_VIEW_TAG;
-		//[cell addSubview:imageView];
-        
-        //cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-		//cell.indentationWidth = 44.0f;
-		//cell.indentationLevel = 1;
+        if (!self.inmobiliaria.inmueblesArray) {
+            UITableViewCell * cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+            cell.textLabel.text = @"Esperando conexión a internet";
+            return  cell;
+        }
+        if (IS_IPHONE) {
+            cell = [[NSBundle mainBundle] loadNibNamed:@"RMCellDestacadosIphone" owner:self options:nil][0];
+        }else{
+            cell = [[NSBundle mainBundle] loadNibNamed:@"RMCellDestacados" owner:self options:nil][0];
+        }
+        //cell = [[NSBundle mainBundle] loadNibNamed:@"RMCellDestacadosIphone" owner:self options:nil][0];
+
     }else{
         [(AsyncImageView *)[cell viewWithTag:IMAGE_VIEW_TAG] removeFromSuperview];
     }
     
     //Averiguo cuál es el bien o inmueble que debe ir en la respectiva celda
+    
     if (indexPath.section == INMUEBLES_ARRIENDO_SECTION) {
-        RMInmuebleArriendo * inmueble = [self.inmobiliaria inmuebleArriendoAtIndex:indexPath.row];
-        //cell.textLabel.text = inmueble.nombredelbien;
+        RMInmuebleArriendo * inmueble = [self.inmobiliaria inmuebleAleatorioArriendoAtIndex:indexPath.row];
         cell.areaLB.text = inmueble.tipodeinmueble;
         cell.nombreLB.text = inmueble.nombredelbien;
         cell.valorLB.text = [NSString stringWithFormat:@"%d", inmueble.canondearrendamiento];
@@ -119,32 +150,21 @@
         }
         AsyncImageView * imageView = inmueble.portadaV;
         imageView.tag = IMAGE_VIEW_TAG;
-        //[[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imageView];
-        //[cell addSubview:imageView];
-        //cell.imageVW = imageView;
         
         imageView.frame = [cell.viewview frame];
-        //imageView.frame =  CGRectMake(6, 45, 207, 106);
         [cell addSubview:imageView];
-        //cell.imageView.image = inmueble.portada;
-        //Agrego lo que va en la celda
         
-        //AsyncImageView *imageView = (AsyncImageView *)[cell viewWithTag:IMAGE_VIEW_TAG];
-        //[[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imageView];
-        //imageView.imageURL = [inmueble.linksfotos objectAtIndex:0];
         
     }else{
-        //RMBienVenta * bien = [self.inmobiliaria bienVentaAtIndex:indexPath.row];
-        
-        //Agrego lo que va en la celda
+        //este espacio es para una escalabilidad futura
     }
-    
     return cell;
+
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (IS_IPHONE) {
-        return 50;
+        return 116;
     }else{
         return 220;
     }
@@ -152,16 +172,19 @@
 
 #pragma mark - Table view delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //Si solo está la celda que dice !Esperando conexion!, no haga nada.
+    if (!self.inmobiliaria.inmueblesArray) {
+        return;
+    }
+    UIActionSheet * action = [[UIActionSheet alloc]initWithTitle:@"Seleccione una opción" delegate:self cancelButtonTitle:@"Cancelar" destructiveButtonTitle:nil otherButtonTitles:@"Ver", @"Compartir", nil];
+    
+    action.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [action showInView:self.view];
     
     //Averiguo cuál es el bien o inmueble que debe ir
     if (indexPath.section == INMUEBLES_ARRIENDO_SECTION) {
-        RMInmuebleArriendo * inmueble = [self.inmobiliaria inmuebleArriendoAtIndex:indexPath.row];
-        
-        //Creo el controlador de la vista de detalle
-        RMInmuebleArriendoViewController * inmuebleVC = [[RMInmuebleArriendoViewController alloc] initWithInmueble:inmueble];
-        
-        //Realizo un push al nuevo controllador
-        [self.navigationController pushViewController:inmuebleVC animated:YES];
+        self.elSeleccionado = [self.inmobiliaria inmuebleAleatorioArriendoAtIndex:indexPath.row];
+
         
     }else{
        // RMBienVenta * bien = [self.inmobiliaria bienVentaAtIndex:indexPath.row];
@@ -171,10 +194,49 @@
     
 }
 
+#pragma mark - UIActionSheet delegate
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex ==0) {
+        //Creo el controlador de la vista de detalle
+        RMInmuebleArriendoViewController * inmuebleVC = [[RMInmuebleArriendoViewController alloc] initWithInmueble:self.elSeleccionado];
+        
+        //Realizo un push al nuevo controllador
+        [self.navigationController pushViewController:inmuebleVC animated:YES];
+
+    }else if (buttonIndex == 1){
+        [self compartirRedesSociles];
+    }
+}
+
 #pragma mark - utilis
 -(IBAction)btnReloadPressed:(id)sender {
     RMTipoBusquedaViewController * tipoBusquedaVC = [[RMTipoBusquedaViewController alloc]initWithStyle:UITableViewStylePlain];
+
     [self.navigationController pushViewController:tipoBusquedaVC animated:YES];
+}
+
+-(IBAction)goToAbout:(id)sender {
+    RMAcercaDeViewController * acercaDeVC = [[RMAcercaDeViewController alloc]init];
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:acercaDeVC];
+    [self.navigationController presentModalViewController:nav animated:YES];
+}
+
+-(void)compartirRedesSociles{
+    NSArray * coords = [[self.elSeleccionado nombredelbien] componentsSeparatedByString:@"."];
+    NSString * nombrecorto = [coords objectAtIndex:0];
+    NSString * info = [NSString stringWithFormat:@"Está en arriendo %@ en %@ con valor de %d -goo.gl/jQCf9c \n\nCompartido a tráves de Inmovic para iOS", nombrecorto , [self.elSeleccionado municipio], [self.elSeleccionado canondearrendamiento]];
+    
+    //Compruebo la versión del sistema iOS para ver como hábilito Compartir
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"6.0" options:NSNumericSearch] == NSOrderedAscending) {
+        UIAlertView * alerta = [[UIAlertView alloc] initWithTitle:@"Opción no disponible" message:@"Esta opción solo está disponbile para equipos con iOS 6.0 o superior." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles: nil];
+        [alerta show];
+        
+    }else{
+        NSArray * datos;
+        datos = @[info];
+        UIActivityViewController * actividadController = [[UIActivityViewController alloc] initWithActivityItems:datos applicationActivities:nil];
+        [self presentViewController:actividadController animated:YES completion:nil];
+    }
 }
 
 @end

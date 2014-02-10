@@ -585,6 +585,11 @@ NSString *const AsyncImageErrorKey = @"error";
 	return [[AsyncImageLoader sharedLoader] URLForTarget:self action:@selector(setImage:)];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	[self.nextResponder touchesBegan:touches withEvent:event];
+}
+
 @end
 
 
@@ -597,10 +602,15 @@ NSString *const AsyncImageErrorKey = @"error";
 
 @implementation AsyncImageView
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	[self.nextResponder touchesBegan:touches withEvent:event];
+}
+
 - (void)setUp
 {
 	self.showActivityIndicator = (self.image == nil);
-	self.activityIndicatorStyle = UIActivityIndicatorViewStyleGray;
+	self.activityIndicatorStyle = UIActivityIndicatorViewStyleWhiteLarge;
 	self.crossfadeDuration = 0.4;
 }
 
@@ -638,7 +648,7 @@ NSString *const AsyncImageErrorKey = @"error";
             self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.activityIndicatorStyle];
             self.activityView.hidesWhenStopped = YES;
             self.activityView.center = CGPointMake(self.bounds.size.width / 2.0f, self.bounds.size.height / 2.0f);
-            self.activityView.color = [UIColor whiteColor];
+            self.activityView.color = [UIColor blackColor];
             self.activityView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
             [self addSubview:self.activityView];
         }

@@ -14,6 +14,7 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *splitViewFotos;
 @property (strong, nonatomic) IBOutlet UITextView *descripcionTxtV;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewGrande;
+@property (weak, nonatomic) IBOutlet UIScrollView *splitInfo;
 
 -(id)initWithBienVenta: (RMBienVenta *) aBienV;
 

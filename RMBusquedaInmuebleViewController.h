@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 
 
-@interface RMBusquedaInmuebleViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface RMBusquedaInmuebleViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIScrollViewDelegate>
 
 
 - (IBAction)searchInmueble:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UITableView *parametrosTView;
 @property (weak, nonatomic) IBOutlet UILabel *tituloLB;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollViews;
 
 
 -(id)initWithCase: (int) aCase;
