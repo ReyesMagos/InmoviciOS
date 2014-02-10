@@ -244,7 +244,7 @@
         if ([self.inmuebleArriendo.linksfotos count] == 0 || ![[Reachability reachabilityForInternetConnection] isReachable]) {
             AsyncImageView *imageView = [[AsyncImageView alloc] initWithFrame:CGRectMake(65, 10, (self.splitFotos.frame.size.width - 20)/1.5, self.splitFotos.frame.size.height - 20)];
             
-            imageView.image = [UIImage imageNamed: @"logouariv.png"];
+            imageView.image = [UIImage imageNamed: @"logouariv.png" ];
             [self.inmuebleArriendo.fotos addObject:imageView];
             [self.splitFotos addSubview:imageView];
             
@@ -345,6 +345,10 @@
     [btnForm addTarget:self action:@selector(formularioBtn:) forControlEvents: UIControlEventTouchUpInside];
     [btnPunt addTarget:self action:@selector(puntuacionesBtn:) forControlEvents: UIControlEventTouchUpInside];
     [btnCompartir addTarget:self action:@selector(compartirBtn:) forControlEvents: UIControlEventTouchUpInside];
+    
+    ///Para ponerne borde al boton iOS7
+    //btnMapa.layer.borderWidth=1.0f;
+    //btnMapa.layer.borderColor=[[UIColor blackColor] CGColor];
     
     [self.splitInfo addSubview:btnMapa];
     [self.splitInfo addSubview:btnForm];

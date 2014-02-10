@@ -78,7 +78,7 @@
     if (datosUsuario) {
         if ([MFMailComposeViewController canSendMail]) {
             NSString * infoInmueble = [self informacionInmueble];
-            NSString * emailTitulo = @"Mas información de un inmueble";
+            NSString * emailTitulo = @"Formulario Arrendamiento Inmueble";
             NSString * messageBodt = [NSString stringWithFormat:@"Hay un usuario de Inmovic para iOS que desea más información acerca del inmueble: \n\n%@\nA continuación encontrará la información del usuario para que comunicarse con él:\n%@", infoInmueble, datosUsuario];
             NSArray * correos= CORREOS_CONTACTO;
             

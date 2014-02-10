@@ -83,6 +83,9 @@
     if ([self.parametrosBusqueda count] == 3) {
         self.tituloLB.text = @"Búsqueda de Bienes";
         self.parametrosTView.scrollEnabled = NO;
+        if (IS_IPHONE) {
+            [self viewsForSplitInfo];
+        }
         
     }else{
         self.tituloLB.text = @"Búsqueda de Inmuebles";
@@ -104,6 +107,7 @@
     
     //Creo un arreglo, lo lleno del numeros
     NSMutableArray * auxCount = [[NSMutableArray alloc]init];
+    [auxCount addObject:@"-Seleccione"];
     for (int i = 1; i <= 10; i++) {
         [auxCount addObject: [NSString stringWithFormat:@"%d", i]];
     }
@@ -283,13 +287,19 @@
 
 #pragma mark - UIScrollView delegate
 -(void) viewsForSplitInfo{
-
+    
     float tamanoTable = 600;
+    //Para preguntar cómo debe ser el tamaño del uitable view
+    if ([self.parametrosBusqueda count] == 3) {
+        tamanoTable = 250;
+    }
+    
     UITableView * all = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.scrollViews.frame.size.width, tamanoTable)];
     all.dataSource = self;
     all.delegate = self;
     [self.scrollViews addSubview:all];
     all.scrollEnabled = NO;
+    [all setTableFooterView:[UIView new]];
     
     UIButton * btnEnviar = [UIButton buttonWithType:UIButtonTypeSystem];
     btnEnviar.frame = CGRectMake(0, 0, 110, 30);
@@ -300,7 +310,7 @@
     //Asigno las acciones:
     [btnEnviar addTarget:self action:@selector(searchInmueble:) forControlEvents: UIControlEventTouchUpInside];
 
-    self.scrollViews.contentSize = CGSizeMake(self.scrollViews.frame.size.width, tamanoTable+80);
+    self.scrollViews.contentSize = CGSizeMake(self.scrollViews.frame.size.width, tamanoTable+150);
     
 }
 

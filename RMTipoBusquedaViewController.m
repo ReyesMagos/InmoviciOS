@@ -157,6 +157,7 @@
             [alerta show];
             return;
         }else{
+            NSInteger pp = indexPath.row;
             RMBusquedaInmuebleViewController * busquedaInmuVC = [[RMBusquedaInmuebleViewController alloc]initWithCase:indexPath.row];
             [self.navigationController pushViewController:busquedaInmuVC animated:YES];
         }
