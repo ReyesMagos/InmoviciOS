@@ -310,7 +310,7 @@
     //Asigno las acciones:
     [btnEnviar addTarget:self action:@selector(searchInmueble:) forControlEvents: UIControlEventTouchUpInside];
 
-    self.scrollViews.contentSize = CGSizeMake(self.scrollViews.frame.size.width, tamanoTable+150);
+    self.scrollViews.contentSize = CGSizeMake(self.scrollViews.frame.size.width, tamanoTable+170);
     
 }
 
