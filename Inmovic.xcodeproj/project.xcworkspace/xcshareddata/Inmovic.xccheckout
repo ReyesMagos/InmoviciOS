@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C9950A8A-331D-4EAE-BC44-FF4D7B4ACA1A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Inmovic</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F44CA7B2-0930-431C-BF99-C17179BF6217</key>
+		<string>https://github.com/ReyesMagos/InmoviciOS.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Inmovic.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F44CA7B2-0930-431C-BF99-C17179BF6217</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/ReyesMagos/InmoviciOS.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F44CA7B2-0930-431C-BF99-C17179BF6217</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F44CA7B2-0930-431C-BF99-C17179BF6217</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Inmovic</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4205695118AED9EB002651F2 /* logo_acerca.png in Resources */ = {isa = PBXBuildFile; fileRef = 4205695018AED9EB002651F2 /* logo_acerca.png */; };
 		4208F9FE1899BF4200549077 /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4208F9FD1899BF4200549077 /* AsyncImageView.m */; };
 		420FC2A6189AEE3B00D23491 /* RMTipoBusquedaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 420FC2A5189AEE3B00D23491 /* RMTipoBusquedaViewController.m */; };
 		420FC2AA189AEF2D00D23491 /* RMBusquedaInmuebleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 420FC2A8189AEF2D00D23491 /* RMBusquedaInmuebleViewController.m */; };
 		420FC2AD189AF70700D23491 /* Departamentos.plist in Resources */ = {isa = PBXBuildFile; fileRef = 420FC2AC189AF70700D23491 /* Departamentos.plist */; };
 		42198BC8189AC5AC00CB576B /* iOSCombobox.m in Sources */ = {isa = PBXBuildFile; fileRef = 42198BC7189AC5AC00CB576B /* iOSCombobox.m */; };
-		4228580D18971E6200AC861B /* escenariodefecto.png in Resources */ = {isa = PBXBuildFile; fileRef = 4228580C18971E6200AC861B /* escenariodefecto.png */; };
 		4232322B189D647400A0FFC1 /* RMCellDestacados.m in Sources */ = {isa = PBXBuildFile; fileRef = 4232322A189D647400A0FFC1 /* RMCellDestacados.m */; };
 		4232322D189D7AF600A0FFC1 /* futura_std_heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4232322C189D7A3800A0FFC1 /* futura_std_heavy.ttf */; };
 		4232322F189D7E4500A0FFC1 /* Futura_std_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4232322E189D7E2900A0FFC1 /* Futura_std_light.ttf */; };
@@ -20,7 +20,6 @@
 		423C019918995345001F051E /* inmueble.json in Resources */ = {isa = PBXBuildFile; fileRef = 423C019818995345001F051E /* inmueble.json */; };
 		4271503118A1833300C5FB95 /* RMBusquedaInmuebleViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4271503018A1833300C5FB95 /* RMBusquedaInmuebleViewController~ipad.xib */; };
 		4271503318A184F800C5FB95 /* RMBusquedaInmuebleViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4271503218A184F800C5FB95 /* RMBusquedaInmuebleViewController~iphone.xib */; };
-		4271503518A1AC4E00C5FB95 /* RMCellDestacados~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4271503418A1AC4E00C5FB95 /* RMCellDestacados~iphone.xib */; };
 		4271503718A1ADBC00C5FB95 /* RMCellDestacados~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4271503618A1ADBC00C5FB95 /* RMCellDestacados~ipad.xib */; };
 		4271503918A1B74400C5FB95 /* RMInmuebleArriendoViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4271503818A1B74400C5FB95 /* RMInmuebleArriendoViewController~ipad.xib */; };
 		4271503F18A1C17000C5FB95 /* RMInmuebleArriendoViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4271503E18A1C17000C5FB95 /* RMInmuebleArriendoViewController~iphone.xib */; };
@@ -47,6 +46,16 @@
 		A55FECF01898FABF002AC58D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A55FECEF1898FABF002AC58D /* MapKit.framework */; };
 		A5832DBA189D25EC0032EEA2 /* RMFormularioTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5832DB8189D25EC0032EEA2 /* RMFormularioTableViewController.m */; };
 		A5832DBB189D25EC0032EEA2 /* RMFormularioTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5832DB9189D25EC0032EEA2 /* RMFormularioTableViewController.xib */; };
+		A58595E718A6DC6000AA8CD2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = A58595E618A6DC6000AA8CD2 /* Reachability.m */; };
+		A58595E918A7070C00AA8CD2 /* RMBienEnVentaIphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58595E818A7070C00AA8CD2 /* RMBienEnVentaIphone.xib */; };
+		A58595ED18A7475500AA8CD2 /* RMAcercaDeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A58595EB18A7475500AA8CD2 /* RMAcercaDeViewController.m */; };
+		A58595EE18A7475500AA8CD2 /* RMAcercaDeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58595EC18A7475500AA8CD2 /* RMAcercaDeViewController.xib */; };
+		A58595F518A74B5800AA8CD2 /* logouariv.png in Resources */ = {isa = PBXBuildFile; fileRef = A58595F318A74B5800AA8CD2 /* logouariv.png */; };
+		A58595F618A74B5800AA8CD2 /* logomintic.png in Resources */ = {isa = PBXBuildFile; fileRef = A58595F418A74B5800AA8CD2 /* logomintic.png */; };
+		A5859B2618C2953D000E8AF0 /* RMInmuebleMarcador.m in Sources */ = {isa = PBXBuildFile; fileRef = A5859B2518C2953D000E8AF0 /* RMInmuebleMarcador.m */; };
+		A5859B2918C2BC3E000E8AF0 /* RMCellComentario.m in Sources */ = {isa = PBXBuildFile; fileRef = A5859B2818C2BC3E000E8AF0 /* RMCellComentario.m */; };
+		A5859B2D18C2C13B000E8AF0 /* RMCellComentario~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5859B2C18C2C13B000E8AF0 /* RMCellComentario~iphone.xib */; };
+		A5859B2F18C2C176000E8AF0 /* RMCellComentario~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5859B2E18C2C176000E8AF0 /* RMCellComentario~ipad.xib */; };
 		A58C9D34189ED4BA00C1CE7B /* RMServicioWS.m in Sources */ = {isa = PBXBuildFile; fileRef = A58C9D33189ED4BA00C1CE7B /* RMServicioWS.m */; };
 		A58C9D38189ED4F000C1CE7B /* RMSoap.m in Sources */ = {isa = PBXBuildFile; fileRef = A58C9D37189ED4F000C1CE7B /* RMSoap.m */; };
 		A58C9D3D189ED7AA00C1CE7B /* RMInmuebleWS.m in Sources */ = {isa = PBXBuildFile; fileRef = A58C9D3A189ED7AA00C1CE7B /* RMInmuebleWS.m */; };
@@ -59,9 +68,19 @@
 		A58C9D50189F321D00C1CE7B /* star_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A58C9D4C189F321D00C1CE7B /* star_empty@2x.png */; };
 		A58C9D51189F321D00C1CE7B /* star_full.png in Resources */ = {isa = PBXBuildFile; fileRef = A58C9D4D189F321D00C1CE7B /* star_full.png */; };
 		A58C9D52189F321D00C1CE7B /* star_full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A58C9D4E189F321D00C1CE7B /* star_full@2x.png */; };
+		A58CD91718A8517F005511D9 /* fondoIphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A58CD91618A8517F005511D9 /* fondoIphone@2x.png */; };
+		A58CD91918A85CF0005511D9 /* RMAcercaIpad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58CD91818A85CF0005511D9 /* RMAcercaIpad.xib */; };
 		A58CEC5F1898F24400441A84 /* RMMapaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A58CEC5D1898F24400441A84 /* RMMapaViewController.m */; };
+		A58FAA0118A613DA009300FF /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A58FAA0018A613DA009300FF /* MessageUI.framework */; };
+		A58FAA0318A624FA009300FF /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A58FAA0218A624FA009300FF /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		A58FAA0818A63FD1009300FF /* RMCellDestacadosIphone.m in Sources */ = {isa = PBXBuildFile; fileRef = A58FAA0718A63FD1009300FF /* RMCellDestacadosIphone.m */; };
+		A58FAA0A18A64006009300FF /* RMCellDestacadosIphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58FAA0918A64006009300FF /* RMCellDestacadosIphone.xib */; };
 		A5DD2643189B31C900370BF4 /* RMBienEnVentaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5DD2641189B31C900370BF4 /* RMBienEnVentaViewController.m */; };
 		A5DD2644189B31C900370BF4 /* RMBienEnVentaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5DD2642189B31C900370BF4 /* RMBienEnVentaViewController.xib */; };
+		B376B0CE18AEC824000548BC /* icono_coment.png in Resources */ = {isa = PBXBuildFile; fileRef = B376B0CA18AEC824000548BC /* icono_coment.png */; };
+		B376B0CF18AEC824000548BC /* icono_compartir.png in Resources */ = {isa = PBXBuildFile; fileRef = B376B0CB18AEC824000548BC /* icono_compartir.png */; };
+		B376B0D018AEC824000548BC /* icono-formu.png in Resources */ = {isa = PBXBuildFile; fileRef = B376B0CC18AEC824000548BC /* icono-formu.png */; };
+		B376B0D118AEC824000548BC /* icono-mapa.png in Resources */ = {isa = PBXBuildFile; fileRef = B376B0CD18AEC824000548BC /* icono-mapa.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +94,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4205695018AED9EB002651F2 /* logo_acerca.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_acerca.png; sourceTree = "<group>"; };
 		4208F9FC1899BF4200549077 /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
 		4208F9FD1899BF4200549077 /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
 		420FC2A4189AEE3B00D23491 /* RMTipoBusquedaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTipoBusquedaViewController.h; sourceTree = "<group>"; };
@@ -84,7 +104,6 @@
 		420FC2AC189AF70700D23491 /* Departamentos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Departamentos.plist; sourceTree = "<group>"; };
 		42198BC6189AC5AC00CB576B /* iOSCombobox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSCombobox.h; sourceTree = "<group>"; };
 		42198BC7189AC5AC00CB576B /* iOSCombobox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSCombobox.m; sourceTree = "<group>"; };
-		4228580C18971E6200AC861B /* escenariodefecto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = escenariodefecto.png; sourceTree = "<group>"; };
 		42323229189D647400A0FFC1 /* RMCellDestacados.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCellDestacados.h; sourceTree = "<group>"; };
 		4232322A189D647400A0FFC1 /* RMCellDestacados.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCellDestacados.m; sourceTree = "<group>"; };
 		4232322C189D7A3800A0FFC1 /* futura_std_heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = futura_std_heavy.ttf; sourceTree = "<group>"; };
@@ -93,7 +112,6 @@
 		423C019818995345001F051E /* inmueble.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = inmueble.json; sourceTree = "<group>"; };
 		4271503018A1833300C5FB95 /* RMBusquedaInmuebleViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RMBusquedaInmuebleViewController~ipad.xib"; sourceTree = "<group>"; };
 		4271503218A184F800C5FB95 /* RMBusquedaInmuebleViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RMBusquedaInmuebleViewController~iphone.xib"; sourceTree = "<group>"; };
-		4271503418A1AC4E00C5FB95 /* RMCellDestacados~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RMCellDestacados~iphone.xib"; sourceTree = "<group>"; };
 		4271503618A1ADBC00C5FB95 /* RMCellDestacados~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RMCellDestacados~ipad.xib"; sourceTree = "<group>"; };
 		4271503818A1B74400C5FB95 /* RMInmuebleArriendoViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "RMInmuebleArriendoViewController~ipad.xib"; path = "Inmovic/RMInmuebleArriendoViewController~ipad.xib"; sourceTree = "<group>"; };
 		4271503E18A1C17000C5FB95 /* RMInmuebleArriendoViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "RMInmuebleArriendoViewController~iphone.xib"; path = "Inmovic/RMInmuebleArriendoViewController~iphone.xib"; sourceTree = "<group>"; };
@@ -132,6 +150,20 @@
 		A5832DB7189D25EC0032EEA2 /* RMFormularioTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMFormularioTableViewController.h; sourceTree = "<group>"; };
 		A5832DB8189D25EC0032EEA2 /* RMFormularioTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMFormularioTableViewController.m; sourceTree = "<group>"; };
 		A5832DB9189D25EC0032EEA2 /* RMFormularioTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMFormularioTableViewController.xib; sourceTree = "<group>"; };
+		A58595E518A6DC6000AA8CD2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		A58595E618A6DC6000AA8CD2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		A58595E818A7070C00AA8CD2 /* RMBienEnVentaIphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMBienEnVentaIphone.xib; sourceTree = "<group>"; };
+		A58595EA18A7475500AA8CD2 /* RMAcercaDeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAcercaDeViewController.h; sourceTree = "<group>"; };
+		A58595EB18A7475500AA8CD2 /* RMAcercaDeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAcercaDeViewController.m; sourceTree = "<group>"; };
+		A58595EC18A7475500AA8CD2 /* RMAcercaDeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMAcercaDeViewController.xib; sourceTree = "<group>"; };
+		A58595F318A74B5800AA8CD2 /* logouariv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logouariv.png; sourceTree = "<group>"; };
+		A58595F418A74B5800AA8CD2 /* logomintic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logomintic.png; sourceTree = "<group>"; };
+		A5859B2418C2953D000E8AF0 /* RMInmuebleMarcador.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMInmuebleMarcador.h; sourceTree = "<group>"; };
+		A5859B2518C2953D000E8AF0 /* RMInmuebleMarcador.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMInmuebleMarcador.m; sourceTree = "<group>"; };
+		A5859B2718C2BC3E000E8AF0 /* RMCellComentario.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCellComentario.h; sourceTree = "<group>"; };
+		A5859B2818C2BC3E000E8AF0 /* RMCellComentario.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCellComentario.m; sourceTree = "<group>"; };
+		A5859B2C18C2C13B000E8AF0 /* RMCellComentario~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RMCellComentario~iphone.xib"; sourceTree = "<group>"; };
+		A5859B2E18C2C176000E8AF0 /* RMCellComentario~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RMCellComentario~ipad.xib"; sourceTree = "<group>"; };
 		A58C9D32189ED4BA00C1CE7B /* RMServicioWS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMServicioWS.h; sourceTree = "<group>"; };
 		A58C9D33189ED4BA00C1CE7B /* RMServicioWS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMServicioWS.m; sourceTree = "<group>"; };
 		A58C9D36189ED4F000C1CE7B /* RMSoap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSoap.h; sourceTree = "<group>"; };
@@ -147,15 +179,26 @@
 		A58C9D45189F2ED000C1CE7B /* RSTapRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSTapRateView.m; sourceTree = "<group>"; };
 		A58C9D47189F30FC00C1CE7B /* UIImageView+Reflected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Reflected.h"; sourceTree = "<group>"; };
 		A58C9D48189F30FC00C1CE7B /* UIImageView+Reflected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Reflected.m"; sourceTree = "<group>"; };
-		A58C9D4B189F321D00C1CE7B /* star_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_empty.png; sourceTree = "<group>"; };
-		A58C9D4C189F321D00C1CE7B /* star_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_empty@2x.png"; sourceTree = "<group>"; };
-		A58C9D4D189F321D00C1CE7B /* star_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_full.png; sourceTree = "<group>"; };
-		A58C9D4E189F321D00C1CE7B /* star_full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_full@2x.png"; sourceTree = "<group>"; };
+		A58C9D4B189F321D00C1CE7B /* star_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star_empty.png; path = Inmovic/images/star_empty.png; sourceTree = "<group>"; };
+		A58C9D4C189F321D00C1CE7B /* star_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star_empty@2x.png"; path = "Inmovic/images/star_empty@2x.png"; sourceTree = "<group>"; };
+		A58C9D4D189F321D00C1CE7B /* star_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star_full.png; path = Inmovic/images/star_full.png; sourceTree = "<group>"; };
+		A58C9D4E189F321D00C1CE7B /* star_full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star_full@2x.png"; path = "Inmovic/images/star_full@2x.png"; sourceTree = "<group>"; };
+		A58CD91618A8517F005511D9 /* fondoIphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fondoIphone@2x.png"; sourceTree = "<group>"; };
+		A58CD91818A85CF0005511D9 /* RMAcercaIpad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMAcercaIpad.xib; sourceTree = "<group>"; };
 		A58CEC5C1898F24400441A84 /* RMMapaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapaViewController.h; sourceTree = "<group>"; };
 		A58CEC5D1898F24400441A84 /* RMMapaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMapaViewController.m; sourceTree = "<group>"; };
+		A58FAA0018A613DA009300FF /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		A58FAA0218A624FA009300FF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		A58FAA0618A63FD1009300FF /* RMCellDestacadosIphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCellDestacadosIphone.h; sourceTree = "<group>"; };
+		A58FAA0718A63FD1009300FF /* RMCellDestacadosIphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCellDestacadosIphone.m; sourceTree = "<group>"; };
+		A58FAA0918A64006009300FF /* RMCellDestacadosIphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMCellDestacadosIphone.xib; sourceTree = "<group>"; };
 		A5DD2640189B31C900370BF4 /* RMBienEnVentaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMBienEnVentaViewController.h; sourceTree = "<group>"; };
 		A5DD2641189B31C900370BF4 /* RMBienEnVentaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMBienEnVentaViewController.m; sourceTree = "<group>"; };
 		A5DD2642189B31C900370BF4 /* RMBienEnVentaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMBienEnVentaViewController.xib; sourceTree = "<group>"; };
+		B376B0CA18AEC824000548BC /* icono_coment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icono_coment.png; sourceTree = "<group>"; };
+		B376B0CB18AEC824000548BC /* icono_compartir.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icono_compartir.png; sourceTree = "<group>"; };
+		B376B0CC18AEC824000548BC /* icono-formu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icono-formu.png"; sourceTree = "<group>"; };
+		B376B0CD18AEC824000548BC /* icono-mapa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icono-mapa.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +206,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A58FAA0318A624FA009300FF /* Social.framework in Frameworks */,
+				A58FAA0118A613DA009300FF /* MessageUI.framework in Frameworks */,
 				42D73EAA18996A6600E22C40 /* QuartzCore.framework in Frameworks */,
 				A55FECF01898FABF002AC58D /* MapKit.framework in Frameworks */,
 				A50A45BF18962E1200CAAEED /* CoreGraphics.framework in Frameworks */,
@@ -187,23 +232,10 @@
 		A50A45B018962E1100CAAEED = {
 			isa = PBXGroup;
 			children = (
-				A58C9D47189F30FC00C1CE7B /* UIImageView+Reflected.h */,
-				A58C9D48189F30FC00C1CE7B /* UIImageView+Reflected.m */,
-				A58C9D44189F2ED000C1CE7B /* RSTapRateView.h */,
-				A58C9D45189F2ED000C1CE7B /* RSTapRateView.m */,
-				A58C9D3F189F0F4100C1CE7B /* RMComentariosViewController.h */,
-				A58C9D40189F0F4100C1CE7B /* RMComentariosViewController.m */,
-				A58C9D41189F0F4100C1CE7B /* RMComentariosViewController.xib */,
-				42323229189D647400A0FFC1 /* RMCellDestacados.h */,
-				4232322A189D647400A0FFC1 /* RMCellDestacados.m */,
-				4271503618A1ADBC00C5FB95 /* RMCellDestacados~ipad.xib */,
-				4271503418A1AC4E00C5FB95 /* RMCellDestacados~iphone.xib */,
-				A5832DB7189D25EC0032EEA2 /* RMFormularioTableViewController.h */,
-				A5832DB8189D25EC0032EEA2 /* RMFormularioTableViewController.m */,
-				A5832DB9189D25EC0032EEA2 /* RMFormularioTableViewController.xib */,
 				A58CEC5B1898F1EF00441A84 /* Controllers */,
-				4228580C18971E6200AC861B /* escenariodefecto.png */,
+				A58CD91B18A86346005511D9 /* Images */,
 				A50A45FC189653CB00CAAEED /* Model */,
+				A58CD91A18A862D4005511D9 /* Views */,
 				A50A45C218962E1200CAAEED /* Inmovic */,
 				A50A45DB18962E1200CAAEED /* InmovicTests */,
 				A50A45BB18962E1200CAAEED /* Frameworks */,
@@ -223,6 +255,8 @@
 		A50A45BB18962E1200CAAEED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A58FAA0218A624FA009300FF /* Social.framework */,
+				A58FAA0018A613DA009300FF /* MessageUI.framework */,
 				42D73EA918996A6600E22C40 /* QuartzCore.framework */,
 				A55FECEF1898FABF002AC58D /* MapKit.framework */,
 				A50A45BC18962E1200CAAEED /* Foundation.framework */,
@@ -236,9 +270,6 @@
 		A50A45C218962E1200CAAEED /* Inmovic */ = {
 			isa = PBXGroup;
 			children = (
-				42323230189D800400A0FFC1 /* FuturaStd-Book.otf */,
-				4232322E189D7E2900A0FFC1 /* Futura_std_light.ttf */,
-				4232322C189D7A3800A0FFC1 /* futura_std_heavy.ttf */,
 				420FC2AC189AF70700D23491 /* Departamentos.plist */,
 				423C019818995345001F051E /* inmueble.json */,
 				A50A45CB18962E1200CAAEED /* RMAppDelegate.h */,
@@ -252,7 +283,9 @@
 		A50A45C318962E1200CAAEED /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A58C9D4A189F321D00C1CE7B /* images */,
+				42323230189D800400A0FFC1 /* FuturaStd-Book.otf */,
+				4232322E189D7E2900A0FFC1 /* Futura_std_light.ttf */,
+				4232322C189D7A3800A0FFC1 /* futura_std_heavy.ttf */,
 				A50A45C418962E1200CAAEED /* Inmovic-Info.plist */,
 				A50A45C518962E1200CAAEED /* InfoPlist.strings */,
 				A50A45C818962E1200CAAEED /* main.m */,
@@ -282,7 +315,19 @@
 		A50A45FC189653CB00CAAEED /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A5859B2718C2BC3E000E8AF0 /* RMCellComentario.h */,
+				A5859B2818C2BC3E000E8AF0 /* RMCellComentario.m */,
 				A58C9D35189ED4C700C1CE7B /* Web Service */,
+				A58595E518A6DC6000AA8CD2 /* Reachability.h */,
+				A58595E618A6DC6000AA8CD2 /* Reachability.m */,
+				A58FAA0618A63FD1009300FF /* RMCellDestacadosIphone.h */,
+				A58FAA0718A63FD1009300FF /* RMCellDestacadosIphone.m */,
+				A58C9D47189F30FC00C1CE7B /* UIImageView+Reflected.h */,
+				A58C9D48189F30FC00C1CE7B /* UIImageView+Reflected.m */,
+				A58C9D44189F2ED000C1CE7B /* RSTapRateView.h */,
+				A58C9D45189F2ED000C1CE7B /* RSTapRateView.m */,
+				42323229189D647400A0FFC1 /* RMCellDestacados.h */,
+				4232322A189D647400A0FFC1 /* RMCellDestacados.m */,
 				42198BC6189AC5AC00CB576B /* iOSCombobox.h */,
 				42198BC7189AC5AC00CB576B /* iOSCombobox.m */,
 				4208F9FC1899BF4200549077 /* AsyncImageView.h */,
@@ -297,6 +342,8 @@
 				A50A45FE189654BB00CAAEED /* RMMyJSON.m */,
 				42D73EAB18996DAF00E22C40 /* RMMyScrollView.h */,
 				42D73EAC18996DAF00E22C40 /* RMMyScrollView.m */,
+				A5859B2418C2953D000E8AF0 /* RMInmuebleMarcador.h */,
+				A5859B2518C2953D000E8AF0 /* RMInmuebleMarcador.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -316,37 +363,67 @@
 			name = "Web Service";
 			sourceTree = "<group>";
 		};
-		A58C9D4A189F321D00C1CE7B /* images */ = {
+		A58CD91A18A862D4005511D9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A5859B2E18C2C176000E8AF0 /* RMCellComentario~ipad.xib */,
+				A5859B2C18C2C13B000E8AF0 /* RMCellComentario~iphone.xib */,
+				A58CD91818A85CF0005511D9 /* RMAcercaIpad.xib */,
+				A58595EC18A7475500AA8CD2 /* RMAcercaDeViewController.xib */,
+				A58FAA0918A64006009300FF /* RMCellDestacadosIphone.xib */,
+				A58C9D41189F0F4100C1CE7B /* RMComentariosViewController.xib */,
+				4271503618A1ADBC00C5FB95 /* RMCellDestacados~ipad.xib */,
+				A5832DB9189D25EC0032EEA2 /* RMFormularioTableViewController.xib */,
+				4271503818A1B74400C5FB95 /* RMInmuebleArriendoViewController~ipad.xib */,
+				4271503E18A1C17000C5FB95 /* RMInmuebleArriendoViewController~iphone.xib */,
+				4271503018A1833300C5FB95 /* RMBusquedaInmuebleViewController~ipad.xib */,
+				4271503218A184F800C5FB95 /* RMBusquedaInmuebleViewController~iphone.xib */,
+				A58595E818A7070C00AA8CD2 /* RMBienEnVentaIphone.xib */,
+				A5DD2642189B31C900370BF4 /* RMBienEnVentaViewController.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		A58CD91B18A86346005511D9 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				4205695018AED9EB002651F2 /* logo_acerca.png */,
+				B376B0CA18AEC824000548BC /* icono_coment.png */,
+				B376B0CB18AEC824000548BC /* icono_compartir.png */,
+				B376B0CC18AEC824000548BC /* icono-formu.png */,
+				B376B0CD18AEC824000548BC /* icono-mapa.png */,
 				A58C9D4B189F321D00C1CE7B /* star_empty.png */,
 				A58C9D4C189F321D00C1CE7B /* star_empty@2x.png */,
 				A58C9D4D189F321D00C1CE7B /* star_full.png */,
 				A58C9D4E189F321D00C1CE7B /* star_full@2x.png */,
+				A58595F318A74B5800AA8CD2 /* logouariv.png */,
+				A58CD91618A8517F005511D9 /* fondoIphone@2x.png */,
+				A58595F418A74B5800AA8CD2 /* logomintic.png */,
 			);
-			path = images;
+			name = Images;
 			sourceTree = "<group>";
 		};
 		A58CEC5B1898F1EF00441A84 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A58595EA18A7475500AA8CD2 /* RMAcercaDeViewController.h */,
+				A58595EB18A7475500AA8CD2 /* RMAcercaDeViewController.m */,
+				A58C9D3F189F0F4100C1CE7B /* RMComentariosViewController.h */,
+				A58C9D40189F0F4100C1CE7B /* RMComentariosViewController.m */,
+				A5832DB7189D25EC0032EEA2 /* RMFormularioTableViewController.h */,
+				A5832DB8189D25EC0032EEA2 /* RMFormularioTableViewController.m */,
 				A50A45F118963B1700CAAEED /* RMDestacadosTableViewController.h */,
 				A50A45F218963B1700CAAEED /* RMDestacadosTableViewController.m */,
 				A50A45F718964B4E00CAAEED /* RMInmuebleArriendoViewController.h */,
 				A50A45F818964B4E00CAAEED /* RMInmuebleArriendoViewController.m */,
-				4271503818A1B74400C5FB95 /* RMInmuebleArriendoViewController~ipad.xib */,
-				4271503E18A1C17000C5FB95 /* RMInmuebleArriendoViewController~iphone.xib */,
 				A58CEC5C1898F24400441A84 /* RMMapaViewController.h */,
 				A58CEC5D1898F24400441A84 /* RMMapaViewController.m */,
 				420FC2A4189AEE3B00D23491 /* RMTipoBusquedaViewController.h */,
 				420FC2A5189AEE3B00D23491 /* RMTipoBusquedaViewController.m */,
 				420FC2A7189AEF2D00D23491 /* RMBusquedaInmuebleViewController.h */,
 				420FC2A8189AEF2D00D23491 /* RMBusquedaInmuebleViewController.m */,
-				4271503018A1833300C5FB95 /* RMBusquedaInmuebleViewController~ipad.xib */,
-				4271503218A184F800C5FB95 /* RMBusquedaInmuebleViewController~iphone.xib */,
 				A5DD2640189B31C900370BF4 /* RMBienEnVentaViewController.h */,
 				A5DD2641189B31C900370BF4 /* RMBienEnVentaViewController.m */,
-				A5DD2642189B31C900370BF4 /* RMBienEnVentaViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -427,10 +504,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A58CD91718A8517F005511D9 /* fondoIphone@2x.png in Resources */,
+				A58595F518A74B5800AA8CD2 /* logouariv.png in Resources */,
 				A5832DBB189D25EC0032EEA2 /* RMFormularioTableViewController.xib in Resources */,
 				A58C9D50189F321D00C1CE7B /* star_empty@2x.png in Resources */,
+				A58FAA0A18A64006009300FF /* RMCellDestacadosIphone.xib in Resources */,
 				A58C9D43189F0F4100C1CE7B /* RMComentariosViewController.xib in Resources */,
 				423C019918995345001F051E /* inmueble.json in Resources */,
+				B376B0CE18AEC824000548BC /* icono_coment.png in Resources */,
 				4271503718A1ADBC00C5FB95 /* RMCellDestacados~ipad.xib in Resources */,
 				4232322D189D7AF600A0FFC1 /* futura_std_heavy.ttf in Resources */,
 				4271503F18A1C17000C5FB95 /* RMInmuebleArriendoViewController~iphone.xib in Resources */,
@@ -438,15 +519,23 @@
 				A58C9D4F189F321D00C1CE7B /* star_empty.png in Resources */,
 				4271503118A1833300C5FB95 /* RMBusquedaInmuebleViewController~ipad.xib in Resources */,
 				A50A45C718962E1200CAAEED /* InfoPlist.strings in Resources */,
+				A58595E918A7070C00AA8CD2 /* RMBienEnVentaIphone.xib in Resources */,
+				4205695118AED9EB002651F2 /* logo_acerca.png in Resources */,
 				A58C9D52189F321D00C1CE7B /* star_full@2x.png in Resources */,
 				4271503918A1B74400C5FB95 /* RMInmuebleArriendoViewController~ipad.xib in Resources */,
 				4232322F189D7E4500A0FFC1 /* Futura_std_light.ttf in Resources */,
 				42323231189D800400A0FFC1 /* FuturaStd-Book.otf in Resources */,
-				4228580D18971E6200AC861B /* escenariodefecto.png in Resources */,
-				4271503518A1AC4E00C5FB95 /* RMCellDestacados~iphone.xib in Resources */,
+				A58595EE18A7475500AA8CD2 /* RMAcercaDeViewController.xib in Resources */,
 				A58C9D51189F321D00C1CE7B /* star_full.png in Resources */,
+				A58CD91918A85CF0005511D9 /* RMAcercaIpad.xib in Resources */,
+				B376B0D018AEC824000548BC /* icono-formu.png in Resources */,
+				B376B0CF18AEC824000548BC /* icono_compartir.png in Resources */,
+				A5859B2F18C2C176000E8AF0 /* RMCellComentario~ipad.xib in Resources */,
+				B376B0D118AEC824000548BC /* icono-mapa.png in Resources */,
 				A5DD2644189B31C900370BF4 /* RMBienEnVentaViewController.xib in Resources */,
 				A50A45CF18962E1200CAAEED /* Images.xcassets in Resources */,
+				A5859B2D18C2C13B000E8AF0 /* RMCellComentario~iphone.xib in Resources */,
+				A58595F618A74B5800AA8CD2 /* logomintic.png in Resources */,
 				4271503318A184F800C5FB95 /* RMBusquedaInmuebleViewController~iphone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -466,12 +555,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A58595E718A6DC6000AA8CD2 /* Reachability.m in Sources */,
 				A50A45C918962E1200CAAEED /* main.m in Sources */,
 				42198BC8189AC5AC00CB576B /* iOSCombobox.m in Sources */,
 				A58C9D3E189ED7AA00C1CE7B /* RMPuntuacionWS.m in Sources */,
 				A50A45ED18962EB200CAAEED /* RMInmuebleArriendo.m in Sources */,
 				A58C9D42189F0F4100C1CE7B /* RMComentariosViewController.m in Sources */,
 				A58C9D46189F2ED000C1CE7B /* RSTapRateView.m in Sources */,
+				A58FAA0818A63FD1009300FF /* RMCellDestacadosIphone.m in Sources */,
 				A5DD2643189B31C900370BF4 /* RMBienEnVentaViewController.m in Sources */,
 				A58C9D34189ED4BA00C1CE7B /* RMServicioWS.m in Sources */,
 				A50A45FA18964B4E00CAAEED /* RMInmuebleArriendoViewController.m in Sources */,
@@ -480,13 +571,16 @@
 				A5832DBA189D25EC0032EEA2 /* RMFormularioTableViewController.m in Sources */,
 				A50A45FF189654BB00CAAEED /* RMMyJSON.m in Sources */,
 				4208F9FE1899BF4200549077 /* AsyncImageView.m in Sources */,
+				A5859B2618C2953D000E8AF0 /* RMInmuebleMarcador.m in Sources */,
 				A58C9D3D189ED7AA00C1CE7B /* RMInmuebleWS.m in Sources */,
 				A58C9D49189F30FC00C1CE7B /* UIImageView+Reflected.m in Sources */,
 				A58CEC5F1898F24400441A84 /* RMMapaViewController.m in Sources */,
 				420FC2AA189AEF2D00D23491 /* RMBusquedaInmuebleViewController.m in Sources */,
+				A5859B2918C2BC3E000E8AF0 /* RMCellComentario.m in Sources */,
 				420FC2A6189AEE3B00D23491 /* RMTipoBusquedaViewController.m in Sources */,
 				A50A45CD18962E1200CAAEED /* RMAppDelegate.m in Sources */,
 				A50A45F6189640E100CAAEED /* RMInmobiliariaModel.m in Sources */,
+				A58595ED18A7475500AA8CD2 /* RMAcercaDeViewController.m in Sources */,
 				42D73EAD18996DAF00E22C40 /* RMMyScrollView.m in Sources */,
 				A50A45F01896391800CAAEED /* RMBienVenta.m in Sources */,
 				A58C9D38189ED4F000C1CE7B /* RMSoap.m in Sources */,
