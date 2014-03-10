@@ -16,4 +16,6 @@
          location:(NSString *) aLocation
        coordinate: (NSString *) aCoordinate;
 
+-(id)initWithArray: (NSArray *) aArray;
+
 @end

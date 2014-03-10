@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface RMCellDestacadosIphone : UITableViewCell
+@property (strong, nonatomic) IBOutlet UITextView *nombreTxtView;
 @property (weak, nonatomic) IBOutlet UILabel *areaLB;
 @property (weak, nonatomic) IBOutlet UILabel *nombreLB;
 @property (weak, nonatomic) IBOutlet UILabel *valorLB;

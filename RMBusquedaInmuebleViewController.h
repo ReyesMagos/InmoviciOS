@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "iOSCombobox.h"
 
 
-@interface RMBusquedaInmuebleViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIScrollViewDelegate>
+@interface RMBusquedaInmuebleViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIScrollViewDelegate, iOSComboboxDelegate>
 
 
 - (IBAction)searchInmueble:(id)sender;

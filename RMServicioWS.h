@@ -16,6 +16,11 @@
 
 @interface RMServicioWS : NSObject
 
+@property (nonatomic) BOOL FuncionaWS;
+@property (nonatomic) BOOL existeInmuebleWS; //Esto bool para saber si ya está el inmueble en el WS
+@property (nonatomic, copy) NSString * inmuebleId;
+
+
 -(id)initWithWebService: (NSString *) aUrl;
 
 //Busca un inmueble que esté en el WS
@@ -24,6 +29,8 @@
 
 //Envio datos al WS
 -(void)sendPuntuacion : (NSString*) aId puntuacion : (int) aPuntuacion comentario : (NSString*) aComent ;
+-(void)sendNewInmueble: (NSString *) aId nombre : (NSString *) aName descripcion : (NSString *) aDescrip;
+-(void)servidorAvailable;
 
 -(NSArray *) returnPuntuacionesWS;
 -(RMInmuebleWS*) returnInmuebleWS;

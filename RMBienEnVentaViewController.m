@@ -10,6 +10,7 @@
 #import "RMBienVenta.h"
 #import "AsyncImageView.h"
 #import "Reachability.h"
+#import "RMFormularioTableViewController.h"
 
 @interface RMBienEnVentaViewController ()
 
@@ -20,6 +21,8 @@
 @end
 
 @implementation RMBienEnVentaViewController
+
+
 
 -(id)initWithBienVenta:(RMBienVenta *)aBienV{
     if (self = [super initWithNibName:nil bundle:nil]) {
@@ -234,7 +237,7 @@
 -(void) viewsForSplitInfo{
     
     
-    float tamanoTable = 350;
+    float tamanoTable = 370;
     float mitadView = self.view.frame.size.width /2;
     UITableView * all = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.splitInfo.frame.size.width, tamanoTable)];
     all.dataSource = self;
@@ -254,12 +257,14 @@
     //Creo los respectivos botones
     
     UIButton * btnForm = [UIButton buttonWithType:UIButtonTypeSystem];
-    btnForm.frame = CGRectMake(mitadView/4, tamanoTable, 110,  30);
-    [btnForm setTitle:@"Formulario" forState:UIControlStateNormal];
     
+    btnForm.frame = CGRectMake(mitadView/4, tamanoTable, 60,  60);
+    //[btnForm setTitle:@"Formulario" forState:UIControlStateNormal];
+    [btnForm setBackgroundImage:[UIImage imageNamed:@"icono-formu.png"] forState:UIControlStateNormal];
     UIButton * btnCompartir = [UIButton buttonWithType:UIButtonTypeSystem];
-    btnCompartir.frame = CGRectMake(mitadView, tamanoTable, 110, 30);
-    [btnCompartir setTitle:@"Compartir" forState:UIControlStateNormal];
+    [btnCompartir setBackgroundImage:[UIImage imageNamed:@"icono_compartir.png"] forState:UIControlStateNormal];
+    btnCompartir.frame = CGRectMake(mitadView, tamanoTable, 60, 60);
+    //[btnCompartir setTitle:@"Compartir" forState:UIControlStateNormal];
     
     
     //Asigno las acciones:
@@ -268,7 +273,7 @@
     
     [self.splitInfo addSubview:btnForm];
     [self.splitInfo addSubview:btnCompartir];
-    self.splitInfo.contentSize = CGSizeMake(self.splitInfo.frame.size.width, tamanoTable + 170);
+    self.splitInfo.contentSize = CGSizeMake(self.splitInfo.frame.size.width, tamanoTable + 200);
     
 }
 
@@ -276,17 +281,17 @@
 
 
 - (IBAction)formularioBtn:(id)sender {
-    //RMFormularioTableViewController * formu = [[RMFormularioTableViewController alloc] initWithObject:self.inmuebleArriendo];
-    //[self.navigationController pushViewController:formu animated:YES];
+    RMFormularioTableViewController * formu = [[RMFormularioTableViewController alloc] initWithObject:self.bienVenta];
+    [self.navigationController pushViewController:formu animated:YES];
 }
 
 
 
 
 - (IBAction)compartirBtn:(id)sender {
-    NSArray * coords = [[self.bienVenta tipodebien] componentsSeparatedByString:@"."];
+    NSArray * coords = [[self.bienVenta descripcion] componentsSeparatedByString:@";"];
     NSString * nombrecorto = [coords objectAtIndex:0];
-    NSString * info = [NSString stringWithFormat:@"Está en venta %@ en %@ con valor de %d \n\nCompartido a tráves de Inmovic para iOS", [self.bienVenta descripcion], [self.bienVenta ubicacion], [self.bienVenta valordeventa]];
+    NSString * info = [NSString stringWithFormat:@"%@ está disponible para comprar.\n\n Se encuentra ubicado en: %@ @UnidadVictimas", nombrecorto, [self.bienVenta ubicacion]];
  
     
     //Compruebo la versión del sistema iOS para ver como hábilito Compartir

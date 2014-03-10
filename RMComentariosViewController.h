@@ -15,6 +15,7 @@
 @interface RMComentariosViewController : UITableViewController <RSTapRateViewDelegate, UITextViewDelegate>
 
 
+
 -(id)initWithInmueble: (RMInmuebleArriendo *) aInmueble style: (UITableViewStyle) aStyle;
 
 @end

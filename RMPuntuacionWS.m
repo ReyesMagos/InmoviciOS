@@ -26,4 +26,8 @@
     return [self initWithIdPuntuacion:0 inmuebleWS:aInmuebleWS vlrPuntuacion:aPuntuacion fecha:nil comentario:aComent];
 }
 
+-(NSString *)getNSStringForComent{
+    return [NSString stringWithFormat:@"Puntuación: %d \n\n%@", [self valorPuntuacionWS], [self comentarioWS]];
+}
+
 @end

@@ -21,4 +21,6 @@
 
 -(id)initWithInmuebleWS: (RMInmuebleWS *) aInmuebleWS vlrPuntuacion: (int) aPuntuacion comentario : (NSString *) aComent;
 
+-(NSString *) getNSStringForComent;
+
 @end

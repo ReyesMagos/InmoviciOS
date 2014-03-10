@@ -31,10 +31,10 @@
     
     //El siguiente código es para mostrar el mensaje sólo la primera vez que la aplicación es ejecutada
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"PrimeraCargada"]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"PrimeraCargada"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        UIAlertView * alerta = [[UIAlertView alloc] initWithTitle:@"Politica de Privacidad" message:@"Con esta aplicación se quiere crear condiciones de prosperidad en la población vulnerable, contribuir a la reconciliación de los colombianos y promover la integración regional.\n\nTodos los inmuebles aquí mostrados pertenecen al Gobierno de la República de Colombia, e integran a la Unidad para la Atención y Reparación Integral a las Víctimas." delegate:destacadosVC cancelButtonTitle:@"Comprendo" otherButtonTitles: nil];
+        UIAlertView * alerta = [[UIAlertView alloc] initWithTitle:@"Politica de Privacidad" message:@"Con esta aplicación se quiere crear condiciones de prosperidad en la población vulnerable, contribuir a la reconciliación de los colombianos y promover la integración regional.\n\nTodos los inmuebles aquí mostrados pertenecen al Gobierno de la República de Colombia, e integran a la Unidad para la Atención y Reparación Integral a las Víctimas." delegate:destacadosVC cancelButtonTitle:@"Salir" otherButtonTitles:@"Comprendo", nil];
         [alerta show];
+        //Para identificar este alertview
+        alerta.tag = 222;
     }
     
     

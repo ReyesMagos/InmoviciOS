@@ -142,6 +142,7 @@
         [self.callbackfunction setArgument:&methodResultValues atIndex:2];
         [self.callbackfunction setArgument:&methodResultNames atIndex:3];
         [self.callbackfunction invoke];
+        return;
     }
 	xmlParser = [[NSXMLParser alloc] initWithData: webData];
 	[xmlParser setDelegate: self];

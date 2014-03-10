@@ -61,6 +61,7 @@
         [_inTiposdeBienes addObject:@"-Seleccione"];
         [_inUsos addObject:@"-Seleccione"];
         [_inValor addObject:@"-Seleccione"];
+        NSMutableArray * prueba = [[NSMutableArray alloc ]init]; //Temporal
         
         //Obtengo el arreglo con los datos
         NSArray * inmuebles = elJSON.datos;
@@ -81,9 +82,8 @@
                 [self addObject:inmueble.tipodebien InArray:_inTiposdeBienes];
                 [self addObject:inmueble.tipodeinmueble InArray:_inTiposInmuebles];
                 [self addObject:inmueble.usodelbien InArray:_inUsos];
-                [self addObject:[NSString stringWithFormat:@"%d", inmueble.canondearrendamiento] InArray:_inValor];
                 
-                //[self addObject:inmueble.canondearrendamiento InArray:_inValor];
+                [self addObject:[NSNumber numberWithInt:inmueble.canondearrendamiento] InArray:prueba ];
                 
             }
             [self generateRandomInmueblesInit:0];
@@ -95,11 +95,17 @@
         
         //Ordeno los arrays alfabeticamente
         [_inDepartamentos sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-        [_inMunicipios sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+        
         [_inTiposdeBienes sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
         [_inTiposInmuebles sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
         [_inUsos sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-        [_inValor sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+        
+        //Este método es para ordenar el array de los valores
+        NSArray * pp = [prueba sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            return [(NSNumber *) obj1 compare:obj2];
+        }];
+        pp = [pp valueForKey:@"stringValue"];
+        [_inValor addObjectsFromArray:pp];
     }
     
     return  self;
@@ -124,6 +130,8 @@
             [_bnUbicaciones addObject:@"-Seleccione"];
             [_bnValor addObject:@"-Seleccione"];
             
+             NSMutableArray * prueba = [[NSMutableArray alloc ]init]; //Temporal
+            
             
             //Saco todos los inmuebles del array, los creo por el diccionario y los almaceno en el NSMutableArray
             for (NSDictionary *dicc in bienes) {
@@ -133,19 +141,38 @@
                 //Añado los diferentes tipos de datos
                 [self addObject:bien.tipodebien InArray:_bnTiposdeBienes];
                 [self addObject:bien.ubicacion InArray:_bnUbicaciones];
-                [self addObject:[NSString stringWithFormat:@"%d", bien.valordeventa] InArray:_bnValor];
+                [self addObject:[NSNumber numberWithInt:bien.valordeventa] InArray:prueba];
             }
             
             //Ordeno los arrays alfabeticamente
             [_bnTiposdeBienes sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
             [_bnUbicaciones sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-            [_bnValor sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+            
+            //Este método es para ordenar el array de los valores
+            NSArray * pp = [prueba sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                return [(NSNumber *) obj1 compare:obj2];
+            }];
+            pp = [pp valueForKey:@"stringValue"];
+            [_bnValor addObjectsFromArray:pp];
             
         }else{
             //Se ha producido un error al parsear el JSON
             NSLog(@"Error al parsear el JSON");
         }
     }
+}
+
+//Metodo para buscar los municipios de un determinado depto
+-(NSArray *)searchMunicipiosWithDepartamento:(NSString *)myDepto{
+    NSMutableArray * aux = [[NSMutableArray alloc] init];
+    [aux addObject:@"-Seleccione"];
+    for (RMInmuebleArriendo * inmu in self.inmueblesArray) {
+        if ([inmu.departamento isEqualToString:myDepto] && ![aux containsObject:inmu.municipio]) {
+            [aux addObject:inmu.municipio];
+        }
+    }
+    [aux sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    return [aux copy];
 }
 
 -(RMInmuebleArriendo *) inmuebleArriendoAtIndex: (int) index{
@@ -160,7 +187,7 @@
     return  [self.inmuArriendoAleatorio objectAtIndex:index];
 }
 
--(void) addObject: (NSString *) aString InArray: (NSMutableArray *) aArray{
+-(void) addObject: (id) aString InArray: (NSMutableArray *) aArray{
     if (![aArray containsObject:aString]) {
         [aArray addObject:aString];
     }

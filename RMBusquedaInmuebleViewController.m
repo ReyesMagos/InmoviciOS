@@ -13,6 +13,9 @@
 #import "RMInmuebleArriendo.h"
 #import "RMBienVenta.h"
 #define FOR_INMUEBLE 0
+#define PRIMERO_DEPTO @"Ingrese primero depto"
+#define SELECCIONE @"-Seleccione"
+
 @interface RMBusquedaInmuebleViewController ()
 
 @property (nonatomic, strong) NSArray * parametrosBusqueda;
@@ -43,6 +46,7 @@
         [self.parametrosTView setTableFooterView:[UIView new]];
         
         self.parametros = [[NSMutableArray alloc]init];
+        
     }
     return self;
 }
@@ -107,7 +111,7 @@
     
     //Creo un arreglo, lo lleno del numeros
     NSMutableArray * auxCount = [[NSMutableArray alloc]init];
-    [auxCount addObject:@"-Seleccione"];
+    [auxCount addObject:SELECCIONE];
     for (int i = 1; i <= 10; i++) {
         [auxCount addObject: [NSString stringWithFormat:@"%d", i]];
     }
@@ -135,13 +139,14 @@
     static NSString *simpleTableIdentifier = @"SimpleTableItem";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    iOSCombobox *myCombo = [[iOSCombobox alloc] init];
+    iOSCombobox *myCombo = (iOSCombobox*)[cell viewWithTag:indexPath.section];
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        
+        myCombo = [[iOSCombobox alloc] init];
+        myCombo.tag = indexPath.section;
+        myCombo.delegate = self;
 
     }
     
@@ -159,7 +164,9 @@
     }
     
     
-    myCombo.pickerView.tag = indexPath.section;
+    
+    //[myCombo setCurrentValue:SELECCIONE];
+    
     
     if ([self.parametrosBusqueda count] == 3) {
         switch (indexPath.section) {
@@ -181,7 +188,9 @@
                 [myCombo setValues:self.inmobiliaria.inDepartamentos];
                 break;
             case 1:
-                [myCombo setValues:self.inmobiliaria.inMunicipios];
+                myCombo.enabled = NO;
+                [myCombo setCurrentValue:PRIMERO_DEPTO];
+                //[myCombo setValues:self.inmobiliaria.inMunicipios];
                 break;
             case 2:
                 [myCombo setValues:self.inmobiliaria.inTiposdeBienes];
@@ -214,7 +223,7 @@
     
     
     [self.parametros addObject:myCombo];
-    [myCombo setCurrentValue:@"-Seleccione"];
+    
     [cell addSubview:myCombo];
 
     return cell;
@@ -278,7 +287,7 @@
     NSMutableArray * params = [[NSMutableArray alloc] init];
     for (iOSCombobox * oi in self.parametros) {
         NSString * entrada = oi.currentValue;
-        if (![entrada isEqualToString:@"-Seleccione"]) {
+        if (![entrada isEqualToString:SELECCIONE] && ![entrada isEqualToString: PRIMERO_DEPTO] ) {
             [params addObject:entrada];
         }
     }
@@ -294,24 +303,47 @@
         tamanoTable = 250;
     }
     
-    UITableView * all = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.scrollViews.frame.size.width, tamanoTable)];
-    all.dataSource = self;
-    all.delegate = self;
-    [self.scrollViews addSubview:all];
-    all.scrollEnabled = NO;
-    [all setTableFooterView:[UIView new]];
+    UITableView * all = (UITableView*)[self.scrollViews viewWithTag:111];
+    if (!all) {
+        all = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.scrollViews.frame.size.width, tamanoTable)];
+        self.parametrosTView = all;
+        all.dataSource = self;
+        all.delegate = self;
+        all.tag = 111;
+        [self.scrollViews addSubview:all];
+        [all setTableFooterView:[UIView new]];
+        
+        UIButton * btnEnviar = [UIButton buttonWithType:UIButtonTypeSystem];
+        btnEnviar.frame = CGRectMake(0, 0, 110, 30);
+        btnEnviar.center = CGPointMake(all.frame.size.width/2, tamanoTable);
+        [btnEnviar setTitle:@"Buscar" forState:UIControlStateNormal];
+        [self.scrollViews addSubview:btnEnviar];
+        
+        //Asigno las acciones:
+        [btnEnviar addTarget:self action:@selector(searchInmueble:) forControlEvents: UIControlEventTouchUpInside];
+        
+        self.scrollViews.contentSize = CGSizeMake(self.scrollViews.frame.size.width, tamanoTable+170);
+    }
     
-    UIButton * btnEnviar = [UIButton buttonWithType:UIButtonTypeSystem];
-    btnEnviar.frame = CGRectMake(0, 0, 110, 30);
-    btnEnviar.center = CGPointMake(all.frame.size.width/2, tamanoTable);
-    [btnEnviar setTitle:@"Enviar" forState:UIControlStateNormal];
-    [self.scrollViews addSubview:btnEnviar];
+}
 
-    //Asigno las acciones:
-    [btnEnviar addTarget:self action:@selector(searchInmueble:) forControlEvents: UIControlEventTouchUpInside];
-
-    self.scrollViews.contentSize = CGSizeMake(self.scrollViews.frame.size.width, tamanoTable+170);
-    
+-(void)comboboxChanged:(iOSCombobox *)combobox toValue:(NSString *)toValue{
+    //Preguntamos si el combo box es el primero del TableView y preguntamos también si la TableView es la de inmuebles
+    if (combobox.tag == 0 && [self.parametrosTView numberOfSections] != 3) {
+        UITableViewCell * muni = [self.parametrosTView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+        iOSCombobox * combo = (iOSCombobox*)[muni viewWithTag:1];
+        NSString * textoDepto = combobox.currentValue;
+        if ([textoDepto isEqualToString:SELECCIONE]) {
+            if ([combo isEnabled]) {
+                combo.enabled = NO;
+                combo.currentValue = PRIMERO_DEPTO;
+            }
+        }else{
+            combo.currentValue = SELECCIONE;
+            [combo setValues:[self.inmobiliaria searchMunicipiosWithDepartamento:combobox.currentValue]];
+            combo.enabled = YES;
+        }
+    }
 }
 
 #pragma mark UIPickerViewDelegate methods

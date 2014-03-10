@@ -42,6 +42,7 @@
     __autoreleasing NSError* error = nil;
     if (data == nil) {
         NSLog(@"Error al descargar datos de internet");
+        return nil;
     }
     
     //Se inicializa el diccionario

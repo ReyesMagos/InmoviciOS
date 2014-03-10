@@ -14,7 +14,7 @@
 #define INMUEBLES_ARRIENDO_SECTION 0
 #define BIENES_VENTA_SECTION 1
 
-@interface RMDestacadosTableViewController : UITableViewController <UIActionSheetDelegate>
+@interface RMDestacadosTableViewController : UITableViewController <UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) RMInmobiliariaModel * inmobiliaria;
 

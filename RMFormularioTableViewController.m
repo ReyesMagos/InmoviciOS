@@ -13,13 +13,15 @@
 @interface RMFormularioTableViewController ()
 
 #define TITLES_FOR_SECCIONS @[@"Datos Personales", @"Bien Seleccionado"]
-#define CELLS_TITLES_FOR_DATOSPERSONALES @[@"Nombre:", @"Apellidos:", @"Número Documento:", @"Ciudad:", @"Teléfono:", @"Proponer un valor superior:"]
+#define CELLS_TITLES_FOR_DATOSPERSONALES @[@"Nombre:", @"Apellidos:", @"Número Documento:", @"Ciudad:", @"Teléfono:", @"Proponer un valor superior"]
 #define CELLS_TITLES_FOR_INMUEBLE @[@"Nombre", @"Tipo", @"Área", @"Ubicación", @"Departamento", @"Folio Matrícula", @"Precio"]
+#define CELLS_TITTLES_FOR_BIEN @[@"Tipo", @"Ubicación", @"Valor", @"Descripción"]
 
 #define CORREOS_CONTACTO @[@"arriendos.frv@unidadvictimas.gov.co"]
 
 @property (nonatomic, strong) NSArray * datosInmueble;
 @property (nonatomic, strong) UIToolbar * numberToolbar;
+@property (nonatomic, strong) NSString *  valorBienInmu;
 @end
 
 @implementation RMFormularioTableViewController
@@ -29,10 +31,13 @@
         //NSDictionary * dicc = [NSDictionary alloc]init
         if ([aObject isKindOfClass: [RMInmuebleArriendo class]]) {
             RMInmuebleArriendo* inmu = (RMInmuebleArriendo*)aObject;
-            _datosInmueble = @[inmu.nombredelbien, inmu.tipodebien, inmu.tipodeinmueble, inmu.municipio,inmu.departamento, inmu.foliodematriculainmobiliaria, [NSString stringWithFormat:@"%d",inmu.canondearrendamiento]];
+            _valorBienInmu = [NSString stringWithFormat:@"%d",inmu.canondearrendamiento];
+            _datosInmueble = @[inmu.nombredelbien, inmu.tipodebien, inmu.tipodeinmueble, inmu.municipio,inmu.departamento, inmu.foliodematriculainmobiliaria, self.valorBienInmu];
+            
         }else if ([aObject isKindOfClass:[RMBienVenta class]]){
             RMBienVenta* inmu = (RMBienVenta*)aObject;
-            _datosInmueble = @[@"Arriendo", inmu.tipodebien, @"", inmu.ubicacion,@"", @"No aplica", [NSString stringWithFormat:@"%d",inmu.valordeventa]];
+            _valorBienInmu = [NSString stringWithFormat:@"%d",inmu.valordeventa];
+            _datosInmueble = @[inmu.tipodebien, inmu.ubicacion, self.valorBienInmu , inmu.descripcion];
         }
         self.title = @"Más información";
     }
@@ -78,8 +83,16 @@
     if (datosUsuario) {
         if ([MFMailComposeViewController canSendMail]) {
             NSString * infoInmueble = [self informacionInmueble];
-            NSString * emailTitulo = @"Formulario Arrendamiento Inmueble";
-            NSString * messageBodt = [NSString stringWithFormat:@"Hay un usuario de Inmovic para iOS que desea más información acerca del inmueble: \n\n%@\nA continuación encontrará la información del usuario para que comunicarse con él:\n%@", infoInmueble, datosUsuario];
+            NSString * emailTitulo = nil;
+            NSString * messageBodt = nil;
+            
+            if ([self.datosInmueble count] > 4) {
+                emailTitulo = @"Formulario Arrendamiento Inmueble";
+                messageBodt = [NSString stringWithFormat:@"Hay un usuario de Inmovic para iOS que desea más información acerca del inmueble: \n\n%@\nA continuación encontrará la información del usuario para que comunicarse con él:\n%@", infoInmueble, datosUsuario];
+            }else{
+                emailTitulo = @"Formulario Venta Inmuebles";
+                messageBodt = [NSString stringWithFormat:@"Hay un usuario de Inmovic para iOS que desea más información acerca del bien: \n\n%@\nA continuación encontrará la información del usuario para que comunicarse con él:\n%@", infoInmueble, datosUsuario];
+            }
             NSArray * correos= CORREOS_CONTACTO;
             
             MFMailComposeViewController * mc = [[MFMailComposeViewController alloc]init];
@@ -96,7 +109,13 @@
 -(NSString *)informacionInmueble{
     int lol = 0;
     NSMutableString * aux = [[NSMutableString alloc ]init];
-    for (NSString * dd in CELLS_TITLES_FOR_INMUEBLE) {
+    NSArray * params = nil;
+    if ([self.datosInmueble count] > 5) {
+        params = CELLS_TITLES_FOR_INMUEBLE;
+    }else{
+        params = CELLS_TITTLES_FOR_BIEN;
+    }
+    for (NSString * dd in params) {
         NSString * infoinmu = [NSString stringWithFormat:@"%@: %@\n", dd, [self.datosInmueble objectAtIndex:lol]];
         [aux appendString:infoinmu];
         lol++;
@@ -124,10 +143,18 @@
             [alerta show];
             return nil;
         }
+        if (num == 2 || num == 4 || num == 5) {
+            NSCharacterSet * noDigito = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+            if ([txt.text rangeOfCharacterFromSet:noDigito].location != NSNotFound) {
+                UIAlertView * alerta = [[UIAlertView alloc] initWithTitle:@"Campos invalidos" message:@"Solo puede ingresar números en los campos documento, teléfono y ciudad" delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil];
+                [alerta show];
+                return nil;
+            }
+        }
         if (num == 5) {
-            NSString * valorInmu = [self.datosInmueble objectAtIndex:6];
+            NSString * valorInmu = self.valorBienInmu;
             if ([txt.text integerValue] < [valorInmu integerValue]) {
-                UIAlertView * alerta = [[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"Solo puede sugerir un valor de arriendo del inmueble mayor al estipulado que es: %@", valorInmu] delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil];
+                UIAlertView * alerta = [[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"Solo puede sugerir un valor mayor al estipulado que es: %@", valorInmu] delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil];
                 [alerta show];
                 return nil;
             }
@@ -206,22 +233,27 @@
     
     if (indexPath.section == 0) {
         //cell.textLabel.text = [CELLS_TITLES_FOR_DATOSPERSONALES objectAtIndex:indexPath.row];
-        UITextField * txt = [[UITextField alloc]initWithFrame:CGRectMake(cell.textLabel.frame.size.width, 10.0f, 250.f, 32.0f)];
+        UITextField * txt = [[UITextField alloc]initWithFrame:CGRectMake(cell.textLabel.frame.size.width, 10.0f, 350.f, 32.0f)];
         txt.clearsOnBeginEditing = NO;
         txt.tag = 123;
         txt.textAlignment = UITextAlignmentLeft;
         txt.delegate = self;
         if (indexPath.row == 5) {
-            txt.placeholder = [NSString stringWithFormat:@"%@", [CELLS_TITLES_FOR_DATOSPERSONALES objectAtIndex:indexPath.row]];
+            txt.placeholder = [NSString stringWithFormat:@"%@ a %@:", [CELLS_TITLES_FOR_DATOSPERSONALES objectAtIndex:indexPath.row], self.valorBienInmu];
+            txt.text = self.valorBienInmu;
         }else{
             txt.placeholder = [NSString stringWithFormat:@"Ingrese %@", [CELLS_TITLES_FOR_DATOSPERSONALES objectAtIndex:indexPath.row]];
+            
         }
         [cell.contentView addSubview:txt];
         [cell setSelected:NO];
         switch (indexPath.row) {
-            case 2: case 6: case 5:
+            case 2: case 5:
                 [txt setKeyboardType:UIKeyboardTypeNumberPad];
                 txt.inputAccessoryView = self.numberToolbar;
+                break;
+            case 4:
+                [txt setKeyboardType:UIKeyboardTypePhonePad];
                 break;
             
             default:

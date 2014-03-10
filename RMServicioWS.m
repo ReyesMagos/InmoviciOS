@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSArray * puntuaciones;
 @property (nonatomic, strong) RMInmuebleWS * inmuebleActual;
 
+
 @end
 
 
@@ -25,6 +26,7 @@
 -(id)initWithWebService:(NSString *)aUrl{
     if (self = [super init]) {
         _theSoap = [[RMSoap alloc]initWithNSString:aUrl];
+        //[self servidorAvailable];
     }
     return self;
 }
@@ -50,6 +52,21 @@
     
 }
 
+-(void)servidorAvailable{
+    NSString * slc = NSStringFromSelector(@selector(responseAvailable:etiquetasPuntaciones:));
+    NSString * method = @"ConsultarInmueble";
+    NSArray * params = @[@"idInmueble", @"id", @"puntuacion", @"punt"];
+    [self soapRequesWithParams:params method:method elSelector:slc];
+}
+
+-(void)sendNewInmueble:(NSString *)aId nombre:(NSString *)aName descripcion:(NSString *)aDescrip{
+    NSString * slc = NSStringFromSelector(@selector(createRMInmueble:etiquetas:));
+    NSString * method = @"CrearInmueble";
+    NSArray * params = @[@"id", aId, @"nombre", aName, @"descripcion", aDescrip, @"puntuacionPromedio", @0];
+    [self soapRequesWithParams:params method:method elSelector:slc];
+}
+
+
 //Método que realiza una petición POST segun el método que se ingrese
 -(void)soapRequesWithParams: (NSArray *) aParams method : (NSString *) aMethod elSelector : (NSString*) aSelector{
     
@@ -65,9 +82,11 @@
 }
 -(void)responseEnviarPuntuacion: (NSArray *) aRequest etiquetas : (NSMutableArray *) aEtiqueta{
     if (aRequest && [aRequest count] != 0) {
+        [self searhPuntuacionesWithId:self.inmuebleId];
         NSNotification * noti = [NSNotification notificationWithName:ENVIE_PUNTUACION object:nil
                                                             userInfo:@{@"response": @"Enviada correctamente"}];
         [[NSNotificationCenter defaultCenter] postNotification:noti];
+        
     }else{
         NSNotification * noti = [NSNotification notificationWithName:ENVIE_PUNTUACION object:nil
                                                             userInfo:@{@"response": @"Error al enviar"}];
@@ -82,6 +101,7 @@
     if (!puntuacionesConsumidas || [puntuacionesConsumidas count] == 0 || [[puntuacionesConsumidas objectAtIndex:0] isEqualToString:@""]) {
         self.puntuaciones = @[]; //Array vacio
     }else{
+        self.existeInmuebleWS = YES;
         NSMutableArray * comentarios = [[NSMutableArray alloc]init];
         for (int i=0; i < [puntuacionesConsumidas count]; i++) {
             
@@ -103,6 +123,7 @@
 -(void)createRMInmueble: (NSMutableArray *) inmuebleConsumido etiquetas : (NSMutableArray *) aEtiqueta{
     
     if (!inmuebleConsumido || [inmuebleConsumido count] == 0) {
+        self.existeInmuebleWS = NO;
         return;
     }
     
@@ -112,6 +133,16 @@
     i = i+3;
     
     self.inmuebleActual = puntWS;
+    self.existeInmuebleWS = YES;
+}
+
+//Metodo para ver si hubo respuesta en el servidor;
+-(void)responseAvailable: (NSArray *) puntuacionesConsumidas etiquetasPuntaciones : (NSArray *) aEtiqueta{
+    if ([[puntuacionesConsumidas objectAtIndex:0] isEqualToString:@""]) {
+        self.FuncionaWS = NO;
+    }else{
+        self.FuncionaWS = YES;
+    }
 }
 
 

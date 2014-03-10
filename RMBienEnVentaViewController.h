@@ -17,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *splitInfo;
 
 -(id)initWithBienVenta: (RMBienVenta *) aBienV;
+- (IBAction)compartirBtn:(id)sender;
 
 @end

@@ -126,6 +126,15 @@
 }
 
 - (IBAction)puntuacionesBtn:(id)sender {
+    Reachability * rea = [Reachability reachabilityWithHostname:@"190.12.157.123/UVInmuebles/ServicioInmueble.asmx"];
+    NetworkStatus net = [rea currentReachabilityStatus];
+    //BOOL net = YES;
+    if ([[Reachability reachabilityWithHostname:@"190.12.157.123/UVInmuebles/ServicioInmueble.asmx"] isReachable]) {
+        UIAlertView * alerta = [[UIAlertView alloc] initWithTitle:@"Error" message:@"En este momento no se pueden mostrar los comentarios. Intente mas tarde." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles: nil];
+        [alerta show];
+        return;
+    }
+
     RMComentariosViewController* coment = [[RMComentariosViewController alloc]initWithInmueble:self.inmuebleArriendo style:UITableViewStyleGrouped];
     [self.navigationController pushViewController:coment animated:YES];
 }
@@ -134,7 +143,7 @@
 - (IBAction)compartirBtn:(id)sender {
     NSArray * coords = [[self.inmuebleArriendo nombredelbien] componentsSeparatedByString:@"."];
     NSString * nombrecorto = [coords objectAtIndex:0];
-    NSString * info = [NSString stringWithFormat:@"Está en arriendo %@ en %@ con valor de %d -goo.gl/jQCf9c \n\nCompartido a tráves de Inmovic para iOS", nombrecorto , [self.inmuebleArriendo municipio], [self.inmuebleArriendo canondearrendamiento]];
+    NSString * info = [NSString stringWithFormat:@"%@ está disponble para arrendar.\n\n Se encuentra ubicado en  %@ - %@ @UnivadVictimas", nombrecorto , [self.inmuebleArriendo departamento], [self.inmuebleArriendo municipio ]];
     
     //Compruebo la versión del sistema iOS para ver como hábilito Compartir
     if ([[[UIDevice currentDevice] systemVersion] compare:@"6.0" options:NSNumericSearch] == NSOrderedAscending) {
@@ -322,23 +331,39 @@
     tamanoTable += 5;
     //Creo los respectivos botones
     UIButton * btnMapa = [UIButton buttonWithType:UIButtonTypeSystem];
-    btnMapa.frame = CGRectMake(mitadView/4, tamanoTable, 110, 30);
-    [btnMapa setTitle:@"Mapa" forState:UIControlStateNormal];
+    [btnMapa setBackgroundImage:[UIImage imageNamed:@"icono-mapa.png"] forState:UIControlStateNormal];
+    //btnMapa.frame = CGRectMake(mitadView/4, tamanoTable, 60, 60);
+    //[btnMapa setTitle:@"Mapa" forState:UIControlStateNormal];
+    
     
     UIButton * btnForm = [UIButton buttonWithType:UIButtonTypeSystem];
-    btnForm.frame = CGRectMake(mitadView, tamanoTable, 110,  30);
-    [btnForm setTitle:@"Formulario" forState:UIControlStateNormal];
-    tamanoTable += 10 + btnForm.frame.size.height;
+    //btnForm.frame = CGRectMake(mitadView, tamanoTable, 60,  60);
+    [btnForm setBackgroundImage:[UIImage imageNamed:@"icono-formu.png"] forState:UIControlStateNormal];
+    //[btnForm setTitle:@"Formulario" forState:UIControlStateNormal];
+    //tamanoTable += 10 + btnForm.frame.size.height;
     
     UIButton * btnPunt = [UIButton buttonWithType:UIButtonTypeSystem];
-    btnPunt.frame = CGRectMake(mitadView/4, tamanoTable, 110, 30);
-    [btnPunt setTitle:@"Puntuaciones" forState:UIControlStateNormal];
+    [btnPunt setBackgroundImage:[UIImage imageNamed:@"icono_coment.png"] forState:UIControlStateNormal];
+    //btnPunt.frame = CGRectMake(mitadView/4, tamanoTable, 60, 60);
+    //[btnPunt setTitle:@"Puntuaciones" forState:UIControlStateNormal];
     
     UIButton * btnCompartir = [UIButton buttonWithType:UIButtonTypeSystem];
-    btnCompartir.frame = CGRectMake(mitadView, tamanoTable, 110, 30);
-    [btnCompartir setTitle:@"Compartir" forState:UIControlStateNormal];
+    [btnCompartir setBackgroundImage:[UIImage imageNamed:@"icono_compartir.png"] forState:UIControlStateNormal];
+    //btnCompartir.frame = CGRectMake(mitadView, tamanoTable, 60, 60);
+    //[btnCompartir setTitle:@"Compartir" forState:UIControlStateNormal];
     
-    tamanoTable += 10 + btnPunt.frame.size.height;
+    //tamanoTable += 50 + btnCompartir.frame.size.height;
+    
+    //tamanoTable += 5;
+    float ancho = 75;
+    btnMapa.frame = CGRectMake(10, tamanoTable, 60, 60);
+    btnPunt.frame = CGRectMake(ancho, tamanoTable, 60, 60);
+    //ancho += ancho;
+    btnForm.frame = CGRectMake(ancho*2, tamanoTable, 60, 60);
+    //ancho += ancho;
+    btnCompartir.frame = CGRectMake(ancho*3, tamanoTable, 60, 60);
+
+    tamanoTable += btnMapa.frame.size.height + 150;
     
     //Asigno las acciones:
     [btnMapa addTarget:self action:@selector(mapaBtn:) forControlEvents: UIControlEventTouchUpInside];
@@ -354,7 +379,7 @@
     [self.splitInfo addSubview:btnForm];
     [self.splitInfo addSubview:btnPunt];
     [self.splitInfo addSubview:btnCompartir];
-    self.splitInfo.contentSize = CGSizeMake(self.splitInfo.frame.size.width, tamanoTable + 170);
+    self.splitInfo.contentSize = CGSizeMake(self.splitInfo.frame.size.width, tamanoTable);
 
 }
 
@@ -395,8 +420,19 @@
     }
     switch (indexPath.section) {
         case 0:
-            cell.textLabel.text = self.inmuebleArriendo.nombredelbien;
+        {
+            //cell.textLabel.text = self.inmuebleArriendo.nombredelbien;
+            NSString * nombre = self.inmuebleArriendo.nombredelbien;
+            CGRect textViewRect = CGRectMake(0, 0, self.view.frame.size.width, 75);
+            UITextView * txt = [[UITextView alloc]initWithFrame:textViewRect];
+            txt.text = nombre;
+            txt.font = [UIFont fontWithName:@"FuturaStd-Book" size:15];
+            txt.userInteractionEnabled = NO;
+            
+            [cell addSubview:txt];
+            
             break;
+        }
         case 1:
             cell.textLabel.text = self.inmuebleArriendo.departamento;
             break;
@@ -427,6 +463,7 @@
     cell.textLabel.font = [UIFont fontWithName:@"FuturaStd-FuturaStd-Heavy" size:17];
     return cell;
 }
+
 
 
 @end

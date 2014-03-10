@@ -38,13 +38,8 @@
     }
     return self;
 }
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-    
-    //Activo este view en NotificationCenter con el fin de saber cuando se desconecta de internet
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
+-(void)viewDidLoad{
+    [super viewDidLoad];
     
     [self.tableView setTableFooterView:[UIView new]];
     
@@ -52,8 +47,28 @@
     self.navigationController.topViewController.navigationItem.leftBarButtonItem = self.btnAcercade;
     //btnReload.style=UIBarButtonSystemItemRefresh;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    
+    //Activo este view en NotificationCenter con el fin de saber cuando se desconecta de internet
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
+    
+    
+    
     //Esto refresca el tableview. Especial para cuando se regresa de la vista de una búsqueda.
     [self.tableView reloadData];
+    
+//    if (![self.btnBuscar isEnabled]) {
+//        Reachability *rea = [Reachability reachabilityForInternetConnection];
+//        if ([rea isReachable]) {
+//            self.btnBuscar.enabled = YES;
+//        }
+//        
+//    }
     
     
 }
@@ -61,22 +76,26 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     //Me doy de da baja en la recepción de notificaciones
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 //Este metodo se encarga de notificar a este view si hubo cambios en la conexión a internet
 - (void)reachabilityDidChange:(NSNotification *)notification {
     Reachability *reachability = (Reachability *)[notification object];
     if ([reachability isReachable] && !self.inmobiliaria.inmueblesArray) {
-        NSLog(@"Conectado a internet");
-        self.inmobiliaria = [[RMInmobiliariaModel alloc] init];
+        NSLog(@"Conectado a internet, destacados, vacio");
+        self.inmobiliaria = [[RMInmobiliariaModel sharedManager] init];
         self.btnBuscar.enabled = YES;
         [self.tableView reloadData];
     } else if(![reachability isReachable]) {
         UIAlertView * alerta = [[UIAlertView alloc] initWithTitle:@"No hay conexión a internet" message:@"No se ha establecido la conexión a Internet\n\n Algunas funcionalidades no estarán disponbiles hasta que reanuda la conexión" delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles: nil];
         [alerta show];
         self.btnBuscar.enabled = NO;
-        NSLog(@"Sin conexión a internet");
+        NSLog(@"Sin conexión a internet, destacados");
+    } else if ([reachability isReachable]){
+        self.btnBuscar.enabled = YES;
+        NSLog(@"Conectado a internet, destacados");
+        [self.tableView reloadData];
     }
 }
 
@@ -142,6 +161,7 @@
         RMInmuebleArriendo * inmueble = [self.inmobiliaria inmuebleAleatorioArriendoAtIndex:indexPath.row];
         cell.areaLB.text = inmueble.tipodeinmueble;
         cell.nombreLB.text = inmueble.nombredelbien;
+        cell.nombreTxtView.text = inmueble.nombredelbien;
         cell.valorLB.text = [NSString stringWithFormat:@"%d", inmueble.canondearrendamiento];
         cell.ubicacionLB.text = [NSString stringWithFormat:@"%@ - %@", inmueble.departamento, inmueble.municipio];
         
@@ -194,7 +214,20 @@
     
 }
 
+#pragma mark - UIAlertView delegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 222) {
+        if (buttonIndex == 1) {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"PrimeraCargada"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }else if (buttonIndex == 0){
+            exit(0);
+        }
+    }
+}
+
 #pragma mark - UIActionSheet delegate
+
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex ==0) {
         //Creo el controlador de la vista de detalle
@@ -224,7 +257,7 @@
 -(void)compartirRedesSociles{
     NSArray * coords = [[self.elSeleccionado nombredelbien] componentsSeparatedByString:@"."];
     NSString * nombrecorto = [coords objectAtIndex:0];
-    NSString * info = [NSString stringWithFormat:@"Está en arriendo %@ en %@ con valor de %d -goo.gl/jQCf9c \n\nCompartido a tráves de Inmovic para iOS", nombrecorto , [self.elSeleccionado municipio], [self.elSeleccionado canondearrendamiento]];
+    NSString * info = [NSString stringWithFormat:@"Este inmueble: %@ está disponble para arrendar en %@ - %@ @UnivadVictimas \n\nCompartido a tráves de Inmovic para iOS", nombrecorto , [self.elSeleccionado departamento], [self.elSeleccionado municipio]];
     
     //Compruebo la versión del sistema iOS para ver como hábilito Compartir
     if ([[[UIDevice currentDevice] systemVersion] compare:@"6.0" options:NSNumericSearch] == NSOrderedAscending) {

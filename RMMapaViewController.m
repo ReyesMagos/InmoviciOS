@@ -8,6 +8,9 @@
 
 #import "RMMapaViewController.h"
 #import <MapKit/MapKit.h>
+#import "RMInmuebleArriendo.h"
+#import "RMInmuebleArriendoViewController.h"
+#import "RMInmuebleMarcador.h"
 
 @interface RMMapaViewController ()
 
@@ -17,6 +20,8 @@
 @property (nonatomic, assign) CLLocationCoordinate2D coordenada;
 @property (strong, nonatomic) IBOutlet MKMapView *mapa;
 @property (nonatomic, strong) MKMapView * mapa2;
+
+@property (nonatomic, strong) NSArray * inmuebles;
 
 @end
 
@@ -32,20 +37,33 @@
         NSArray * coords = [aCoordinate componentsSeparatedByString:@";"];
         _coordenada.latitude = [[coords objectAtIndex:0] floatValue];
         _coordenada.longitude = [[coords lastObject] floatValue];
-        
-        self.title = @"Ubicación Inmueble";
+        [self loadMap];
     }
     
     return self;
 }
 
--(void)viewDidLoad{
-    [super viewDidLoad];
+-(id)initWithArray:(NSArray *)aArray{
+    if (self = [super initWithNibName:nil bundle:nil]) {
+        _inmuebles = aArray;
+        [self loadMap];
+    }
     
-   
+    return self;
 }
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    //Una vez que aparece el View imprimo los marcadores en el mapa
+    [self imprimeMarcadores];
+    
+}
+
+-(void)loadMap{
+    self.title = @"Ubicación";
+    
     self.mapa2 = [[MKMapView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     self.mapa2.delegate = self;
     [self.view addSubview:self.mapa2];
@@ -57,27 +75,87 @@
     region.span.longitudeDelta = 14;
     [self.mapa2 setRegion:region animated:NO];
     
-}
-
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
-    //Creo la anotación para representar la ubicación del inmueble
-    MKPointAnnotation * anotacion = [[MKPointAnnotation alloc] init];
-    anotacion.coordinate = self.coordenada;
-    anotacion.title = self.Nombre;
-    anotacion.subtitle = self.ubicacion;
-
-    //Lo pongo en el mapa
-    [self.mapa2 addAnnotation:anotacion];
-    
-    //Hago un acercamiento a la anotación
-    //[self zoomToFitMapAnnotations:self.mapa2];
-    
-    
     
 }
 
+//Metodo que pone los marcadores (annotation) del inmueble-s en el mapa
+-(void) imprimeMarcadores{
+
+    if (self.inmuebles) { //Si son muchos inmuebles los que se muestran ejecuta esto
+ 
+        for (RMInmuebleArriendo * inmu in self.inmuebles) {
+            
+            NSArray * coords = [inmu.coordenadas componentsSeparatedByString:@";"];
+            CLLocationCoordinate2D posicionMarcador;
+            posicionMarcador.latitude = [[coords objectAtIndex:0] floatValue];
+            posicionMarcador.longitude = [[coords lastObject] floatValue];
+            
+            if (posicionMarcador.latitude == 0 || posicionMarcador.longitude == 0) {
+                continue;
+            }
+            
+            //Creo la anotación para representar la ubicación del inmueble
+            RMInmuebleMarcador * marcador = [[RMInmuebleMarcador alloc] initWithInmueble:inmu];
+            marcador.coordinate = posicionMarcador;
+            marcador.title = inmu.nombredelbien;
+            marcador.subtitle = [NSString stringWithFormat:@"%@ - %@", inmu.departamento, inmu.municipio];
+            
+            //Lo pongo en el mapa
+            [self.mapa2 addAnnotation:marcador];
+    }
+        //Acomodo el zoom del mapa para mostrar todos los marcadores
+        [self zoomToFitMapAnnotations:self.mapa2];
+        
+    }else{
+        //Creo la anotación para representar la ubicación del inmueble
+        MKPointAnnotation * anotacion = [[MKPointAnnotation alloc] init];
+        anotacion.coordinate = self.coordenada;
+        anotacion.title = self.Nombre;
+        anotacion.subtitle = self.ubicacion;
+        
+        //Lo pongo en el mapa
+        [self.mapa2 addAnnotation:anotacion];
+        
+        //Hago un acercamiento a la anotación
+        //[self zoomToFitMapAnnotations:self.mapa2];
+    }
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    static NSString *identifier = @"Marcador";
+    if (self.inmuebles) {
+        
+        MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [self.mapa2 dequeueReusableAnnotationViewWithIdentifier:identifier];
+        if (annotationView == nil) {
+            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+        } else {
+            annotationView.annotation = annotation;
+        }
+        
+        annotationView.enabled = YES;
+        annotationView.pinColor = MKPinAnnotationColorGreen;
+        annotationView.canShowCallout = YES;
+        
+        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [rightButton setTitle:annotation.title forState:UIControlStateNormal];
+        [annotationView setRightCalloutAccessoryView:rightButton];
+        
+        return annotationView;
+    }
+    
+    return nil;
+}
+
+- (void)mapView:(MKMapView *)mapView
+ annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    
+    if ([(UIButton*)control buttonType] == UIButtonTypeDetailDisclosure){
+        
+        RMInmuebleMarcador *capturado = (RMInmuebleMarcador*)[view annotation];
+        RMInmuebleArriendoViewController * inmuVC = [[RMInmuebleArriendoViewController alloc] initWithInmueble:capturado.inmueble];
+        [[self navigationController] pushViewController:inmuVC animated:YES];
+    }
+}
 
 - (void)zoomToFitMapAnnotations:(MKMapView *)mapView {
     if ([mapView.annotations count] == 0) return;

@@ -42,4 +42,6 @@
 -(RMBienVenta *) bienVentaAtIndex: (int) index;
 -(void)consumeBienesVenta;
 
+-(NSArray *) searchMunicipiosWithDepartamento: (NSString*) myDepto;
+
 @end
